@@ -751,39 +751,222 @@ public class carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_volverMouseExited
 
     private void Carro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Carro1MouseClicked
-        nombre1 = (String) JOptionPane.showInputDialog(null, "Ingrese un nombre: ", "Carreras", JOptionPane.INFORMATION_MESSAGE, normal, null, "");
+        nombre1 = (String) JOptionPane.showInputDialog(
+                null,
+                "Ingrese un nombre: ",
+                "Carreras",
+                JOptionPane.INFORMATION_MESSAGE,
+                normal,
+                null,
+                ""
+        );
+
+        if (nombre1 == null || nombre1.trim().isEmpty()) {
+            nombre1 = "Carro 1";
+        }
+
+        while (nombre1.equals(nombre2) || nombre1.equals(nombre3)) {
+            nombre1 = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Ya hay un carro con ese nombre, ingrese uno diferente:",
+                    "Carreras",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    normal,
+                    null,
+                    ""
+            );
+
+            if (nombre1 == null || nombre1.trim().isEmpty()) {
+                nombre1 = "Carro 1";
+                break;
+            }
+        }
+
         c1.setText(nombre1);
         Carro1.setName(nombre1);
     }//GEN-LAST:event_Carro1MouseClicked
 
     private void Carro2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Carro2MouseClicked
-        nombre2 = (String) JOptionPane.showInputDialog(null, "Ingrese un nombre: ", "Carreras", JOptionPane.INFORMATION_MESSAGE, normal, null, "");
+        nombre2 = (String) JOptionPane.showInputDialog(
+                null,
+                "Ingrese un nombre: ",
+                "Carreras",
+                JOptionPane.INFORMATION_MESSAGE,
+                normal,
+                null,
+                ""
+        );
+
+        if (nombre2 == null || nombre2.trim().isEmpty()) {
+            nombre2 = "Carro 2";
+        }
+
+        while (nombre2.equals(nombre1) || nombre2.equals(nombre3)) {
+            nombre2 = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Ya hay un carro con ese nombre, ingrese uno diferente:",
+                    "Carreras",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    normal,
+                    null,
+                    ""
+            );
+
+            if (nombre2 == null || nombre2.trim().isEmpty()) {
+                nombre2 = "Carro 2";
+                break;
+            }
+        }
+
         c2.setText(nombre2);
         Carro2.setName(nombre2);
     }//GEN-LAST:event_Carro2MouseClicked
 
     private void Carro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Carro3MouseClicked
-        nombre3 = (String) JOptionPane.showInputDialog(null, "Ingrese un nombre: ", "Carreras", JOptionPane.INFORMATION_MESSAGE, normal, null, "");
+        nombre3 = (String) JOptionPane.showInputDialog(
+                null,
+                "Ingrese un nombre: ",
+                "Carreras",
+                JOptionPane.INFORMATION_MESSAGE,
+                normal,
+                null,
+                ""
+        );
+
+        if (nombre3 == null || nombre3.trim().isEmpty()) {
+            nombre3 = "Carro 3";
+        }
+
+        while (nombre3.equals(nombre1) || nombre3.equals(nombre2)) {
+            nombre3 = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Ya hay un carro con ese nombre, ingrese uno diferente:",
+                    "Carreras",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    normal,
+                    null,
+                    ""
+            );
+
+            if (nombre3 == null || nombre3.trim().isEmpty()) {
+                nombre3 = "Carro 3";
+                break;
+            }
+        }
+
         c3.setText(nombre3);
         Carro3.setName(nombre3);
+
     }//GEN-LAST:event_Carro3MouseClicked
 
     private void c1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c1MouseClicked
-        nombre1 = (String) JOptionPane.showInputDialog(null, "Ingrese un nombre: ", "Carreras", JOptionPane.INFORMATION_MESSAGE, normal, null, "");
+        nombre1 = (String) JOptionPane.showInputDialog(
+                null,
+                "Ingrese un nombre: ",
+                "Carreras",
+                JOptionPane.INFORMATION_MESSAGE,
+                normal,
+                null,
+                ""
+        );
+
+        if (nombre1 == null || nombre1.trim().isEmpty()) {
+            nombre1 = "Carro 1";
+        }
+
+        while (nombre1.equals(nombre2) || nombre1.equals(nombre3)) {
+            nombre1 = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Ya hay un carro con ese nombre, ingrese uno diferente:",
+                    "Carreras",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    normal,
+                    null,
+                    ""
+            );
+
+            if (nombre1 == null || nombre1.trim().isEmpty()) {
+                nombre1 = "Carro 1";
+                break;
+            }
+        }
+
         c1.setText(nombre1);
         Carro1.setName(nombre1);
+
     }//GEN-LAST:event_c1MouseClicked
 
     private void c2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c2MouseClicked
-        nombre2 = (String) JOptionPane.showInputDialog(null, "Ingrese un nombre: ", "Carreras", JOptionPane.INFORMATION_MESSAGE, normal, null, "");
+        nombre2 = (String) JOptionPane.showInputDialog(
+                null,
+                "Ingrese un nombre: ",
+                "Carreras",
+                JOptionPane.INFORMATION_MESSAGE,
+                normal,
+                null,
+                ""
+        );
+
+        if (nombre2 == null || nombre2.trim().isEmpty()) {
+            nombre2 = "Carro 2";
+        }
+
+        while (nombre2.equals(nombre1) || nombre2.equals(nombre3)) {
+            nombre2 = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Ya hay un carro con ese nombre, ingrese uno diferente:",
+                    "Carreras",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    normal,
+                    null,
+                    ""
+            );
+
+            if (nombre2 == null || nombre2.trim().isEmpty()) {
+                nombre2 = "Carro 2";
+                break;
+            }
+        }
+
         c2.setText(nombre2);
         Carro2.setName(nombre2);
     }//GEN-LAST:event_c2MouseClicked
 
     private void c3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c3MouseClicked
-        nombre3 = (String) JOptionPane.showInputDialog(null, "Ingrese un nombre: ", "Carreras", JOptionPane.INFORMATION_MESSAGE, normal, null, "");
+        nombre3 = (String) JOptionPane.showInputDialog(
+                null,
+                "Ingrese un nombre: ",
+                "Carreras",
+                JOptionPane.INFORMATION_MESSAGE,
+                normal,
+                null,
+                ""
+        );
+
+        if (nombre3 == null || nombre3.trim().isEmpty()) {
+            nombre3 = "Carro 3";
+        }
+
+        while (nombre3.equals(nombre1) || nombre3.equals(nombre2)) {
+            nombre3 = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Ya hay un carro con ese nombre, ingrese uno diferente:",
+                    "Carreras",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    normal,
+                    null,
+                    ""
+            );
+
+            if (nombre3 == null || nombre3.trim().isEmpty()) {
+                nombre3 = "Carro 3";
+                break;
+            }
+        }
+
         c3.setText(nombre3);
         Carro3.setName(nombre3);
+
     }//GEN-LAST:event_c3MouseClicked
 
     private void c1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c1MouseEntered
