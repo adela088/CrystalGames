@@ -5,14 +5,22 @@
 package juegos;
 
 import java.awt.Color;
+import java.awt.Color.*;
 import static java.awt.Color.red;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -20,322 +28,113 @@ import javax.swing.JOptionPane;
  */
 public class sopadeletras extends javax.swing.JFrame {
 
+    private final Color colorNormal = new Color(225, 225, 225);
+    private final Color colorSeleccionado = new Color(255, 192, 203);
+    private final Color colorEncontrado = new Color(160, 255, 160);
+
+    private Timer timer;
+    private int segundos = 0;
+
+    private final int MAX_LONGITUD_PALABRA = 8;
+
+    private JButton[] botones;
+
+    private ArrayList<Integer> seleccionActual = new ArrayList<>();
+    private ArrayList<String> palabrasEncontradas = new ArrayList<>();
+
+    private Palabra[] listaPalabras;
+
+    class Palabra {
+
+        String texto;
+        int[] posiciones;
+        JLabel etiqueta;
+
+        Palabra(String txt, JLabel lbl) {
+            texto = txt;
+            etiqueta = lbl;
+            posiciones = new int[txt.length()];
+        }
+    }
+
+    private void iniciarTemporizador() {
+        timer = new Timer(1000, (ActionEvent e) -> {
+            segundos++;
+            lblTiempo.setText("Tiempo: " + segundos + "s");
+        });
+        timer.start();
+    }
+
     /**
      * Creates new form sopadeletras
      */
     public sopadeletras() {
+        this.setResizable(false);
         initComponents();
-        this.setLocationRelativeTo(null);
-        llenar();
-        iniciar();
-        String palabra1[] = {"V", "E", "N", "U", "S"};
-        String palabra2[] = {"J", "U", "P", "I", "T", "E", "R"};
-        String palabra3[] = {"U", "R", "A", "N", "O"};
-        String palabra4[] = {"M", "A", "R", "T", "E"};
-        String palabra5[] = {"M", "E", "R", "C", "U", "R", "I", "O"};
-        String palabra6[] = {"T", "I", "E", "R", "R", "A"};
-        String palabra7[] = {"N", "E", "P", "T", "U", "N", "O"};
-        m.setVisible(false);
-        ma.setVisible(false);
-        j.setVisible(false);
-        n.setVisible(false);
-        t.setVisible(false);
-        ve.setVisible(false);
         setIcon();
+        setLocationRelativeTo(null);
+
+        m.setVisible(false);
+        j.setVisible(false);
+        ma.setVisible(false);
+        ve.setVisible(false);
+        t.setVisible(false);
+        n.setVisible(false);
+
+        inicializarBotones();
+
+        listaPalabras = new Palabra[]{
+            new Palabra("MERCURIO", mercuriolbl),
+            new Palabra("JUPITER", jupiterlbl),
+            new Palabra("MARTE", martelbl),
+            new Palabra("VENUS", venuslbl),
+            new Palabra("TIERRA", tierralbl),
+            new Palabra("NEPTUNO", neptunolbl)
+        };
+
+        generarTablero();
+        iniciarTemporizador();
+
     }
+
+    private void inicializarBotones() {
+        botones = new JButton[]{
+            null,
+            jButton1, jButton2, jButton3, jButton4, jButton5,
+            jButton6, jButton7, jButton8, jButton9, jButton10,
+            jButton11, jButton12, jButton13, jButton14, jButton15,
+            jButton16, jButton17, jButton18, jButton19, jButton20,
+            jButton21, jButton22, jButton23, jButton24, jButton25,
+            jButton26, jButton27, jButton28, jButton29, jButton30,
+            jButton31, jButton32, jButton33, jButton34, jButton35,
+            jButton36, jButton37, jButton38, jButton39, jButton40,
+            jButton41, jButton42, jButton43, jButton44, jButton45,
+            jButton46, jButton47, jButton48, jButton49, jButton50,
+            jButton51, jButton52, jButton53, jButton54, jButton55,
+            jButton56, jButton57, jButton58, jButton59, jButton60,
+            jButton61, jButton62, jButton63, jButton64, jButton65,
+            jButton66, jButton67, jButton68, jButton69, jButton70,
+            jButton71, jButton72, jButton73, jButton74, jButton75,
+            jButton76, jButton77, jButton78, jButton79, jButton80,
+            jButton81, jButton82, jButton83, jButton84, jButton85,
+            jButton86, jButton87, jButton88, jButton89, jButton90,
+            jButton91, jButton92, jButton93, jButton94, jButton95,
+            jButton96, jButton97, jButton98, jButton99, jButton100
+        };
+
+        for (int i = 1; i <= 100; i++) {
+            final int idx = i;
+            botones[i].addActionListener(e -> seleccionarBoton(idx));
+        }
+    }
+
     private void setIcon() {
-       setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
     }
-    
+
     public int c = 1;
     public Icon icon = new ImageIcon(getClass().getResource("sopaimg\\cat.gif"));
     public Icon win = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
-
-    public void llenar() {
-        int r = random.nextInt(26);
-        jButton1.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton2.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton11.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton13.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton14.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton15.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton16.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton17.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton19.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton20.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton21.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton23.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton24.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton25.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton26.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton27.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton28.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton29.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton30.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton31.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton32.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton33.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton34.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton35.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton36.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton37.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton38.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton39.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton40.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton41.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton42.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton43.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton44.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton45.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton46.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton47.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton48.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton49.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton50.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton51.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton52.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton53.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton54.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton55.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton56.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton57.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        U.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton59.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton60.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton61.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton62.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton63.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton64.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton65.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton66.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton67.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton68.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton69.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton70.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton71.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton72.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton73.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton74.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton75.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton76.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton77.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton78.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton79.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton80.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton81.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton82.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton83.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton84.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton85.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton86.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton87.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton88.setText("" + v[r]);
-//        r = random.nextInt(26);
-//        jButton89.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton90.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton91.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton92.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton93.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton94.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton95.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton96.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton97.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton98.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton99.setText("" + v[r]);
-        r = random.nextInt(26);
-        jButton100.setText("" + v[r]);
-    }
-
-    public static Random random = new Random();
-    public String[] v = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-    public boolean mercurio = false, jupiter = false, marte = false, tierra = false, venus = false, neptuno = false;
-    public boolean b1 = false;
-    public boolean b2 = false;
-    public boolean b3 = false;
-    public boolean b4 = false;
-    public boolean b5 = false;
-    public boolean b6 = false;
-    public boolean b7 = false;
-    public boolean b8 = false;
-    public boolean b9 = false;
-    public boolean b10 = false;
-    public boolean b11 = false;
-    public boolean b12 = false;
-    public boolean b13 = false;
-    public boolean b14 = false;
-    public boolean b15 = false;
-    public boolean b16 = false;
-    public boolean b17 = false;
-    public boolean b18 = false;
-    public boolean b19 = false;
-    public boolean b20 = false;
-    public boolean b21 = false;
-    public boolean b22 = false;
-    public boolean b23 = false;
-    public boolean b24 = false;
-    public boolean b25 = false;
-    public boolean b26 = false;
-    public boolean b27 = false;
-    public boolean b28 = false;
-    public boolean b29 = false;
-    public boolean b30 = false;
-    public boolean b31 = false;
-    public boolean b32 = false;
-    public boolean b33 = false;
-    public boolean b34 = false;
-    public boolean b35 = false;
-    public boolean b36 = false;
-    public boolean b37 = false;
-    public boolean b38 = false;
-    public boolean b39 = false;
-    public boolean b40 = false;
-    public boolean b41 = false;
-    public boolean b42 = false;
-    public boolean b43 = false;
-    public boolean b44 = false;
-    public boolean b45 = false;
-    public boolean b46 = false;
-    public boolean b47 = false;
-    public boolean b48 = false;
-    public boolean b49 = false;
-    public boolean b50 = false;
-    public boolean b51 = false;
-    public boolean b52 = false;
-    public boolean b53 = false;
-    public boolean b54 = false;
-    public boolean b55 = false;
-    public boolean b56 = false;
-    public boolean b57 = false;
-    public boolean b58 = false;
-    public boolean b59 = false;
-    public boolean b60 = false;
-    public boolean b61 = false;
-    public boolean b62 = false;
-    public boolean b63 = false;
-    public boolean b64 = false;
-    public boolean b65 = false;
-    public boolean b66 = false;
-    public boolean b67 = false;
-    public boolean b68 = false;
-    public boolean b69 = false;
-    public boolean b70 = false;
-    public boolean b71 = false;
-    public boolean b72 = false;
-    public boolean b73 = false;
-    public boolean b74 = false;
-    public boolean b75 = false;
-    public boolean b76 = false;
-    public boolean b77 = false;
-    public boolean b78 = false;
-    public boolean b79 = false;
-    public boolean b80 = false;
-    public boolean b81 = false;
-    public boolean b82 = false;
-    public boolean b83 = false;
-    public boolean b84 = false;
-    public boolean b85 = false;
-    public boolean b86 = false;
-    public boolean b87 = false;
-    public boolean b88 = false;
-    public boolean b89 = false;
-    public boolean b90 = false;
-    public boolean b91 = false;
-    public boolean b92 = false;
-    public boolean b93 = false;
-    public boolean b94 = false;
-    public boolean b95 = false;
-    public boolean b96 = false;
-    public boolean b97 = false;
-    public boolean b98 = false;
-    public boolean b99 = false;
-    public boolean b100 = false;
-    public boolean t1 = false;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -450,8 +249,7 @@ public class sopadeletras extends javax.swing.JFrame {
         jButton99 = new javax.swing.JButton();
         jButton100 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        comprobar = new javax.swing.JButton();
-        pista = new javax.swing.JButton();
+        lblTiempo = new javax.swing.JButton();
         completar = new javax.swing.JButton();
         reiniciar = new javax.swing.JButton();
         neptunolbl = new javax.swing.JLabel();
@@ -490,9 +288,11 @@ public class sopadeletras extends javax.swing.JFrame {
         marco = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        pista1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sopa de Letras");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(46, 44, 48));
         jPanel1.setMinimumSize(new java.awt.Dimension(1130, 690));
@@ -522,7 +322,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton2);
 
         jButton3.setBackground(new java.awt.Color(204, 204, 204));
-        jButton3.setText("O");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton3);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -533,7 +332,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton3);
 
         jButton4.setBackground(new java.awt.Color(204, 204, 204));
-        jButton4.setText("I");
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton4);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -544,7 +342,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton4);
 
         jButton5.setBackground(new java.awt.Color(204, 204, 204));
-        jButton5.setText("R");
         jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton5);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -555,7 +352,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton5);
 
         jButton6.setBackground(new java.awt.Color(204, 204, 204));
-        jButton6.setText("U");
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton6);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -566,7 +362,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton6);
 
         jButton7.setBackground(new java.awt.Color(204, 204, 204));
-        jButton7.setText("C");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton7);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -577,7 +372,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton7);
 
         jButton8.setBackground(new java.awt.Color(204, 204, 204));
-        jButton8.setText("R");
         jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton8);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -588,7 +382,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton8);
 
         jButton9.setBackground(new java.awt.Color(204, 204, 204));
-        jButton9.setText("E");
         jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton9);
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -599,7 +392,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton9);
 
         jButton10.setBackground(new java.awt.Color(204, 204, 204));
-        jButton10.setText("M");
         jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton10);
         jButton10.setPreferredSize(new java.awt.Dimension(75, 23));
@@ -621,7 +413,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton11);
 
         jButton12.setBackground(new java.awt.Color(204, 204, 204));
-        jButton12.setText("J");
         jButton12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton12);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -682,7 +473,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton17);
 
         jButton18.setBackground(new java.awt.Color(204, 204, 204));
-        jButton18.setText("M");
         jButton18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton18);
         jButton18.addActionListener(new java.awt.event.ActionListener() {
@@ -723,7 +513,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton21);
 
         jButton22.setBackground(new java.awt.Color(204, 204, 204));
-        jButton22.setText("U");
         jButton22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton22);
         jButton22.addActionListener(new java.awt.event.ActionListener() {
@@ -774,7 +563,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton26);
 
         jButton27.setBackground(new java.awt.Color(204, 204, 204));
-        jButton27.setText("A");
         jButton27.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton27);
         jButton27.addActionListener(new java.awt.event.ActionListener() {
@@ -825,7 +613,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton31);
 
         jButton32.setBackground(new java.awt.Color(204, 204, 204));
-        jButton32.setText("P");
         jButton32.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton32);
         jButton32.addActionListener(new java.awt.event.ActionListener() {
@@ -866,7 +653,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton35);
 
         jButton36.setBackground(new java.awt.Color(204, 204, 204));
-        jButton36.setText("R");
         jButton36.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton36);
         jButton36.addActionListener(new java.awt.event.ActionListener() {
@@ -927,7 +713,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton41);
 
         jButton42.setBackground(new java.awt.Color(204, 204, 204));
-        jButton42.setText("I");
         jButton42.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton42);
         jButton42.addActionListener(new java.awt.event.ActionListener() {
@@ -958,7 +743,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton44);
 
         jButton45.setBackground(new java.awt.Color(204, 204, 204));
-        jButton45.setText("T");
         jButton45.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton45);
         jButton45.addActionListener(new java.awt.event.ActionListener() {
@@ -1029,7 +813,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton51);
 
         jButton52.setBackground(new java.awt.Color(204, 204, 204));
-        jButton52.setText("T");
         jButton52.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton52);
         jButton52.addActionListener(new java.awt.event.ActionListener() {
@@ -1050,7 +833,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton53);
 
         jButton54.setBackground(new java.awt.Color(204, 204, 204));
-        jButton54.setText("E");
         jButton54.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton54);
         jButton54.addActionListener(new java.awt.event.ActionListener() {
@@ -1061,7 +843,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton54);
 
         jButton55.setBackground(new java.awt.Color(204, 204, 204));
-        jButton55.setText("V");
         jButton55.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton55);
         jButton55.addActionListener(new java.awt.event.ActionListener() {
@@ -1072,7 +853,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton55);
 
         jButton56.setBackground(new java.awt.Color(204, 204, 204));
-        jButton56.setText("E");
         jButton56.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton56);
         jButton56.addActionListener(new java.awt.event.ActionListener() {
@@ -1083,7 +863,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton56);
 
         jButton57.setBackground(new java.awt.Color(204, 204, 204));
-        jButton57.setText("N");
         jButton57.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton57);
         jButton57.addActionListener(new java.awt.event.ActionListener() {
@@ -1094,7 +873,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton57);
 
         jButton58.setBackground(new java.awt.Color(204, 204, 204));
-        jButton58.setText("U");
         jButton58.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton58);
         jButton58.addActionListener(new java.awt.event.ActionListener() {
@@ -1105,7 +883,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton58);
 
         jButton59.setBackground(new java.awt.Color(204, 204, 204));
-        jButton59.setText("S");
         jButton59.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton59);
         jButton59.addActionListener(new java.awt.event.ActionListener() {
@@ -1126,7 +903,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton60);
 
         jButton61.setBackground(new java.awt.Color(204, 204, 204));
-        jButton61.setText("N");
         jButton61.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton61);
         jButton61.addActionListener(new java.awt.event.ActionListener() {
@@ -1137,7 +913,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton61);
 
         jButton62.setBackground(new java.awt.Color(204, 204, 204));
-        jButton62.setText("E");
         jButton62.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton62);
         jButton62.addActionListener(new java.awt.event.ActionListener() {
@@ -1148,7 +923,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton62);
 
         jButton63.setBackground(new java.awt.Color(204, 204, 204));
-        jButton63.setText("P");
         jButton63.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton63);
         jButton63.addActionListener(new java.awt.event.ActionListener() {
@@ -1159,7 +933,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton63);
 
         jButton64.setBackground(new java.awt.Color(204, 204, 204));
-        jButton64.setText("T");
         jButton64.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton64);
         jButton64.addActionListener(new java.awt.event.ActionListener() {
@@ -1170,7 +943,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton64);
 
         jButton65.setBackground(new java.awt.Color(204, 204, 204));
-        jButton65.setText("U");
         jButton65.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton65);
         jButton65.addActionListener(new java.awt.event.ActionListener() {
@@ -1181,7 +953,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton65);
 
         jButton66.setBackground(new java.awt.Color(204, 204, 204));
-        jButton66.setText("N");
         jButton66.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton66);
         jButton66.addActionListener(new java.awt.event.ActionListener() {
@@ -1192,7 +963,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton66);
 
         jButton67.setBackground(new java.awt.Color(204, 204, 204));
-        jButton67.setText("O");
         jButton67.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton67);
         jButton67.addActionListener(new java.awt.event.ActionListener() {
@@ -1243,7 +1013,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton71);
 
         jButton72.setBackground(new java.awt.Color(204, 204, 204));
-        jButton72.setText("R");
         jButton72.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton72);
         jButton72.addActionListener(new java.awt.event.ActionListener() {
@@ -1364,7 +1133,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton83);
 
         jButton84.setBackground(new java.awt.Color(204, 204, 204));
-        jButton84.setText("A");
         jButton84.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton84);
         jButton84.addActionListener(new java.awt.event.ActionListener() {
@@ -1375,7 +1143,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton84);
 
         jButton85.setBackground(new java.awt.Color(204, 204, 204));
-        jButton85.setText("R");
         jButton85.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton85);
         jButton85.addActionListener(new java.awt.event.ActionListener() {
@@ -1386,7 +1153,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton85);
 
         jButton86.setBackground(new java.awt.Color(204, 204, 204));
-        jButton86.setText("R");
         jButton86.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton86);
         jButton86.addActionListener(new java.awt.event.ActionListener() {
@@ -1397,7 +1163,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton86);
 
         jButton87.setBackground(new java.awt.Color(204, 204, 204));
-        jButton87.setText("E");
         jButton87.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton87);
         jButton87.addActionListener(new java.awt.event.ActionListener() {
@@ -1408,7 +1173,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton87);
 
         jButton88.setBackground(new java.awt.Color(204, 204, 204));
-        jButton88.setText("I");
         jButton88.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton88);
         jButton88.addActionListener(new java.awt.event.ActionListener() {
@@ -1419,7 +1183,6 @@ public class sopadeletras extends javax.swing.JFrame {
         jPanel2.add(jButton88);
 
         jButton89.setBackground(new java.awt.Color(204, 204, 204));
-        jButton89.setText("T");
         jButton89.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonGroup1.add(jButton89);
         jButton89.addActionListener(new java.awt.event.ActionListener() {
@@ -1544,27 +1307,16 @@ public class sopadeletras extends javax.swing.JFrame {
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 180, 330));
 
-        comprobar.setBackground(new java.awt.Color(204, 204, 255));
-        comprobar.setText("Comprobar");
-        comprobar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        comprobar.setOpaque(true);
-        comprobar.addActionListener(new java.awt.event.ActionListener() {
+        lblTiempo.setBackground(new java.awt.Color(204, 204, 255));
+        lblTiempo.setText("Tiempo:");
+        lblTiempo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblTiempo.setOpaque(true);
+        lblTiempo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comprobarActionPerformed(evt);
+                lblTiempoActionPerformed(evt);
             }
         });
-        jPanel1.add(comprobar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 450, 180, 40));
-
-        pista.setBackground(new java.awt.Color(204, 204, 255));
-        pista.setText("Pista");
-        pista.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pista.setOpaque(true);
-        pista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pistaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(pista, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, 180, 40));
+        jPanel1.add(lblTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 500, 180, 40));
 
         completar.setBackground(new java.awt.Color(204, 204, 255));
         completar.setText("Completar");
@@ -1739,6 +1491,17 @@ public class sopadeletras extends javax.swing.JFrame {
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/sopaimg/pixelb.gif"))); // NOI18N
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 530, -1));
 
+        pista1.setBackground(new java.awt.Color(204, 204, 255));
+        pista1.setText("Pista");
+        pista1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pista1.setOpaque(true);
+        pista1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pista1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(pista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 450, 180, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1754,1691 +1517,404 @@ public class sopadeletras extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        jButton19.setBackground(Color.pink);
-        b19 = true;
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        jButton20.setBackground(Color.pink);
-        b20 = true;
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-        jButton28.setBackground(Color.pink);
-        b28 = true;
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-        jButton29.setBackground(Color.pink);
-        b29 = true;
     }//GEN-LAST:event_jButton29ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        jButton30.setBackground(Color.pink);
-        b30 = true;
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jButton55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton55ActionPerformed
-        jButton55.setBackground(Color.pink);
-        b55 = true;
     }//GEN-LAST:event_jButton55ActionPerformed
 
     private void jButton59ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton59ActionPerformed
-        jButton59.setBackground(Color.pink);
-        b59 = true;
     }//GEN-LAST:event_jButton59ActionPerformed
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
-        jButton42.setBackground(Color.pink);
-        b42 = true;
     }//GEN-LAST:event_jButton42ActionPerformed
 
     private void jButton62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton62ActionPerformed
-        jButton62.setBackground(Color.pink);
-        b62 = true;
     }//GEN-LAST:event_jButton62ActionPerformed
 
-    private void jButton88ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton88ActionPerformed
-        jButton88.setBackground(Color.pink);
-        b88 = true;
-    }//GEN-LAST:event_jButton88ActionPerformed
-
-    private void jButton100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton100ActionPerformed
-        jButton100.setBackground(Color.pink);
-        b100 = true;
-    }//GEN-LAST:event_jButton100ActionPerformed
-
-    private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton99ActionPerformed
-        jButton99.setBackground(Color.pink);
-        b99 = true;
-    }//GEN-LAST:event_jButton99ActionPerformed
+    private void jButton86ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton86ActionPerformed
+    }//GEN-LAST:event_jButton86ActionPerformed
 
     private void jButton98ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton98ActionPerformed
-        jButton98.setBackground(Color.pink);
-        b98 = true;
     }//GEN-LAST:event_jButton98ActionPerformed
 
-    private void jButton96ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton96ActionPerformed
-        jButton96.setBackground(Color.pink);
-        b96 = true;
-    }//GEN-LAST:event_jButton96ActionPerformed
-
     private void jButton97ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton97ActionPerformed
-        jButton97.setBackground(Color.pink);
-        b97 = true;
     }//GEN-LAST:event_jButton97ActionPerformed
 
-    private void jButton95ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton95ActionPerformed
-        jButton95.setBackground(Color.pink);
-        b95 = true;
-    }//GEN-LAST:event_jButton95ActionPerformed
+    private void jButton96ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton96ActionPerformed
+
+    }//GEN-LAST:event_jButton96ActionPerformed
 
     private void jButton94ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton94ActionPerformed
-        jButton94.setBackground(Color.pink);
-        b94 = true;
+
     }//GEN-LAST:event_jButton94ActionPerformed
 
+    private void jButton95ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton95ActionPerformed
+
+    }//GEN-LAST:event_jButton95ActionPerformed
+
     private void jButton93ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton93ActionPerformed
-        jButton93.setBackground(Color.pink);
-        b93 = true;
+
     }//GEN-LAST:event_jButton93ActionPerformed
 
     private void jButton92ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton92ActionPerformed
-        jButton92.setBackground(Color.pink);
-        b92 = true;
+
     }//GEN-LAST:event_jButton92ActionPerformed
 
     private void jButton91ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton91ActionPerformed
-        jButton91.setBackground(Color.pink);
-        b91 = true;
+
     }//GEN-LAST:event_jButton91ActionPerformed
 
+    private void jButton90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton90ActionPerformed
+
+    }//GEN-LAST:event_jButton90ActionPerformed
+
+    private void jButton89ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton89ActionPerformed
+
+    }//GEN-LAST:event_jButton89ActionPerformed
+
     private void jButton81ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton81ActionPerformed
-        jButton81.setBackground(Color.pink);
-        b81 = true;
+
     }//GEN-LAST:event_jButton81ActionPerformed
 
     private void jButton82ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton82ActionPerformed
-        jButton82.setBackground(Color.pink);
-        b82 = true;
+
     }//GEN-LAST:event_jButton82ActionPerformed
 
     private void jButton83ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton83ActionPerformed
-        jButton83.setBackground(Color.pink);
-        b83 = true;
+
     }//GEN-LAST:event_jButton83ActionPerformed
 
     private void jButton84ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton84ActionPerformed
 
-        b84 = true;
-        jButton84.setBackground(Color.pink);    }//GEN-LAST:event_jButton84ActionPerformed
+    }//GEN-LAST:event_jButton84ActionPerformed
 
     private void jButton85ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton85ActionPerformed
-        jButton85.setBackground(Color.pink);
-        b85 = true;
-    }//GEN-LAST:event_jButton85ActionPerformed
 
-    private void jButton86ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton86ActionPerformed
-        jButton86.setBackground(Color.pink);
-        b86 = true;
-    }//GEN-LAST:event_jButton86ActionPerformed
+    }//GEN-LAST:event_jButton85ActionPerformed
 
     private void jButton87ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton87ActionPerformed
 
-        b87 = true;
+    }//GEN-LAST:event_jButton87ActionPerformed
 
-        jButton87.setBackground(Color.pink);    }//GEN-LAST:event_jButton87ActionPerformed
+    private void jButton88ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton88ActionPerformed
 
-    private void jButton89ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton89ActionPerformed
-        jButton89.setBackground(Color.pink);
-        b89 = true;
-    }//GEN-LAST:event_jButton89ActionPerformed
-
-    private void jButton90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton90ActionPerformed
-        jButton90.setBackground(Color.pink);
-        b90 = true;
-    }//GEN-LAST:event_jButton90ActionPerformed
+    }//GEN-LAST:event_jButton88ActionPerformed
 
     private void jButton80ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton80ActionPerformed
-        jButton80.setBackground(Color.pink);
-        b80 = true;
+
     }//GEN-LAST:event_jButton80ActionPerformed
 
     private void jButton79ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton79ActionPerformed
-        jButton79.setBackground(Color.pink);
-        b79 = true;
+
     }//GEN-LAST:event_jButton79ActionPerformed
 
     private void jButton78ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton78ActionPerformed
-        jButton78.setBackground(Color.pink);
-        b78 = true;
+
     }//GEN-LAST:event_jButton78ActionPerformed
 
     private void jButton77ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton77ActionPerformed
-        jButton77.setBackground(Color.pink);
-        b77 = true;
+
     }//GEN-LAST:event_jButton77ActionPerformed
 
     private void jButton76ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton76ActionPerformed
-        jButton76.setBackground(Color.pink);
-        b76 = true;
+
     }//GEN-LAST:event_jButton76ActionPerformed
 
     private void jButton75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton75ActionPerformed
-        jButton75.setBackground(Color.pink);
-        b75 = true;
+
     }//GEN-LAST:event_jButton75ActionPerformed
 
     private void jButton74ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton74ActionPerformed
-        jButton74.setBackground(Color.pink);
-        b74 = true;
+
     }//GEN-LAST:event_jButton74ActionPerformed
 
     private void jButton73ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton73ActionPerformed
-        jButton73.setBackground(Color.pink);
-        b73 = true;
+
     }//GEN-LAST:event_jButton73ActionPerformed
 
     private void jButton72ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton72ActionPerformed
-        jButton72.setBackground(Color.pink);
-        b72 = true;
+
     }//GEN-LAST:event_jButton72ActionPerformed
 
     private void jButton71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton71ActionPerformed
-        jButton71.setBackground(Color.pink);
-        b71 = true;
+
     }//GEN-LAST:event_jButton71ActionPerformed
 
     private void jButton70ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton70ActionPerformed
-        jButton70.setBackground(Color.pink);
+
     }//GEN-LAST:event_jButton70ActionPerformed
 
     private void jButton69ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton69ActionPerformed
-        jButton69.setBackground(Color.pink);
+
     }//GEN-LAST:event_jButton69ActionPerformed
 
     private void jButton68ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton68ActionPerformed
-        jButton68.setBackground(Color.pink);
-        b68 = true;
+
     }//GEN-LAST:event_jButton68ActionPerformed
 
     private void jButton67ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton67ActionPerformed
-        jButton67.setBackground(Color.pink);
-        b67 = true;
+
     }//GEN-LAST:event_jButton67ActionPerformed
 
     private void jButton66ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton66ActionPerformed
-        jButton66.setBackground(Color.pink);
-        b66 = true;
+
     }//GEN-LAST:event_jButton66ActionPerformed
 
     private void jButton65ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton65ActionPerformed
-        jButton65.setBackground(Color.pink);
-        b65 = true;
+
     }//GEN-LAST:event_jButton65ActionPerformed
 
     private void jButton64ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton64ActionPerformed
-        jButton64.setBackground(Color.pink);
-        b64 = true;
+
     }//GEN-LAST:event_jButton64ActionPerformed
 
     private void jButton63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton63ActionPerformed
-        jButton63.setBackground(Color.pink);
-        b63 = true;
+
     }//GEN-LAST:event_jButton63ActionPerformed
 
     private void jButton61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton61ActionPerformed
-        jButton61.setBackground(Color.pink);
-        b61 = true;
+
     }//GEN-LAST:event_jButton61ActionPerformed
 
     private void jButton56ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton56ActionPerformed
-        jButton56.setBackground(Color.pink);
-        b56 = true;
+
     }//GEN-LAST:event_jButton56ActionPerformed
 
     private void jButton57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton57ActionPerformed
-        jButton57.setBackground(Color.pink);
-        b57 = true;
+
     }//GEN-LAST:event_jButton57ActionPerformed
 
     private void jButton58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton58ActionPerformed
-        jButton58.setBackground(Color.pink);
-        b58 = true;
+
     }//GEN-LAST:event_jButton58ActionPerformed
 
     private void jButton60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton60ActionPerformed
-        jButton60.setBackground(Color.pink);
-        b60 = true;
+
     }//GEN-LAST:event_jButton60ActionPerformed
 
     private void jButton54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton54ActionPerformed
-        jButton54.setBackground(Color.pink);
-        b54 = true;
+
     }//GEN-LAST:event_jButton54ActionPerformed
 
     private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
-        jButton53.setBackground(Color.pink);
+
     }//GEN-LAST:event_jButton53ActionPerformed
 
     private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
-        jButton52.setBackground(Color.pink);
-        b52 = true;
+
     }//GEN-LAST:event_jButton52ActionPerformed
 
     private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
-        jButton51.setBackground(Color.pink);
-        b51 = true;
+
     }//GEN-LAST:event_jButton51ActionPerformed
 
     private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
-        jButton41.setBackground(Color.pink);
-        b41 = true;
+
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
-        jButton31.setBackground(Color.pink);
-        b31 = true;
+
     }//GEN-LAST:event_jButton31ActionPerformed
 
     private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
-        jButton32.setBackground(Color.pink);
-        b32 = true;
+
     }//GEN-LAST:event_jButton32ActionPerformed
 
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        jButton33.setBackground(Color.pink);
-        b33 = true;
+
     }//GEN-LAST:event_jButton33ActionPerformed
 
     private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
-        jButton34.setBackground(Color.pink);
-        b34 = true;
+
     }//GEN-LAST:event_jButton34ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-        jButton35.setBackground(Color.pink);
-        b35 = true;
+
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-        jButton36.setBackground(Color.pink);
-        b36 = true;
+
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
-        jButton37.setBackground(Color.pink);
-        b37 = true;
+
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
-        jButton38.setBackground(Color.pink);
-        b38 = true;
+
     }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
-        jButton39.setBackground(Color.pink);
-        b39 = true;
+
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
-        jButton40.setBackground(Color.pink);
-        b40 = true;
+
     }//GEN-LAST:event_jButton40ActionPerformed
 
     private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
-        jButton50.setBackground(Color.pink);
-        b50 = true;
+
     }//GEN-LAST:event_jButton50ActionPerformed
 
     private void jButton49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton49ActionPerformed
-        jButton49.setBackground(Color.pink);
-        b49 = true;
+
     }//GEN-LAST:event_jButton49ActionPerformed
 
     private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
-        jButton48.setBackground(Color.pink);
-        b48 = true;
+
     }//GEN-LAST:event_jButton48ActionPerformed
 
     private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
-        jButton47.setBackground(Color.pink);
-        b47 = true;
+
     }//GEN-LAST:event_jButton47ActionPerformed
 
     private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
-        jButton46.setBackground(Color.pink);
-        b46 = true;
+
     }//GEN-LAST:event_jButton46ActionPerformed
 
     private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
-        jButton45.setBackground(Color.pink);
-        b45 = true;
+
     }//GEN-LAST:event_jButton45ActionPerformed
 
     private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
-        jButton44.setBackground(Color.pink);
-        b46 = true;
+
     }//GEN-LAST:event_jButton44ActionPerformed
 
     private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
-        jButton43.setBackground(Color.pink);
-        b43 = true;
+
     }//GEN-LAST:event_jButton43ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
-        jButton27.setBackground(Color.pink);
-        b27 = true;
+
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        jButton26.setBackground(Color.pink);
-        b26 = true;
+
     }//GEN-LAST:event_jButton26ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        jButton25.setBackground(Color.pink);
-        b25 = true;
+
     }//GEN-LAST:event_jButton25ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        jButton24.setBackground(Color.pink);
-        b24 = true;
+
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        jButton23.setBackground(Color.pink);
-        b23 = true;
+
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        jButton22.setBackground(Color.pink);
-        b22 = true;
+
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        jButton21.setBackground(Color.pink);
-        b21 = true;
+
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        jButton11.setBackground(Color.pink);
-        b11 = true;
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        jButton12.setBackground(Color.pink);
-        b12 = true;
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        jButton13.setBackground(Color.pink);
-        b13 = true;
+
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        jButton14.setBackground(Color.pink);
-        b14 = true;
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        jButton15.setBackground(Color.pink);
-        b15 = true;
+
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        jButton16.setBackground(Color.pink);
-        b16 = true;
+
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        jButton17.setBackground(Color.pink);
-        b17 = true;
+
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        jButton18.setBackground(Color.pink);
-        b18 = true;
+
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setBackground(Color.pink);
-        b1 = true;
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jButton2.setBackground(Color.pink);
-        b2 = true;
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jButton3.setBackground(Color.pink);
-        b3 = true;
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jButton4.setBackground(Color.pink);
-        b4 = true;
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jButton5.setBackground(Color.pink);
-        b5 = true;
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        jButton6.setBackground(Color.pink);
-        b6 = true;
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        jButton7.setBackground(Color.pink);
-        b7 = true;
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        jButton8.setBackground(Color.pink);
-        b8 = true;
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        jButton9.setBackground(Color.pink);
-        b9 = true;
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        jButton10.setBackground(Color.pink);
-        b10 = true;
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void pistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pistaActionPerformed
-        int p = random.nextInt(36);
-        if (p == 0) {
-            jButton3.setBackground(Color.pink);
-        } else if (p == 1) {
-            jButton9.setBackground(Color.pink);
-        } else if (p == 2) {
-            jButton10.setBackground(Color.pink);
-        } else if (p == 3) {
-            jButton8.setBackground(Color.pink);
-        } else if (p == 4) {
-            jButton7.setBackground(Color.pink);
-        } else if (p == 5) {
-            jButton6.setBackground(Color.pink);
-        } else if (p == 6) {
-            jButton5.setBackground(Color.pink);
-        } else if (p == 7) {
-            jButton4.setBackground(Color.pink);
-        } else if (p == 8) {
-            jButton12.setBackground(Color.pink);
-        } else if (p == 9) {
-            jButton22.setBackground(Color.pink);
-        } else if (p == 10) {
-            jButton32.setBackground(Color.pink);
-        } else if (p == 11) {
-            jButton42.setBackground(Color.pink);
-        } else if (p == 12) {
-            jButton52.setBackground(Color.pink);
-        } else if (p == 13) {
-            jButton62.setBackground(Color.pink);
-        } else if (p == 14) {
-            jButton72.setBackground(Color.pink);
-        } else if (p == 15) {
-            jButton61.setBackground(Color.pink);
-        } else if (p == 16) {
-            jButton63.setBackground(Color.pink);
-        } else if (p == 17) {
-            jButton64.setBackground(Color.pink);
-        } else if (p == 18) {
-            jButton65.setBackground(Color.pink);
-        } else if (p == 19) {
-            jButton66.setBackground(Color.pink);
-        } else if (p == 20) {
-            jButton67.setBackground(Color.pink);
-        } else if (p == 21) {
-            jButton54.setBackground(Color.pink);
-        } else if (p == 22) {
-            jButton55.setBackground(Color.pink);
-        } else if (p == 23) {
-            jButton56.setBackground(Color.pink);
-        } else if (p == 24) {
-            jButton57.setBackground(Color.pink);
-        } else if (p == 25) {
-            jButton58.setBackground(Color.pink);
-        } else if (p == 26) {
-            jButton59.setBackground(Color.pink);
-        } else if (p == 27) {
-            jButton18.setBackground(Color.pink);
-        } else if (p == 28) {
-            jButton27.setBackground(Color.pink);
-        } else if (p == 29) {
-            jButton36.setBackground(Color.pink);
-        } else if (p == 30) {
-            jButton45.setBackground(Color.pink);
-        } else if (p == 31) {
-            jButton89.setBackground(Color.pink);
-        } else if (p == 32) {
-            jButton88.setBackground(Color.pink);
-        } else if (p == 33) {
-            jButton87.setBackground(Color.pink);
-        } else if (p == 34) {
-            jButton86.setBackground(Color.pink);
-        } else if (p == 35) {
-            jButton85.setBackground(Color.pink);
-        } else if (p == 36) {
-            jButton84.setBackground(Color.pink);
-        }
-    }//GEN-LAST:event_pistaActionPerformed
+    private void lblTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblTiempoActionPerformed
+
+    }//GEN-LAST:event_lblTiempoActionPerformed
 
     private void completarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completarActionPerformed
-        mercurio = true;
-        jupiter = true;
-        marte = true;
-        tierra = true;
-        venus = true;
-        neptuno = true;
-
-        m.setVisible(true);
-        ma.setVisible(true);
-        j.setVisible(true);
-        ve.setVisible(true);
-        t.setVisible(true);
-        n.setVisible(true);
-
-        jButton3.setBackground(Color.pink);
-
-        jButton9.setBackground(Color.pink);
-
-        jButton10.setBackground(Color.pink);
-
-        jButton8.setBackground(Color.pink);
-
-        jButton7.setBackground(Color.pink);
-
-        jButton6.setBackground(Color.pink);
-
-        jButton5.setBackground(Color.pink);
-
-        jButton4.setBackground(Color.pink);
-
-        jButton12.setBackground(Color.pink);
-
-        jButton22.setBackground(Color.pink);
-
-        jButton32.setBackground(Color.pink);
-
-        jButton42.setBackground(Color.pink);
-
-        jButton52.setBackground(Color.pink);
-
-        jButton62.setBackground(Color.pink);
-
-        jButton72.setBackground(Color.pink);
-
-        jButton61.setBackground(Color.pink);
-
-        jButton63.setBackground(Color.pink);
-
-        jButton64.setBackground(Color.pink);
-
-        jButton65.setBackground(Color.pink);
-
-        jButton66.setBackground(Color.pink);
-
-        jButton67.setBackground(Color.pink);
-
-        jButton54.setBackground(Color.pink);
-
-        jButton55.setBackground(Color.pink);
-
-        jButton56.setBackground(Color.pink);
-
-        jButton57.setBackground(Color.pink);
-
-        jButton58.setBackground(Color.pink);
-
-        jButton59.setBackground(Color.pink);
-
-        jButton18.setBackground(Color.pink);
-
-        jButton27.setBackground(Color.pink);
-
-        jButton36.setBackground(Color.pink);
-
-        jButton45.setBackground(Color.pink);
-
-        jButton89.setBackground(Color.pink);
-
-        jButton88.setBackground(Color.pink);
-
-        jButton87.setBackground(Color.pink);
-
-        jButton86.setBackground(Color.pink);
-
-        jButton85.setBackground(Color.pink);
-
-        jButton84.setBackground(Color.pink);
-
+        for (Palabra p : listaPalabras) {
+            if (!palabrasEncontradas.contains(p.texto)) {
+                palabrasEncontradas.add(p.texto);
+                colorearPalabra(p);
+            }
+        }
     }//GEN-LAST:event_completarActionPerformed
 
-    private void comprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprobarActionPerformed
-        confir();
-        if (mercurio == true && venus == true && jupiter == true && neptuno == true && tierra == true && marte == true) {
-            JOptionPane.showMessageDialog(null, "Felicidades, has completado el juego!", "Sopa de letras", JOptionPane.INFORMATION_MESSAGE, win);
-            jButton3.setEnabled(true);
-            jButton4.setEnabled(true);
-            jButton5.setEnabled(true);
-            jButton6.setEnabled(true);
-            jButton7.setEnabled(true);
-            jButton8.setEnabled(true);
-            jButton9.setEnabled(true);
-            jButton10.setEnabled(true);
-            jButton12.setEnabled(true);
-            jButton22.setEnabled(true);
-            jButton32.setEnabled(true);
-            jButton42.setEnabled(true);
-            jButton52.setEnabled(true);
-            jButton62.setEnabled(true);
-            jButton72.setEnabled(true);
-            jButton18.setEnabled(true);
-            jButton27.setEnabled(true);
-            jButton36.setEnabled(true);
-            jButton45.setEnabled(true);
-            jButton54.setEnabled(true);
-            jButton55.setEnabled(true);
-            jButton56.setEnabled(true);
-            jButton57.setEnabled(true);
-            jButton58.setEnabled(true);
-            jButton59.setEnabled(true);
-            jButton84.setEnabled(true);
-            jButton85.setEnabled(true);
-            jButton86.setEnabled(true);
-            jButton87.setEnabled(true);
-            jButton88.setEnabled(true);
-            jButton89.setEnabled(true);
-            jButton12.setEnabled(true);
-            jButton22.setEnabled(true);
-            jButton32.setEnabled(true);
-            jButton42.setEnabled(true);
-            jButton52.setEnabled(true);
-            jButton62.setEnabled(true);
-            jButton72.setEnabled(true);
-            jButton61.setEnabled(true);
-            jButton62.setEnabled(true);
-            jButton63.setEnabled(true);
-            jButton64.setEnabled(true);
-            jButton65.setEnabled(true);
-            jButton66.setEnabled(true);
-            jButton67.setEnabled(true);
-            jButton3.setBackground(Color.pink);
-
-            jButton9.setBackground(Color.pink);
-
-            jButton10.setBackground(Color.pink);
-
-            jButton8.setBackground(Color.pink);
-
-            jButton7.setBackground(Color.pink);
-
-            jButton6.setBackground(Color.pink);
-
-            jButton5.setBackground(Color.pink);
-
-            jButton4.setBackground(Color.pink);
-
-            jButton12.setBackground(Color.pink);
-
-            jButton22.setBackground(Color.pink);
-
-            jButton32.setBackground(Color.pink);
-
-            jButton42.setBackground(Color.pink);
-
-            jButton52.setBackground(Color.pink);
-
-            jButton62.setBackground(Color.pink);
-
-            jButton72.setBackground(Color.pink);
-
-            jButton61.setBackground(Color.pink);
-
-            jButton63.setBackground(Color.pink);
-
-            jButton64.setBackground(Color.pink);
-
-            jButton65.setBackground(Color.pink);
-
-            jButton66.setBackground(Color.pink);
-
-            jButton67.setBackground(Color.pink);
-
-            jButton54.setBackground(Color.pink);
-
-            jButton55.setBackground(Color.pink);
-
-            jButton56.setBackground(Color.pink);
-
-            jButton57.setBackground(Color.pink);
-
-            jButton58.setBackground(Color.pink);
-
-            jButton59.setBackground(Color.pink);
-
-            jButton18.setBackground(Color.pink);
-
-            jButton27.setBackground(Color.pink);
-
-            jButton36.setBackground(Color.pink);
-
-            jButton45.setBackground(Color.pink);
-
-            jButton89.setBackground(Color.pink);
-
-            jButton88.setBackground(Color.pink);
-
-            jButton87.setBackground(Color.pink);
-
-            jButton86.setBackground(Color.pink);
-
-            jButton85.setBackground(Color.pink);
-
-            jButton84.setBackground(Color.pink);
-        }
-    }//GEN-LAST:event_comprobarActionPerformed
-
-    public void confir() {
-
-        if (b3 == true && b4 == true && b5 == true && b6 == true && b7 == true && b8 == true && b9 == true && b10 == true) {
-            if (b1 == false && b2 == false && b11 == false && b12 == false && b13 == false && b14 == false && b15 == false && b16 == false && b17 == false && b18 == false && b19 == false
-                    && b20 == false
-                    && b21 == false
-                    && b22 == false
-                    && b23 == false
-                    && b24 == false
-                    && b25 == false
-                    && b26 == false
-                    && b27 == false
-                    && b28 == false
-                    && b29 == false
-                    && b30 == false
-                    && b31 == false
-                    && b32 == false
-                    && b33 == false
-                    && b34 == false
-                    && b35 == false
-                    && b36 == false
-                    && b37 == false
-                    && b38 == false
-                    && b39 == false
-                    && b40 == false
-                    && b41 == false
-                    && b42 == false
-                    && b43 == false
-                    && b44 == false
-                    && b45 == false
-                    && b46 == false
-                    && b47 == false
-                    && b48 == false
-                    && b49 == false
-                    && b50 == false
-                    && b51 == false
-                    && b52 == false
-                    && b53 == false
-                    && b54 == false
-                    && b55 == false
-                    && b56 == false
-                    && b57 == false
-                    && b58 == false
-                    && b59 == false
-                    && b60 == false
-                    && b61 == false
-                    && b62 == false
-                    && b63 == false
-                    && b64 == false
-                    && b65 == false
-                    && b66 == false
-                    && b67 == false
-                    && b68 == false
-                    && b69 == false
-                    && b70 == false
-                    && b71 == false
-                    && b72 == false
-                    && b73 == false
-                    && b74 == false
-                    && b75 == false
-                    && b76 == false
-                    && b77 == false
-                    && b78 == false
-                    && b79 == false
-                    && b80 == false
-                    && b81 == false
-                    && b82 == false
-                    && b83 == false
-                    && b84 == false
-                    && b85 == false
-                    && b86 == false
-                    && b87 == false
-                    && b88 == false
-                    && b89 == false
-                    && b90 == false
-                    && b91 == false
-                    && b92 == false
-                    && b93 == false
-                    && b94 == false
-                    && b95 == false
-                    && b96 == false
-                    && b97 == false
-                    && b98 == false
-                    && b99 == false
-                    && b100 == false) {
-                
-                JOptionPane.showMessageDialog(null, "( x ) Mercurio", "Sopa de letras", JOptionPane.INFORMATION_MESSAGE, icon);
-                mercurio = true;
-                jButton3.setEnabled(false);
-                jButton4.setEnabled(false);
-                jButton5.setEnabled(false);
-                jButton6.setEnabled(false);
-                jButton7.setEnabled(false);
-                jButton8.setEnabled(false);
-                jButton9.setEnabled(false);
-                jButton10.setEnabled(false);
-                b3 = false;
-                b4 = false;
-                b5 = false;
-                b6 = false;
-                b7 = false;
-                b8 = false;
-                b9 = false;
-                b10 = false;
-                m.setVisible(true);
-
-            } else {
-                iniciar();
-                if (mercurio == true) {
-                    jButton3.setEnabled(false);
-                    jButton4.setEnabled(false);
-                    jButton5.setEnabled(false);
-                    jButton6.setEnabled(false);
-                    jButton7.setEnabled(false);
-                    jButton8.setEnabled(false);
-                    jButton9.setEnabled(false);
-                    jButton10.setEnabled(false);
-                    jButton3.setBackground(Color.PINK);
-                    jButton4.setBackground(Color.PINK);
-                    jButton5.setBackground(Color.PINK);
-                    jButton6.setBackground(Color.PINK);
-                    jButton7.setBackground(Color.PINK);
-                    jButton8.setBackground(Color.PINK);
-                    jButton9.setBackground(Color.PINK);
-                    jButton10.setBackground(Color.PINK);
-                }
-            }
-        } else if (b12 == true && b22 == true && b32 == true && b42 == true && b52 == true && b62 == true || t1 == true && b72 == true) {
-            if (b1 == false && b2 == false && b11 == false && b3 == false && b13 == false && b14 == false && b15 == false && b16 == false && b17 == false && b18 == false && b19 == false
-                    && b20 == false
-                    && b21 == false
-                    && b4 == false
-                    && b23 == false
-                    && b24 == false
-                    && b25 == false
-                    && b26 == false
-                    && b27 == false
-                    && b28 == false
-                    && b29 == false
-                    && b30 == false
-                    && b31 == false
-                    && b5 == false
-                    && b33 == false
-                    && b34 == false
-                    && b35 == false
-                    && b36 == false
-                    && b37 == false
-                    && b38 == false
-                    && b39 == false
-                    && b40 == false
-                    && b41 == false
-                    && b6 == false
-                    && b43 == false
-                    && b44 == false
-                    && b45 == false
-                    && b46 == false
-                    && b47 == false
-                    && b48 == false
-                    && b49 == false
-                    && b50 == false
-                    && b51 == false
-                    && b7 == false
-                    && b53 == false
-                    && b54 == false
-                    && b55 == false
-                    && b56 == false
-                    && b57 == false
-                    && b58 == false
-                    && b59 == false
-                    && b60 == false
-                    && b61 == false
-                    && b8 == false
-                    && b63 == false
-                    && b64 == false
-                    && b65 == false
-                    && b66 == false
-                    && b67 == false
-                    && b68 == false
-                    && b69 == false
-                    && b70 == false
-                    && b71 == false
-                    && b9 == false
-                    && b10 == false
-                    && b73 == false
-                    && b74 == false
-                    && b75 == false
-                    && b76 == false
-                    && b77 == false
-                    && b78 == false
-                    && b79 == false
-                    && b80 == false
-                    && b81 == false
-                    && b82 == false
-                    && b83 == false
-                    && b84 == false
-                    && b85 == false
-                    && b86 == false
-                    && b87 == false
-                    && b88 == false
-                    && b89 == false
-                    && b90 == false
-                    && b91 == false
-                    && b92 == false
-                    && b93 == false
-                    && b94 == false
-                    && b95 == false
-                    && b96 == false
-                    && b97 == false
-                    && b98 == false
-                    && b99 == false
-                    && b100 == false) {
-                
-                JOptionPane.showMessageDialog(null, "( x ) Jupiter", "Juego:", JOptionPane.INFORMATION_MESSAGE, icon);
-                jupiter = true;
-                jButton12.setEnabled(false);
-                jButton22.setEnabled(false);
-                jButton32.setEnabled(false);
-                jButton42.setEnabled(false);
-                jButton52.setEnabled(false);
-                jButton62.setEnabled(false);
-                jButton72.setEnabled(false);
-                b12 = false;
-                b22 = false;
-                b32 = false;
-                b42 = false;
-                b52 = false;
-                b62 = false;
-                b72 = false;
-                t1 = true;
-                j.setVisible(true);
-            } else {
-                iniciar();
-                if (jupiter == true) {
-                    jButton12.setEnabled(false);
-                    jButton22.setEnabled(false);
-                    jButton32.setEnabled(false);
-                    jButton42.setEnabled(false);
-                    jButton52.setEnabled(false);
-                    jButton62.setEnabled(false);
-                    jButton72.setEnabled(false);
-                    jButton12.setBackground(Color.PINK);
-                    jButton22.setBackground(Color.PINK);
-                    jButton32.setBackground(Color.PINK);
-                    jButton42.setBackground(Color.PINK);
-                    jButton52.setBackground(Color.PINK);
-                    jButton62.setBackground(Color.PINK);
-                    jButton72.setBackground(Color.PINK);
-                    b62 = true;
-                }
-            }
-
-        } else if (b18 == true && b27 == true && b36 == true && b45 == true && b54 == true) {
-            if (b1 == false && b2 == false && b11 == false && b12 == false && b13 == false && b14 == false && b15 == false && b16 == false && b17 == false && b3 == false && b19 == false
-                    && b20 == false
-                    && b21 == false
-                    && b22 == false
-                    && b23 == false
-                    && b24 == false
-                    && b25 == false
-                    && b26 == false
-                    && b4 == false
-                    && b28 == false
-                    && b29 == false
-                    && b30 == false
-                    && b31 == false
-                    && b32 == false
-                    && b33 == false
-                    && b34 == false
-                    && b35 == false
-                    && b5 == false
-                    && b37 == false
-                    && b38 == false
-                    && b39 == false
-                    && b40 == false
-                    && b41 == false
-                    && b42 == false
-                    && b43 == false
-                    && b44 == false
-                    && b6 == false
-                    && b46 == false
-                    && b47 == false
-                    && b48 == false
-                    && b49 == false
-                    && b50 == false
-                    && b51 == false
-                    && b52 == false
-                    && b53 == false
-                    && b7 == false
-                    && b8 == false
-                    && b9 == false
-                    && b10 == false
-                    && b55 == false
-                    && b56 == false
-                    && b57 == false
-                    && b58 == false
-                    && b59 == false
-                    && b60 == false
-                    && b61 == false
-                    && b62 == false
-                    && b63 == false
-                    && b64 == false
-                    && b65 == false
-                    && b66 == false
-                    && b67 == false
-                    && b68 == false
-                    && b69 == false
-                    && b70 == false
-                    && b71 == false
-                    && b72 == false
-                    && b73 == false
-                    && b74 == false
-                    && b75 == false
-                    && b76 == false
-                    && b77 == false
-                    && b78 == false
-                    && b79 == false
-                    && b80 == false
-                    && b81 == false
-                    && b82 == false
-                    && b83 == false
-                    && b84 == false
-                    && b85 == false
-                    && b86 == false
-                    && b87 == false
-                    && b88 == false
-                    && b89 == false
-                    && b90 == false
-                    && b91 == false
-                    && b92 == false
-                    && b93 == false
-                    && b94 == false
-                    && b95 == false
-                    && b96 == false
-                    && b97 == false
-                    && b98 == false
-                    && b99 == false
-                    && b100 == false) {
-               
-                JOptionPane.showMessageDialog(null, "( x ) Marte", "Sopa de letras", JOptionPane.INFORMATION_MESSAGE, icon);
-                marte = true;
-                jButton18.setEnabled(false);
-                jButton27.setEnabled(false);
-                jButton36.setEnabled(false);
-                jButton45.setEnabled(false);
-                jButton54.setEnabled(false);
-                b18 = false;
-                b27 = false;
-                b36 = false;
-                b45 = false;
-                b54 = false;
-                ma.setVisible(true);
-            } else {
-                iniciar();
-                if (marte == true) {
-                    jButton18.setEnabled(false);
-                    jButton27.setEnabled(false);
-                    jButton36.setEnabled(false);
-                    jButton45.setEnabled(false);
-                    jButton54.setEnabled(false);
-                    jButton18.setBackground(Color.PINK);
-                    jButton27.setBackground(Color.PINK);
-                    jButton36.setBackground(Color.PINK);
-                    jButton45.setBackground(Color.PINK);
-                    jButton54.setBackground(Color.PINK);
-                }
-            }
-
-        } else if (b55 == true && b56 == true && b57 == true && b58 == true && b59 == true) {
-            if (b1 == false && b2 == false && b11 == false && b12 == false && b13 == false && b14 == false && b15 == false && b16 == false && b17 == false && b18 == false && b19 == false
-                    && b20 == false
-                    && b21 == false
-                    && b22 == false
-                    && b23 == false
-                    && b24 == false
-                    && b25 == false
-                    && b26 == false
-                    && b27 == false
-                    && b28 == false
-                    && b29 == false
-                    && b30 == false
-                    && b31 == false
-                    && b32 == false
-                    && b33 == false
-                    && b34 == false
-                    && b35 == false
-                    && b36 == false
-                    && b37 == false
-                    && b38 == false
-                    && b39 == false
-                    && b40 == false
-                    && b41 == false
-                    && b42 == false
-                    && b43 == false
-                    && b44 == false
-                    && b45 == false
-                    && b46 == false
-                    && b47 == false
-                    && b48 == false
-                    && b49 == false
-                    && b50 == false
-                    && b51 == false
-                    && b52 == false
-                    && b53 == false
-                    && b54 == false
-                    && b3 == false
-                    && b4 == false
-                    && b5 == false
-                    && b6 == false
-                    && b7 == false
-                    && b8 == false
-                    && b9 == false
-                    && b10 == false
-                    && b60 == false
-                    && b61 == false
-                    && b62 == false
-                    && b63 == false
-                    && b64 == false
-                    && b65 == false
-                    && b66 == false
-                    && b67 == false
-                    && b68 == false
-                    && b69 == false
-                    && b70 == false
-                    && b71 == false
-                    && b72 == false
-                    && b73 == false
-                    && b74 == false
-                    && b75 == false
-                    && b76 == false
-                    && b77 == false
-                    && b78 == false
-                    && b79 == false
-                    && b80 == false
-                    && b81 == false
-                    && b82 == false
-                    && b83 == false
-                    && b84 == false
-                    && b85 == false
-                    && b86 == false
-                    && b87 == false
-                    && b88 == false
-                    && b89 == false
-                    && b90 == false
-                    && b91 == false
-                    && b92 == false
-                    && b93 == false
-                    && b94 == false
-                    && b95 == false
-                    && b96 == false
-                    && b97 == false
-                    && b98 == false
-                    && b99 == false
-                    && b100 == false) {
-                
-                JOptionPane.showMessageDialog(null, "( x ) Venus", "Sopa de letras", JOptionPane.INFORMATION_MESSAGE, icon);
-                venus = true;
-                jButton55.setEnabled(false);
-                jButton56.setEnabled(false);
-                jButton57.setEnabled(false);
-                jButton58.setEnabled(false);
-                jButton59.setEnabled(false);
-                b55 = false;
-                b56 = false;
-                b57 = false;
-                b58 = false;
-                b59 = false;
-                ve.setVisible(true);
-            } else {
-                iniciar();
-                if (venus == true) {
-                    jButton55.setEnabled(false);
-                    jButton56.setEnabled(false);
-                    jButton57.setEnabled(false);
-                    jButton58.setEnabled(false);
-                    jButton59.setEnabled(false);
-                    jButton55.setBackground(Color.PINK);
-                    jButton56.setBackground(Color.PINK);
-                    jButton57.setBackground(Color.PINK);
-                    jButton58.setBackground(Color.PINK);
-                    jButton59.setBackground(Color.PINK);
-                }
-
-            }
-        } else if (b84 == true && b85 == true && b86 == true && b87 == true && b88 == true && b89 == true) {
-            if (b1 == false && b2 == false && b11 == false && b12 == false && b13 == false && b14 == false && b15 == false && b16 == false && b17 == false && b18 == false && b19 == false
-                    && b20 == false
-                    && b21 == false
-                    && b22 == false
-                    && b23 == false
-                    && b24 == false
-                    && b25 == false
-                    && b26 == false
-                    && b27 == false
-                    && b28 == false
-                    && b29 == false
-                    && b30 == false
-                    && b31 == false
-                    && b32 == false
-                    && b33 == false
-                    && b34 == false
-                    && b35 == false
-                    && b36 == false
-                    && b37 == false
-                    && b38 == false
-                    && b39 == false
-                    && b40 == false
-                    && b41 == false
-                    && b42 == false
-                    && b43 == false
-                    && b44 == false
-                    && b45 == false
-                    && b46 == false
-                    && b47 == false
-                    && b48 == false
-                    && b49 == false
-                    && b50 == false
-                    && b51 == false
-                    && b52 == false
-                    && b53 == false
-                    && b54 == false
-                    && b55 == false
-                    && b56 == false
-                    && b57 == false
-                    && b58 == false
-                    && b59 == false
-                    && b60 == false
-                    && b61 == false
-                    && b62 == false
-                    && b63 == false
-                    && b64 == false
-                    && b65 == false
-                    && b66 == false
-                    && b67 == false
-                    && b68 == false
-                    && b69 == false
-                    && b70 == false
-                    && b71 == false
-                    && b72 == false
-                    && b73 == false
-                    && b74 == false
-                    && b75 == false
-                    && b76 == false
-                    && b77 == false
-                    && b78 == false
-                    && b79 == false
-                    && b80 == false
-                    && b81 == false
-                    && b82 == false
-                    && b83 == false
-                    && b3 == false
-                    && b4 == false
-                    && b5 == false
-                    && b6 == false
-                    && b7 == false
-                    && b8 == false
-                    && b9 == false
-                    && b10 == false
-                    && b90 == false
-                    && b91 == false
-                    && b92 == false
-                    && b93 == false
-                    && b94 == false
-                    && b95 == false
-                    && b96 == false
-                    && b97 == false
-                    && b98 == false
-                    && b99 == false
-                    && b100 == false) {
-               
-                JOptionPane.showMessageDialog(null, "( x ) Tierra", "Sopa de letras", JOptionPane.INFORMATION_MESSAGE, icon);
-                tierra = true;
-                jButton84.setEnabled(false);
-                jButton85.setEnabled(false);
-                jButton86.setEnabled(false);
-                jButton87.setEnabled(false);
-                jButton88.setEnabled(false);
-                jButton89.setEnabled(false);
-                b84 = false;
-                b85 = false;
-                b86 = false;
-                b87 = false;
-                b88 = false;
-                b89 = false;
-                jButton84.setBackground(Color.PINK);
-                jButton85.setBackground(Color.PINK);
-                jButton86.setBackground(Color.PINK);
-                jButton87.setBackground(Color.PINK);
-                jButton88.setBackground(Color.PINK);
-                jButton89.setBackground(Color.PINK);
-                t.setVisible(true);
-            } else {
-                iniciar();
-                if (tierra == true) {
-                    jButton84.setEnabled(false);
-                    jButton85.setEnabled(false);
-                    jButton86.setEnabled(false);
-                    jButton87.setEnabled(false);
-                    jButton88.setEnabled(false);
-                    jButton89.setEnabled(false);
-                    jButton84.setBackground(Color.PINK);
-                    jButton85.setBackground(Color.PINK);
-                    jButton86.setBackground(Color.PINK);
-                    jButton87.setBackground(Color.PINK);
-                    jButton88.setBackground(Color.PINK);
-                    jButton89.setBackground(Color.PINK);
-                }
-            }
-        } else if (b61 == true && b62 == true || t1 == true && b63 == true && b64 == true && b65 == true && b66 == true && b67 == true) {
-            if (b1 == false && b2 == false && b11 == false && b12 == false && b13 == false && b14 == false && b15 == false && b16 == false && b17 == false && b18 == false && b19 == false
-                    && b20 == false
-                    && b21 == false
-                    && b22 == false
-                    && b23 == false
-                    && b24 == false
-                    && b25 == false
-                    && b26 == false
-                    && b27 == false
-                    && b28 == false
-                    && b29 == false
-                    && b30 == false
-                    && b31 == false
-                    && b32 == false
-                    && b33 == false
-                    && b34 == false
-                    && b35 == false
-                    && b36 == false
-                    && b37 == false
-                    && b38 == false
-                    && b39 == false
-                    && b40 == false
-                    && b41 == false
-                    && b42 == false
-                    && b43 == false
-                    && b44 == false
-                    && b45 == false
-                    && b46 == false
-                    && b47 == false
-                    && b48 == false
-                    && b49 == false
-                    && b50 == false
-                    && b51 == false
-                    && b52 == false
-                    && b53 == false
-                    && b54 == false
-                    && b55 == false
-                    && b56 == false
-                    && b57 == false
-                    && b58 == false
-                    && b59 == false
-                    && b60 == false
-                    && b3 == false
-                    && b4 == false
-                    && b5 == false
-                    && b6 == false
-                    && b7 == false
-                    && b8 == false
-                    && b9 == false
-                    && b10 == false
-                    && b68 == false
-                    && b69 == false
-                    && b70 == false
-                    && b71 == false
-                    && b72 == false
-                    && b73 == false
-                    && b74 == false
-                    && b75 == false
-                    && b76 == false
-                    && b77 == false
-                    && b78 == false
-                    && b79 == false
-                    && b80 == false
-                    && b81 == false
-                    && b82 == false
-                    && b83 == false
-                    && b84 == false
-                    && b85 == false
-                    && b86 == false
-                    && b87 == false
-                    && b88 == false
-                    && b89 == false
-                    && b90 == false
-                    && b91 == false
-                    && b92 == false
-                    && b93 == false
-                    && b94 == false
-                    && b95 == false
-                    && b96 == false
-                    && b97 == false
-                    && b98 == false
-                    && b99 == false
-                    && b100 == false) {
-                
-                JOptionPane.showMessageDialog(null, "( x ) Neptuno", "Sopa de letras", JOptionPane.INFORMATION_MESSAGE, icon);
-                neptuno = true;
-                jButton61.setEnabled(false);
-                jButton62.setEnabled(false);
-                jButton63.setEnabled(false);
-                jButton64.setEnabled(false);
-                jButton65.setEnabled(false);
-                jButton66.setEnabled(false);
-                jButton67.setEnabled(false);
-                b61 = false;
-                b62 = false;
-                b63 = false;
-                b64 = false;
-                b65 = false;
-                b66 = false;
-                b67 = false;
-                t1 = true;
-                n.setVisible(true);
-
-            } else {
-                iniciar();
-                if (neptuno == true) {
-                    jButton61.setEnabled(false);
-                    jButton62.setEnabled(false);
-                    jButton63.setEnabled(false);
-                    jButton64.setEnabled(false);
-                    jButton65.setEnabled(false);
-                    jButton66.setEnabled(false);
-                    jButton67.setEnabled(false);
-                    jButton61.setBackground(Color.PINK);
-                    jButton62.setBackground(Color.PINK);
-                    jButton63.setBackground(Color.PINK);
-                    jButton64.setBackground(Color.PINK);
-                    jButton65.setBackground(Color.PINK);
-                    jButton66.setBackground(Color.PINK);
-                    jButton67.setBackground(Color.PINK);
-                    b62 = true;
-                }
-            }
-        } else {
-            iniciar();
-            if (mercurio == true) {
-                jButton3.setEnabled(false);
-                jButton4.setEnabled(false);
-                jButton5.setEnabled(false);
-                jButton6.setEnabled(false);
-                jButton7.setEnabled(false);
-                jButton8.setEnabled(false);
-                jButton9.setEnabled(false);
-                jButton10.setEnabled(false);
-                jButton3.setBackground(Color.PINK);
-                jButton4.setBackground(Color.PINK);
-                jButton5.setBackground(Color.PINK);
-                jButton6.setBackground(Color.PINK);
-                jButton7.setBackground(Color.PINK);
-                jButton8.setBackground(Color.PINK);
-                jButton9.setBackground(Color.PINK);
-                jButton10.setBackground(Color.PINK);
-            }
-
-            if (jupiter == true) {
-                jButton12.setEnabled(false);
-                jButton22.setEnabled(false);
-                jButton32.setEnabled(false);
-                jButton42.setEnabled(false);
-                jButton52.setEnabled(false);
-                jButton62.setEnabled(false);
-                jButton72.setEnabled(false);
-                jButton12.setBackground(Color.PINK);
-                jButton22.setBackground(Color.PINK);
-                jButton32.setBackground(Color.PINK);
-                jButton42.setBackground(Color.PINK);
-                jButton52.setBackground(Color.PINK);
-                jButton62.setBackground(Color.PINK);
-                jButton72.setBackground(Color.PINK);
-                b62 = true;
-            }
-
-            if (marte == true) {
-                jButton18.setEnabled(false);
-                jButton27.setEnabled(false);
-                jButton36.setEnabled(false);
-                jButton45.setEnabled(false);
-                jButton54.setEnabled(false);
-                jButton18.setBackground(Color.PINK);
-                jButton27.setBackground(Color.PINK);
-                jButton36.setBackground(Color.PINK);
-                jButton45.setBackground(Color.PINK);
-                jButton54.setBackground(Color.PINK);
-            }
-
-            if (venus == true) {
-                jButton55.setEnabled(false);
-                jButton56.setEnabled(false);
-                jButton57.setEnabled(false);
-                jButton58.setEnabled(false);
-                jButton59.setEnabled(false);
-                jButton55.setBackground(Color.PINK);
-                jButton56.setBackground(Color.PINK);
-                jButton57.setBackground(Color.PINK);
-                jButton58.setBackground(Color.PINK);
-                jButton59.setBackground(Color.PINK);
-            }
-
-            if (tierra == true) {
-                jButton84.setEnabled(false);
-                jButton85.setEnabled(false);
-                jButton86.setEnabled(false);
-                jButton87.setEnabled(false);
-                jButton88.setEnabled(false);
-                jButton89.setEnabled(false);
-                jButton84.setBackground(Color.PINK);
-                jButton85.setBackground(Color.PINK);
-                jButton86.setBackground(Color.PINK);
-                jButton87.setBackground(Color.PINK);
-                jButton88.setBackground(Color.PINK);
-                jButton89.setBackground(Color.PINK);
-            }
-
-            if (neptuno == true) {
-                jButton61.setEnabled(false);
-                jButton62.setEnabled(false);
-                jButton63.setEnabled(false);
-                jButton64.setEnabled(false);
-                jButton65.setEnabled(false);
-                jButton66.setEnabled(false);
-                jButton67.setEnabled(false);
-                jButton61.setBackground(Color.PINK);
-                jButton62.setBackground(Color.PINK);
-                jButton63.setBackground(Color.PINK);
-                jButton64.setBackground(Color.PINK);
-                jButton65.setBackground(Color.PINK);
-                jButton66.setBackground(Color.PINK);
-                jButton67.setBackground(Color.PINK);
-                b62 = true;
-            }
-        }
-
-        if (neptuno == true && jupiter == true) {
-            b62 = false;
-        }
-    }
 
     private void reiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarActionPerformed
-        llenar();
-        iniciar();
-        jButton3.setEnabled(true);
-        jButton4.setEnabled(true);
-        jButton5.setEnabled(true);
-        jButton6.setEnabled(true);
-        jButton7.setEnabled(true);
-        jButton8.setEnabled(true);
-        jButton9.setEnabled(true);
-        jButton10.setEnabled(true);
-        jButton12.setEnabled(true);
-        jButton22.setEnabled(true);
-        jButton32.setEnabled(true);
-        jButton42.setEnabled(true);
-        jButton52.setEnabled(true);
-        jButton62.setEnabled(true);
-        jButton72.setEnabled(true);
-        jButton18.setEnabled(true);
-        jButton27.setEnabled(true);
-        jButton36.setEnabled(true);
-        jButton45.setEnabled(true);
-        jButton54.setEnabled(true);
-        jButton55.setEnabled(true);
-        jButton56.setEnabled(true);
-        jButton57.setEnabled(true);
-        jButton58.setEnabled(true);
-        jButton59.setEnabled(true);
-        jButton84.setEnabled(true);
-        jButton85.setEnabled(true);
-        jButton86.setEnabled(true);
-        jButton87.setEnabled(true);
-        jButton88.setEnabled(true);
-        jButton89.setEnabled(true);
-        jButton12.setEnabled(true);
-        jButton22.setEnabled(true);
-        jButton32.setEnabled(true);
-        jButton42.setEnabled(true);
-        jButton52.setEnabled(true);
-        jButton62.setEnabled(true);
-        jButton72.setEnabled(true);
-        jButton61.setEnabled(true);
-        jButton62.setEnabled(true);
-        jButton63.setEnabled(true);
-        jButton64.setEnabled(true);
-        jButton65.setEnabled(true);
-        jButton66.setEnabled(true);
-        jButton67.setEnabled(true);
-        tierra = false;
-        venus = false;
-        mercurio = false;
-        marte = false;
-        jupiter = false;
-        neptuno = false;
+        reiniciarJuego();
     }//GEN-LAST:event_reiniciarActionPerformed
 
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
-
         main.Menu menu = new main.Menu();
         this.setVisible(false);
         menu.setVisible(true);
@@ -3452,208 +1928,314 @@ public class sopadeletras extends javax.swing.JFrame {
         flechas.setVisible(false);
     }//GEN-LAST:event_volverMouseExited
 
-    public void iniciar() {
-        jButton1.setBackground(Color.LIGHT_GRAY);
-        jButton2.setBackground(Color.LIGHT_GRAY);
-        jButton3.setBackground(Color.LIGHT_GRAY);
-        jButton4.setBackground(Color.LIGHT_GRAY);
-        jButton5.setBackground(Color.LIGHT_GRAY);
-        jButton6.setBackground(Color.LIGHT_GRAY);
-        jButton7.setBackground(Color.LIGHT_GRAY);
-        jButton8.setBackground(Color.LIGHT_GRAY);
-        jButton9.setBackground(Color.LIGHT_GRAY);
-        jButton10.setBackground(Color.LIGHT_GRAY);
-        jButton11.setBackground(Color.LIGHT_GRAY);
-        jButton12.setBackground(Color.LIGHT_GRAY);
-        jButton13.setBackground(Color.LIGHT_GRAY);
-        jButton14.setBackground(Color.LIGHT_GRAY);
-        jButton15.setBackground(Color.LIGHT_GRAY);
-        jButton16.setBackground(Color.LIGHT_GRAY);
-        jButton17.setBackground(Color.LIGHT_GRAY);
-        jButton18.setBackground(Color.LIGHT_GRAY);
-        jButton19.setBackground(Color.LIGHT_GRAY);
-        jButton20.setBackground(Color.LIGHT_GRAY);
-        jButton21.setBackground(Color.LIGHT_GRAY);
-        jButton22.setBackground(Color.LIGHT_GRAY);
-        jButton23.setBackground(Color.LIGHT_GRAY);
-        jButton24.setBackground(Color.LIGHT_GRAY);
-        jButton25.setBackground(Color.LIGHT_GRAY);
-        jButton26.setBackground(Color.LIGHT_GRAY);
-        jButton27.setBackground(Color.LIGHT_GRAY);
-        jButton28.setBackground(Color.LIGHT_GRAY);
-        jButton29.setBackground(Color.LIGHT_GRAY);
-        jButton30.setBackground(Color.LIGHT_GRAY);
-        jButton31.setBackground(Color.LIGHT_GRAY);
-        jButton32.setBackground(Color.LIGHT_GRAY);
-        jButton33.setBackground(Color.LIGHT_GRAY);
-        jButton34.setBackground(Color.LIGHT_GRAY);
-        jButton35.setBackground(Color.LIGHT_GRAY);
-        jButton36.setBackground(Color.LIGHT_GRAY);
-        jButton37.setBackground(Color.LIGHT_GRAY);
-        jButton38.setBackground(Color.LIGHT_GRAY);
-        jButton39.setBackground(Color.LIGHT_GRAY);
-        jButton40.setBackground(Color.LIGHT_GRAY);
-        jButton41.setBackground(Color.LIGHT_GRAY);
-        jButton42.setBackground(Color.LIGHT_GRAY);
-        jButton43.setBackground(Color.LIGHT_GRAY);
-        jButton44.setBackground(Color.LIGHT_GRAY);
-        jButton45.setBackground(Color.LIGHT_GRAY);
-        jButton46.setBackground(Color.LIGHT_GRAY);
-        jButton47.setBackground(Color.LIGHT_GRAY);
-        jButton48.setBackground(Color.LIGHT_GRAY);
-        jButton49.setBackground(Color.LIGHT_GRAY);
-        jButton50.setBackground(Color.LIGHT_GRAY);
-        jButton51.setBackground(Color.LIGHT_GRAY);
-        jButton52.setBackground(Color.LIGHT_GRAY);
-        jButton53.setBackground(Color.LIGHT_GRAY);
-        jButton54.setBackground(Color.LIGHT_GRAY);
-        jButton55.setBackground(Color.LIGHT_GRAY);
-        jButton56.setBackground(Color.LIGHT_GRAY);
-        jButton57.setBackground(Color.LIGHT_GRAY);
-        jButton58.setBackground(Color.LIGHT_GRAY);
-        jButton59.setBackground(Color.LIGHT_GRAY);
-        jButton60.setBackground(Color.LIGHT_GRAY);
-        jButton61.setBackground(Color.LIGHT_GRAY);
-        jButton62.setBackground(Color.LIGHT_GRAY);
-        jButton63.setBackground(Color.LIGHT_GRAY);
-        jButton64.setBackground(Color.LIGHT_GRAY);
-        jButton65.setBackground(Color.LIGHT_GRAY);
-        jButton66.setBackground(Color.LIGHT_GRAY);
-        jButton67.setBackground(Color.LIGHT_GRAY);
-        jButton68.setBackground(Color.LIGHT_GRAY);
-        jButton69.setBackground(Color.LIGHT_GRAY);
-        jButton71.setBackground(Color.LIGHT_GRAY);
-        jButton72.setBackground(Color.LIGHT_GRAY);
-        jButton73.setBackground(Color.LIGHT_GRAY);
-        jButton74.setBackground(Color.LIGHT_GRAY);
-        jButton75.setBackground(Color.LIGHT_GRAY);
-        jButton76.setBackground(Color.LIGHT_GRAY);
-        jButton77.setBackground(Color.LIGHT_GRAY);
-        jButton78.setBackground(Color.LIGHT_GRAY);
-        jButton79.setBackground(Color.LIGHT_GRAY);
-        jButton80.setBackground(Color.LIGHT_GRAY);
-        jButton81.setBackground(Color.LIGHT_GRAY);
-        jButton82.setBackground(Color.LIGHT_GRAY);
-        jButton83.setBackground(Color.LIGHT_GRAY);
-        jButton84.setBackground(Color.LIGHT_GRAY);
-        jButton85.setBackground(Color.LIGHT_GRAY);
-        jButton86.setBackground(Color.LIGHT_GRAY);
-        jButton87.setBackground(Color.LIGHT_GRAY);
-        jButton88.setBackground(Color.LIGHT_GRAY);
-        jButton89.setBackground(Color.LIGHT_GRAY);
-        jButton90.setBackground(Color.LIGHT_GRAY);
-        jButton91.setBackground(Color.LIGHT_GRAY);
-        jButton92.setBackground(Color.LIGHT_GRAY);
-        jButton93.setBackground(Color.LIGHT_GRAY);
-        jButton94.setBackground(Color.LIGHT_GRAY);
-        jButton95.setBackground(Color.LIGHT_GRAY);
-        jButton96.setBackground(Color.LIGHT_GRAY);
-        jButton97.setBackground(Color.LIGHT_GRAY);
-        jButton98.setBackground(Color.LIGHT_GRAY);
-        jButton99.setBackground(Color.LIGHT_GRAY);
-        jButton100.setBackground(Color.LIGHT_GRAY);
+    private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton99ActionPerformed
 
-        b1 = false;
-        b2 = false;
-        b3 = false;
-        b4 = false;
-        b5 = false;
-        b6 = false;
-        b7 = false;
-        b8 = false;
-        b9 = false;
-        b10 = false;
-        b11 = false;
-        b12 = false;
-        b13 = false;
-        b14 = false;
-        b15 = false;
-        b16 = false;
-        b17 = false;
-        b18 = false;
-        b19 = false;
-        b20 = false;
-        b21 = false;
-        b22 = false;
-        b23 = false;
-        b24 = false;
-        b25 = false;
-        b26 = false;
-        b27 = false;
-        b28 = false;
-        b29 = false;
-        b30 = false;
-        b31 = false;
-        b32 = false;
-        b33 = false;
-        b34 = false;
-        b35 = false;
-        b36 = false;
-        b37 = false;
-        b38 = false;
-        b39 = false;
-        b40 = false;
-        b41 = false;
-        b42 = false;
-        b43 = false;
-        b44 = false;
-        b45 = false;
-        b46 = false;
-        b47 = false;
-        b48 = false;
-        b49 = false;
-        b50 = false;
-        b51 = false;
-        b52 = false;
-        b53 = false;
-        b54 = false;
-        b55 = false;
-        b56 = false;
-        b57 = false;
-        b58 = false;
-        b59 = false;
-        b60 = false;
-        b61 = false;
-        b62 = false;
-        b63 = false;
-        b64 = false;
-        b65 = false;
-        b66 = false;
-        b67 = false;
-        b68 = false;
-        b69 = false;
-        b70 = false;
-        b71 = false;
-        b72 = false;
-        b73 = false;
-        b74 = false;
-        b75 = false;
-        b76 = false;
-        b77 = false;
-        b78 = false;
-        b79 = false;
-        b80 = false;
-        b81 = false;
-        b82 = false;
-        b83 = false;
-        b84 = false;
-        b85 = false;
-        b86 = false;
-        b87 = false;
-        b88 = false;
-        b89 = false;
-        b90 = false;
-        b91 = false;
-        b92 = false;
-        b93 = false;
-        b94 = false;
-        b95 = false;
-        b96 = false;
-        b97 = false;
-        b98 = false;
-        b99 = false;
-        b100 = false;
+    }//GEN-LAST:event_jButton99ActionPerformed
 
+    private void jButton100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton100ActionPerformed
+
+    }//GEN-LAST:event_jButton100ActionPerformed
+
+    private void pista1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pista1ActionPerformed
+        for (Palabra p : listaPalabras) {
+            if (!palabrasEncontradas.contains(p.texto) && p.posiciones.length > 0) {
+                botones[p.posiciones[0]].setBackground(Color.YELLOW);
+                break;
+            }
+        }
+    }//GEN-LAST:event_pista1ActionPerformed
+
+    private void generarTablero() {
+        seleccionActual.clear();
+        palabrasEncontradas.clear();
+
+        for (Palabra p : listaPalabras) {
+            p.etiqueta.setForeground(Color.WHITE);
+        }
+
+        m.setVisible(false);
+        j.setVisible(false);
+        ma.setVisible(false);
+        ve.setVisible(false);
+        t.setVisible(false);
+        n.setVisible(false);
+
+        for (int i = 1; i <= 100; i++) {
+            botones[i].setText("");
+            botones[i].setBackground(colorNormal);
+            botones[i].setEnabled(true);
+        }
+
+        for (Palabra p : listaPalabras) {
+            colocarPalabraAleatoria(p);
+        }
+
+        Random r = new Random();
+        for (int i = 1; i <= 100; i++) {
+            if (botones[i].getText().isEmpty()) {
+                botones[i].setText(String.valueOf((char) ('A' + r.nextInt(26))));
+            }
+        }
+    }
+
+    private void reiniciarJuego() {
+        segundos = 0;
+        lblTiempo.setText("Tiempo: 0s");
+        timer.restart();
+        generarTablero();
+    }
+
+    private void colocarPalabraAleatoria(Palabra p) {
+
+        Random rnd = new Random();
+        boolean colocada = false;
+
+        while (!colocada) {
+
+            int fila = rnd.nextInt(10);
+            int col = rnd.nextInt(10);
+
+            int orientacion = rnd.nextInt(4);
+
+            int dFila = 0, dCol = 0;
+
+            switch (orientacion) {
+                case 0 ->
+                    dCol = 1;
+                case 1 ->
+                    dCol = -1;
+                case 2 ->
+                    dFila = 1;
+                case 3 ->
+                    dFila = -1;
+            }
+
+            int f = fila;
+            int c = col;
+            boolean valido = true;
+
+            for (int i = 0; i < p.texto.length(); i++) {
+                if (f < 0 || f > 9 || c < 0 || c > 9) {
+                    valido = false;
+                    break;
+                }
+
+                int index = f * 10 + c + 1;
+                String letraActual = botones[index].getText();
+
+                if (!letraActual.isEmpty()
+                        && letraActual.charAt(0) != p.texto.charAt(i)) {
+                    valido = false;
+                    break;
+                }
+
+                f += dFila;
+                c += dCol;
+            }
+
+            if (!valido) {
+                continue;
+            }
+
+            f = fila;
+            c = col;
+            p.posiciones = new int[p.texto.length()];
+
+            for (int i = 0; i < p.texto.length(); i++) {
+                int index = f * 10 + c + 1;
+                botones[index].setText(String.valueOf(p.texto.charAt(i)));
+                p.posiciones[i] = index;
+
+                f += dFila;
+                c += dCol;
+            }
+
+            colocada = true;
+        }
+    }
+
+    private boolean puedeColocar(Palabra p, int fila, int col, int dir) {
+
+        int len = p.texto.length();
+
+        if (dir == 0) {
+            if (col + len > 10) {
+                return false;
+            }
+
+            for (int i = 0; i < len; i++) {
+                int index = fila * 10 + (col + i) + 1;
+                String letra = botones[index].getText();
+
+                if (!letra.equals("") && letra.charAt(0) != p.texto.charAt(i)) {
+                    return false;
+                }
+            }
+
+        } else {
+            if (fila + len > 10) {
+                return false;
+            }
+
+            for (int i = 0; i < len; i++) {
+                int index = (fila + i) * 10 + col + 1;
+                String letra = botones[index].getText();
+
+                if (!letra.equals("") && letra.charAt(0) != p.texto.charAt(i)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private void seleccionarBoton(int index) {
+
+        JButton b = botones[index];
+
+        if (!b.isEnabled()) {
+            return;
+        }
+
+        if (b.getBackground().equals(colorSeleccionado)) {
+            b.setBackground(colorNormal);
+            seleccionActual.remove(Integer.valueOf(index));
+            return;
+        }
+
+        b.setBackground(colorSeleccionado);
+        seleccionActual.add(index);
+
+        verificarSeleccion();
+    }
+
+    private void verificarSeleccion() {
+
+        if (seleccionActual.isEmpty()) {
+            return;
+        }
+
+        for (Palabra p : listaPalabras) {
+
+            if (palabrasEncontradas.contains(p.texto)) {
+                continue;
+            }
+
+            boolean haySeleccion = false;
+            boolean completa = true;
+
+            for (int pos : p.posiciones) {
+                boolean estaSeleccionado = seleccionActual.contains(pos);
+                boolean yaEncontrado = botones[pos].getBackground().equals(colorEncontrado);
+
+                if (estaSeleccionado) {
+                    haySeleccion = true;
+                }
+
+                if (!estaSeleccionado && !yaEncontrado) {
+                    completa = false;
+                    break;
+                }
+            }
+
+            if (completa && haySeleccion) {
+                palabrasEncontradas.add(p.texto);
+                colorearPalabra(p);
+                JOptionPane.showMessageDialog(
+                        this,
+                        "¡Encontraste: " + p.texto + "!",
+                        "Sopa de letras",
+                        JOptionPane.PLAIN_MESSAGE,
+                        icon
+                );
+                seleccionActual.clear();
+                return;
+            }
+        }
+
+        if (seleccionActual.size() > MAX_LONGITUD_PALABRA) {
+            resetSeleccion();
+        }
+    }
+
+    private void colorearPalabra(Palabra p) {
+
+        for (int idx : p.posiciones) {
+            botones[idx].setBackground(colorEncontrado);
+            botones[idx].setEnabled(false);
+        }
+
+        p.etiqueta.setForeground(Color.GREEN);
+
+        switch (p.texto) {
+            case "MERCURIO" ->
+                m.setVisible(true);
+            case "JUPITER" ->
+                j.setVisible(true);
+            case "MARTE" ->
+                ma.setVisible(true);
+            case "VENUS" ->
+                ve.setVisible(true);
+            case "TIERRA" ->
+                t.setVisible(true);
+            case "NEPTUNO" ->
+                n.setVisible(true);
+        }
+
+        if (palabrasEncontradas.size() == listaPalabras.length) {
+
+            timer.stop();
+
+            efectoVictoria();
+
+            Icon winIcon = new ImageIcon(
+                    getClass().getResource("sopaimg/happy_cat.gif")
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "¡FELICIDADES!\n¡Completaste la sopa de letras!\nCon un tiempo de: " + segundos + "s",
+                    "Victoria",
+                    JOptionPane.PLAIN_MESSAGE,
+                    winIcon
+            );
+        }
+
+    }
+
+    private void efectoVictoria() {
+        new Thread(() -> {
+            try {
+                for (int k = 0; k < 3; k++) {
+                    for (int i = 1; i <= 100; i++) {
+                        botones[i].setBackground(Color.GREEN);
+                    }
+                    Thread.sleep(250);
+
+                    for (int i = 1; i <= 100; i++) {
+                        if (botones[i].isEnabled()) {
+                            botones[i].setBackground(colorNormal);
+                        } else {
+                            botones[i].setBackground(colorEncontrado);
+                        }
+                    }
+                    Thread.sleep(250);
+                }
+            } catch (Exception ignored) {
+            }
+        }).start();
+    }
+
+    private void resetSeleccion() {
+        for (int idx : seleccionActual) {
+
+            if (botones[idx].isEnabled()
+                    && !botones[idx].getBackground().equals(colorEncontrado)) {
+                botones[idx].setBackground(colorNormal);
+            }
+        }
+        seleccionActual.clear();
     }
 
     /**
@@ -3702,7 +2284,6 @@ public class sopadeletras extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton completar;
-    private javax.swing.JButton comprobar;
     private javax.swing.JLabel flechas;
     private javax.swing.JLabel j;
     private javax.swing.JButton jButton1;
@@ -3829,6 +2410,7 @@ public class sopadeletras extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jupiterlbl;
+    private javax.swing.JButton lblTiempo;
     private javax.swing.JLabel m;
     private javax.swing.JLabel ma;
     private javax.swing.JLabel marco;
@@ -3837,7 +2419,7 @@ public class sopadeletras extends javax.swing.JFrame {
     private javax.swing.JLabel n;
     private javax.swing.JLabel neptunolbl;
     private javax.swing.JLabel palabras1;
-    private javax.swing.JButton pista;
+    private javax.swing.JButton pista1;
     private javax.swing.JButton reiniciar;
     private javax.swing.JLabel t;
     private javax.swing.JLabel tierralbl;
