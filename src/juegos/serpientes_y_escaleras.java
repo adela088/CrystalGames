@@ -4,6 +4,8 @@
  */
 package juegos;
 
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.awt.Toolkit;
 import java.util.Random;
 import javax.swing.Icon;
@@ -21,6 +23,7 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
      * Creates new form serpientes_y_escaleras
      */
     public serpientes_y_escaleras() {
+        this.setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
         reinicio.setEnabled(false);
@@ -228,9 +231,9 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
         jPanel1.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 20, 690));
         jPanel1.add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 1130, 20));
 
-        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
-        volver.setText("Volver");
+        volver.setText("VOLVER");
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -242,7 +245,7 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
                 volverMouseExited(evt);
             }
         });
-        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 610, 60, -1));
+        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1038, 610, 60, -1));
 
         p1.setToolTipText("Nombre");
         p1.addActionListener(new java.awt.event.ActionListener() {
@@ -321,10 +324,14 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
 
     private void volverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseEntered
         flechas.setVisible(true);
+        volver.setForeground(pink);
+        flechas.setForeground(pink);
     }//GEN-LAST:event_volverMouseEntered
 
     private void volverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseExited
         flechas.setVisible(false);
+        volver.setForeground(white);
+        flechas.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
 
     private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed

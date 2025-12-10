@@ -4,6 +4,9 @@
  */
 package juegos;
 
+import java.awt.Color;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ public class carreras extends javax.swing.JFrame {
     private final List<String> ordenLlegada = new ArrayList<>();
 
     public carreras() {
-
+        this.setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -68,6 +71,7 @@ public class carreras extends javax.swing.JFrame {
     public Icon normal = new ImageIcon(getClass().getResource("blackjackimg\\cat.gif"));
     public Icon win = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
     public String nombre1 = "Carro 1", nombre2 = "Carro 2", nombre3 = "Carro 3";
+    public Icon carrito = new ImageIcon(getClass().getResource("/carrerasimg/cargif_2.gif"));
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,12 +84,12 @@ public class carreras extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        marco = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        marco1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         pista = new javax.swing.JPanel();
         Carro1 = new javax.swing.JLabel();
@@ -109,6 +113,7 @@ public class carreras extends javax.swing.JFrame {
         line = new javax.swing.JPanel();
         line1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        marco1 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1000, 0), new java.awt.Dimension(1000, 0), new java.awt.Dimension(1000, 32767));
         Reiniciar = new javax.swing.JButton();
@@ -153,7 +158,16 @@ public class carreras extends javax.swing.JFrame {
         c1 = new javax.swing.JLabel();
         c2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        marco = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        marco3 = new javax.swing.JLabel();
+
+        marco.setBackground(new java.awt.Color(255, 204, 255));
+        marco.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
+        marco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Carreras");
@@ -163,22 +177,17 @@ public class carreras extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1130, 690));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/75.gif"))); // NOI18N
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, 10));
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/carree.gif"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 612, -1, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 610, 320, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/carree.gif"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 612, 280, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 610, 280, 20));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/carree.gif"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 612, -1, 20));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/carree.gif"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 612, -1, 20));
-
-        marco1.setBackground(new java.awt.Color(255, 204, 255));
-        marco1.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
-        marco1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 100, 765, 515));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 610, -1, 20));
 
         jPanel2.setBackground(new java.awt.Color(46, 44, 48));
 
@@ -439,6 +448,11 @@ public class carreras extends javax.swing.JFrame {
         jLabel1.setText("- - - - - - - - - - - - - - - - - - - - - -");
         pista.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, -1));
 
+        marco1.setBackground(new java.awt.Color(255, 204, 255));
+        marco1.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
+        marco1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pista.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -120, 765, 515));
+
         jPanel17.setBackground(new java.awt.Color(0, 153, 0));
         jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -447,7 +461,15 @@ public class carreras extends javax.swing.JFrame {
         Reiniciar.setBackground(new java.awt.Color(204, 204, 255));
         Reiniciar.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
         Reiniciar.setText("INICIAR CARRERA");
-        Reiniciar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        Reiniciar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Reiniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ReiniciarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ReiniciarMouseExited(evt);
+            }
+        });
         Reiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReiniciarActionPerformed(evt);
@@ -590,11 +612,11 @@ public class carreras extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI Historic", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Posiciones");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 150, 240, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 140, 240, -1));
 
-        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
-        volver.setText("Volver");
+        volver.setText("VOLVER");
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -606,7 +628,7 @@ public class carreras extends javax.swing.JFrame {
                 volverMouseExited(evt);
             }
         });
-        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 610, 60, -1));
+        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1038, 610, 60, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/blackjackimg/pinkyc.gif"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 605, -1, -1));
@@ -619,9 +641,11 @@ public class carreras extends javax.swing.JFrame {
         tabla.setEditable(false);
         tabla.setBackground(new java.awt.Color(224, 224, 255));
         tabla.setColumns(20);
-        tabla.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        tabla.setFont(new java.awt.Font("Segoe UI Historic", 2, 14)); // NOI18N
+        tabla.setLineWrap(true);
         tabla.setRows(5);
         tabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tabla.setCaretColor(new java.awt.Color(242, 242, 242));
         jScrollPane1.setViewportView(tabla);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 210, 250, 110));
@@ -639,7 +663,7 @@ public class carreras extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI Historic", 0, 36)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Jugadores");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 330, 250, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 320, 250, -1));
 
         c3.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         c3.setForeground(new java.awt.Color(255, 255, 255));
@@ -656,7 +680,7 @@ public class carreras extends javax.swing.JFrame {
                 c3MouseExited(evt);
             }
         });
-        jPanel1.add(c3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 540, 190, 90));
+        jPanel1.add(c3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 530, 190, 90));
 
         c1.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         c1.setForeground(new java.awt.Color(255, 255, 255));
@@ -673,7 +697,7 @@ public class carreras extends javax.swing.JFrame {
                 c1MouseExited(evt);
             }
         });
-        jPanel1.add(c1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 370, 190, 90));
+        jPanel1.add(c1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 360, 190, 90));
 
         c2.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         c2.setForeground(new java.awt.Color(255, 255, 255));
@@ -690,17 +714,37 @@ public class carreras extends javax.swing.JFrame {
                 c2MouseExited(evt);
             }
         });
-        jPanel1.add(c2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 460, 190, 90));
+        jPanel1.add(c2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 450, 190, 90));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI Historic", 0, 36)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Tabla de");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 100, 240, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 90, 140, -1));
 
-        marco.setBackground(new java.awt.Color(255, 204, 255));
-        marco.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
-        marco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(marco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 1100, 660));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/75.gif"))); // NOI18N
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/crystal-line.gif"))); // NOI18N
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 190, 50, -1));
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/crystal-line.gif"))); // NOI18N
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 190, -1, -1));
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/crystal-line.gif"))); // NOI18N
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 190, -1, -1));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrerasimg/asteroid.gif"))); // NOI18N
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 80, -1, -1));
+
+        marco3.setBackground(new java.awt.Color(255, 204, 255));
+        marco3.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
+        marco3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        marco3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                marco3MouseEntered(evt);
+            }
+        });
+        jPanel1.add(marco3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 1100, 660));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -744,10 +788,13 @@ public class carreras extends javax.swing.JFrame {
 
     private void volverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseEntered
         flechas.setVisible(true);
+        volver.setForeground(pink);
+        flechas.setForeground(pink);
     }//GEN-LAST:event_volverMouseEntered
 
     private void volverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseExited
         flechas.setVisible(false);
+        volver.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
 
     private void Carro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Carro1MouseClicked
@@ -970,28 +1017,40 @@ public class carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_c3MouseClicked
 
     private void c1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c1MouseEntered
-        c1.setLocation(c1.getX(), c1.getY() - 5);
+        c1.setLocation(840, 350);
     }//GEN-LAST:event_c1MouseEntered
 
     private void c1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c1MouseExited
-        c1.setLocation(c1.getX(), c1.getY() + 5);
+        c1.setLocation(840, 360);
     }//GEN-LAST:event_c1MouseExited
 
     private void c2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c2MouseEntered
-        c2.setLocation(c2.getX(), c2.getY() - 5);
+        c2.setLocation(840, 440);
     }//GEN-LAST:event_c2MouseEntered
 
     private void c2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c2MouseExited
-        c2.setLocation(c2.getX(), c2.getY() + 5);
+        c2.setLocation(840, 450);
     }//GEN-LAST:event_c2MouseExited
 
     private void c3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c3MouseEntered
-        c3.setLocation(c3.getX(), c3.getY() - 5);
+        c3.setLocation(840, 520);
     }//GEN-LAST:event_c3MouseEntered
 
     private void c3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_c3MouseExited
-        c2.setLocation(c2.getX(), c2.getY() - 5);
+        c3.setLocation(840, 530);
     }//GEN-LAST:event_c3MouseExited
+
+    private void marco3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marco3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marco3MouseEntered
+
+    private void ReiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReiniciarMouseEntered
+        Reiniciar.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_ReiniciarMouseEntered
+
+    private void ReiniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReiniciarMouseExited
+        Reiniciar.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_ReiniciarMouseExited
 
     public synchronized boolean isCarreraActiva() {
         return carreraActiva;
@@ -1071,7 +1130,7 @@ public class carreras extends javax.swing.JFrame {
                     sb.toString(),
                     "Resultados",
                     JOptionPane.INFORMATION_MESSAGE,
-                    win
+                    carrito
             );
 
             // Resetea las posiciones
@@ -1174,10 +1233,15 @@ public class carreras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1206,6 +1270,7 @@ public class carreras extends javax.swing.JFrame {
     private javax.swing.JLabel marco;
     private javax.swing.JLabel marco1;
     private javax.swing.JLabel marco2;
+    private javax.swing.JLabel marco3;
     private javax.swing.JLabel paddock;
     private javax.swing.JLabel pasto;
     private javax.swing.JLabel pasto10;

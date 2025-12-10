@@ -4,6 +4,8 @@
  */
 package main;
 
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
@@ -27,6 +29,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setIcon();
+        this.setResizable(false);
 
     }
 
@@ -347,10 +350,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void salirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salirMouseEntered
         salir.setLocation(530, 615);
+        salir.setForeground(pink);
     }//GEN-LAST:event_salirMouseEntered
 
     private void salirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salirMouseExited
         salir.setLocation(530, 620);
+        salir.setForeground(white);
     }//GEN-LAST:event_salirMouseExited
 
     private void serpienteslogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_serpienteslogoMouseClicked

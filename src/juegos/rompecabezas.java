@@ -4,6 +4,8 @@
  */
 package juegos;
 
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.awt.Toolkit;
 import java.util.Random;
 import java.util.Stack;
@@ -24,6 +26,7 @@ public class rompecabezas extends javax.swing.JFrame {
      * Creates new form rompecabezas
      */
     public rompecabezas() {
+        this.setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
         nueve.setVisible(false);
@@ -43,9 +46,9 @@ public class rompecabezas extends javax.swing.JFrame {
         flechas.setVisible(false);
         setIcon();
     }
-    
+
     private void setIcon() {
-       setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
     }
 
     public Icon uno1 = new ImageIcon(getClass().getResource("puzzleimg\\1.png"));
@@ -346,9 +349,9 @@ public class rompecabezas extends javax.swing.JFrame {
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 260, 110));
 
-        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
-        volver.setText("Volver");
+        volver.setText("VOLVER");
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -360,7 +363,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 volverMouseExited(evt);
             }
         });
-        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 610, 60, -1));
+        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1038, 610, 60, -1));
 
         jLabel14.setFont(new java.awt.Font("SimSun", 0, 48)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -717,10 +720,14 @@ public class rompecabezas extends javax.swing.JFrame {
 
     private void volverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseEntered
         flechas.setVisible(true);
+        volver.setForeground(pink);
+        flechas.setForeground(pink);
     }//GEN-LAST:event_volverMouseEntered
 
     private void volverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseExited
         flechas.setVisible(false);
+        volver.setForeground(white);
+        flechas.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

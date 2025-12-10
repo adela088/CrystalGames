@@ -4,6 +4,9 @@
  */
 package juegos;
 
+import java.awt.Color;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.awt.Toolkit;
 import java.util.Arrays;
 import java.util.Random;
@@ -38,6 +41,7 @@ public class blackjack extends javax.swing.JFrame {
      * Creates new form a
      */
     public blackjack() {
+        this.setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
         flechas.setVisible(false);
@@ -56,10 +60,11 @@ public class blackjack extends javax.swing.JFrame {
         fichav.setText("" + din);
         setIcon();
     }
+
     private void setIcon() {
-       setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
     }
-    
+
     public String apuesta;
     public static Random random = new Random();
     public static Scanner leer = new Scanner(System.in);
@@ -402,6 +407,14 @@ public class blackjack extends javax.swing.JFrame {
         pararBoton.setText("Parar");
         pararBoton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pararBoton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/blackjackimg/stop.png"))); // NOI18N
+        pararBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pararBotonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pararBotonMouseExited(evt);
+            }
+        });
         pararBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pararBotonActionPerformed(evt);
@@ -426,6 +439,14 @@ public class blackjack extends javax.swing.JFrame {
         repartirBoton.setText("Repartir");
         repartirBoton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         repartirBoton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/blackjackimg/dados.png"))); // NOI18N
+        repartirBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                repartirBotonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                repartirBotonMouseExited(evt);
+            }
+        });
         repartirBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 repartirBotonActionPerformed(evt);
@@ -444,6 +465,14 @@ public class blackjack extends javax.swing.JFrame {
         cartaBoton.setText("+ Carta");
         cartaBoton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cartaBoton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/blackjackimg/+carta.png"))); // NOI18N
+        cartaBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cartaBotonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cartaBotonMouseExited(evt);
+            }
+        });
         cartaBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cartaBotonActionPerformed(evt);
@@ -451,9 +480,9 @@ public class blackjack extends javax.swing.JFrame {
         });
         jPanel1.add(cartaBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 140, 50));
 
-        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
-        volver.setText("Volver");
+        volver.setText("VOLVER");
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -465,7 +494,7 @@ public class blackjack extends javax.swing.JFrame {
                 volverMouseExited(evt);
             }
         });
-        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 610, 60, -1));
+        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1038, 610, 60, -1));
 
         jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 75, 92));
@@ -554,7 +583,7 @@ public class blackjack extends javax.swing.JFrame {
         if (jugadorTotal <= 21 && jugadorTotal > crupierTotal) {
 
             JOptionPane.showMessageDialog(null, "Has ganado!", "Blackjack", JOptionPane.INFORMATION_MESSAGE, win);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta,"Blackjack",JOptionPane.INFORMATION_MESSAGE,bet);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
             if (ocul == "Corazones") {
                 carta2.setIcon(corazon);
                 carta2.setVisible(true);
@@ -587,7 +616,7 @@ public class blackjack extends javax.swing.JFrame {
         } else if (crupierTotal <= 21 && crupierTotal > jugadorTotal) {
 //            JOptionPane.showMessageDialog(null, "Ha ganado el crupier");
             JOptionPane.showMessageDialog(null, "Ha ganado el crupier", "Blackjack", JOptionPane.INFORMATION_MESSAGE, lose);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta,"Blackjack",JOptionPane.INFORMATION_MESSAGE,bet);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
             if (ocul == "Corazones") {
                 carta2.setIcon(corazon);
                 carta2.setVisible(true);
@@ -616,7 +645,7 @@ public class blackjack extends javax.swing.JFrame {
         } else if (crupierTotal == jugadorTotal) {
 //            JOptionPane.showMessageDialog(null, "Ha habido un empate!");
             JOptionPane.showMessageDialog(null, "Ha habido un empate!", "Blackjack", JOptionPane.INFORMATION_MESSAGE, tie);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta,"Blackjack",JOptionPane.INFORMATION_MESSAGE,bet);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
             totalCrupierlabel.setText("Total: " + crupierTotal);
             if (ocul == "Corazones") {
                 carta2.setIcon(corazon);
@@ -923,13 +952,13 @@ public class blackjack extends javax.swing.JFrame {
             }
 
         } else if (jugadorTotal > 21 && crupierTotal <= 21) {
-            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p],"Blackjack",JOptionPane.INFORMATION_MESSAGE,normal);
+            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
             baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
             jugadorTotallabel.setText("Total: " + jugadorTotal);
             baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
 //            JOptionPane.showMessageDialog(null, "Te has pasado!, gana el crupier");
             JOptionPane.showMessageDialog(null, "Te has pasado! gana el crupier", "Blackjack", JOptionPane.INFORMATION_MESSAGE, lose);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta,"Blackjack",JOptionPane.INFORMATION_MESSAGE,bet);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
             totalCrupierlabel.setText("Total: " + crupierTotal);
 
             int carta = baraja[0];
@@ -1022,8 +1051,8 @@ public class blackjack extends javax.swing.JFrame {
         } else if (jugadorTotal <= 21 && crupierTotal > 21) {
 //            JOptionPane.showMessageDialog(null, "El crupier se ha pasado, ganas el juego");
             JOptionPane.showMessageDialog(null, "El crupier se ha pasado, ganas el juego", "Blackjack", JOptionPane.INFORMATION_MESSAGE, win);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta,"Blackjack",JOptionPane.INFORMATION_MESSAGE,bet);
-            
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
+
             totalCrupierlabel.setText("Total: " + crupierTotal);
             if (ocul == "Corazones") {
                 carta2.setIcon(corazon);
@@ -1054,7 +1083,7 @@ public class blackjack extends javax.swing.JFrame {
         }
 
         if (din <= 0) {
-            JOptionPane.showMessageDialog(null, "Juego terminado, no te quedan fondos para seguir apostando","Blackjack",JOptionPane.INFORMATION_MESSAGE,gameover);
+            JOptionPane.showMessageDialog(null, "Juego terminado, no te quedan fondos para seguir apostando", "Blackjack", JOptionPane.INFORMATION_MESSAGE, gameover);
             repartirBoton.setEnabled(false);
         }
     }//GEN-LAST:event_cartaBotonActionPerformed
@@ -1069,11 +1098,39 @@ public class blackjack extends javax.swing.JFrame {
 
     private void volverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseEntered
         flechas.setVisible(true);
+        volver.setForeground(pink);
+        flechas.setForeground(pink);
     }//GEN-LAST:event_volverMouseEntered
 
     private void volverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseExited
         flechas.setVisible(false);
+         volver.setForeground(white);
+        flechas.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
+
+    private void repartirBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repartirBotonMouseEntered
+        repartirBoton.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_repartirBotonMouseEntered
+
+    private void repartirBotonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_repartirBotonMouseExited
+        repartirBoton.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_repartirBotonMouseExited
+
+    private void cartaBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaBotonMouseEntered
+        cartaBoton.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_cartaBotonMouseEntered
+
+    private void pararBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pararBotonMouseEntered
+        pararBoton.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_pararBotonMouseEntered
+
+    private void cartaBotonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartaBotonMouseExited
+        cartaBoton.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_cartaBotonMouseExited
+
+    private void pararBotonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pararBotonMouseExited
+       pararBoton.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_pararBotonMouseExited
 
     /**
      * @param args the command line arguments

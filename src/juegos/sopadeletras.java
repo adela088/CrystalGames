@@ -6,7 +6,10 @@ package juegos;
 
 import java.awt.Color;
 import java.awt.Color.*;
+import static java.awt.Color.blue;
+import static java.awt.Color.pink;
 import static java.awt.Color.red;
+import static java.awt.Color.white;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -95,11 +98,14 @@ public class sopadeletras extends javax.swing.JFrame {
         generarTablero();
         iniciarTemporizador();
 
+        for (JButton b : botones) {
+            aplicarColor(b);
+        }
+
     }
 
     private void inicializarBotones() {
         botones = new JButton[]{
-            null,
             jButton1, jButton2, jButton3, jButton4, jButton5,
             jButton6, jButton7, jButton8, jButton9, jButton10,
             jButton11, jButton12, jButton13, jButton14, jButton15,
@@ -122,7 +128,7 @@ public class sopadeletras extends javax.swing.JFrame {
             jButton96, jButton97, jButton98, jButton99, jButton100
         };
 
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 0; i < botones.length; i++) {
             final int idx = i;
             botones[i].addActionListener(e -> seleccionarBoton(idx));
         }
@@ -250,6 +256,7 @@ public class sopadeletras extends javax.swing.JFrame {
         jButton100 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblTiempo = new javax.swing.JButton();
+        pista1 = new javax.swing.JButton();
         completar = new javax.swing.JButton();
         reiniciar = new javax.swing.JButton();
         neptunolbl = new javax.swing.JLabel();
@@ -288,7 +295,6 @@ public class sopadeletras extends javax.swing.JFrame {
         marco = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        pista1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sopa de Letras");
@@ -1311,6 +1317,14 @@ public class sopadeletras extends javax.swing.JFrame {
         lblTiempo.setText("Tiempo:");
         lblTiempo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblTiempo.setOpaque(true);
+        lblTiempo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblTiempoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblTiempoMouseExited(evt);
+            }
+        });
         lblTiempo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblTiempoActionPerformed(evt);
@@ -1318,10 +1332,37 @@ public class sopadeletras extends javax.swing.JFrame {
         });
         jPanel1.add(lblTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 500, 180, 40));
 
+        pista1.setBackground(new java.awt.Color(204, 204, 255));
+        pista1.setText("Pista");
+        pista1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pista1.setOpaque(true);
+        pista1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pista1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pista1MouseExited(evt);
+            }
+        });
+        pista1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pista1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(pista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 450, 180, 40));
+
         completar.setBackground(new java.awt.Color(204, 204, 255));
         completar.setText("Completar");
         completar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         completar.setOpaque(true);
+        completar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                completarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                completarMouseExited(evt);
+            }
+        });
         completar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 completarActionPerformed(evt);
@@ -1333,6 +1374,14 @@ public class sopadeletras extends javax.swing.JFrame {
         reiniciar.setText("Reiniciar");
         reiniciar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         reiniciar.setOpaque(true);
+        reiniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                reiniciarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                reiniciarMouseExited(evt);
+            }
+        });
         reiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reiniciarActionPerformed(evt);
@@ -1410,9 +1459,9 @@ public class sopadeletras extends javax.swing.JFrame {
         t.setText("X");
         jPanel1.add(t, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 330, -1, -1));
 
-        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
+        volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
-        volver.setText("Volver");
+        volver.setText("VOLVER");
         volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverMouseClicked(evt);
@@ -1424,7 +1473,7 @@ public class sopadeletras extends javax.swing.JFrame {
                 volverMouseExited(evt);
             }
         });
-        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 610, 60, -1));
+        jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1038, 610, 60, 20));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/blackjackimg/pinkyc.gif"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 605, -1, -1));
@@ -1483,6 +1532,11 @@ public class sopadeletras extends javax.swing.JFrame {
         marco.setBackground(new java.awt.Color(255, 204, 255));
         marco.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
         marco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        marco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                marcoMouseEntered(evt);
+            }
+        });
         jPanel1.add(marco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 12, 1100, 660));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/sopaimg/cookiecat.gif"))); // NOI18N
@@ -1490,17 +1544,6 @@ public class sopadeletras extends javax.swing.JFrame {
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/sopaimg/pixelb.gif"))); // NOI18N
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 530, -1));
-
-        pista1.setBackground(new java.awt.Color(204, 204, 255));
-        pista1.setText("Pista");
-        pista1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pista1.setOpaque(true);
-        pista1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pista1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(pista1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 450, 180, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1922,10 +1965,13 @@ public class sopadeletras extends javax.swing.JFrame {
 
     private void volverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseEntered
         flechas.setVisible(true);
+        volver.setForeground(pink);
+        flechas.setForeground(pink);
     }//GEN-LAST:event_volverMouseEntered
 
     private void volverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseExited
         flechas.setVisible(false);
+        volver.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
 
     private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton99ActionPerformed
@@ -1945,6 +1991,42 @@ public class sopadeletras extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pista1ActionPerformed
 
+    private void reiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reiniciarMouseEntered
+        reiniciar.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_reiniciarMouseEntered
+
+    private void reiniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reiniciarMouseExited
+        reiniciar.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_reiniciarMouseExited
+
+    private void completarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_completarMouseEntered
+        completar.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_completarMouseEntered
+
+    private void marcoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marcoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marcoMouseEntered
+
+    private void pista1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pista1MouseEntered
+        pista1.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_pista1MouseEntered
+
+    private void lblTiempoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTiempoMouseEntered
+        lblTiempo.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_lblTiempoMouseEntered
+
+    private void completarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_completarMouseExited
+        completar.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_completarMouseExited
+
+    private void pista1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pista1MouseExited
+        pista1.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_pista1MouseExited
+
+    private void lblTiempoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTiempoMouseExited
+        lblTiempo.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_lblTiempoMouseExited
+
     private void generarTablero() {
         seleccionActual.clear();
         palabrasEncontradas.clear();
@@ -1960,7 +2042,7 @@ public class sopadeletras extends javax.swing.JFrame {
         t.setVisible(false);
         n.setVisible(false);
 
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 0; i < botones.length; i++) {
             botones[i].setText("");
             botones[i].setBackground(colorNormal);
             botones[i].setEnabled(true);
@@ -1971,7 +2053,7 @@ public class sopadeletras extends javax.swing.JFrame {
         }
 
         Random r = new Random();
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 0; i < botones.length; i++) {
             if (botones[i].getText().isEmpty()) {
                 botones[i].setText(String.valueOf((char) ('A' + r.nextInt(26))));
             }
@@ -2020,7 +2102,7 @@ public class sopadeletras extends javax.swing.JFrame {
                     break;
                 }
 
-                int index = f * 10 + c + 1;
+                int index = f * 10 + c;
                 String letraActual = botones[index].getText();
 
                 if (!letraActual.isEmpty()
@@ -2042,7 +2124,7 @@ public class sopadeletras extends javax.swing.JFrame {
             p.posiciones = new int[p.texto.length()];
 
             for (int i = 0; i < p.texto.length(); i++) {
-                int index = f * 10 + c + 1;
+                int index = f * 10 + c;
                 botones[index].setText(String.valueOf(p.texto.charAt(i)));
                 p.posiciones[i] = index;
 
@@ -2088,6 +2170,33 @@ public class sopadeletras extends javax.swing.JFrame {
         }
 
         return true;
+    }
+
+    public void aplicarColor(JButton boton) {
+
+        Color normal = new Color(204, 204, 204);
+        Color sobre = new Color(255, 180, 203);
+
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+
+                if (!boton.getBackground().equals(colorSeleccionado)
+                        && !boton.getBackground().equals(colorEncontrado)) {
+                    boton.setBackground(sobre);
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+
+                if (!boton.getBackground().equals(colorSeleccionado)
+                        && !boton.getBackground().equals(colorEncontrado)) {
+                    boton.setBackground(normal);
+                }
+            }
+        });
     }
 
     private void seleccionarBoton(int index) {
@@ -2208,12 +2317,12 @@ public class sopadeletras extends javax.swing.JFrame {
         new Thread(() -> {
             try {
                 for (int k = 0; k < 3; k++) {
-                    for (int i = 1; i <= 100; i++) {
+                    for (int i = 0; i < 100; i++) {
                         botones[i].setBackground(Color.GREEN);
                     }
                     Thread.sleep(250);
 
-                    for (int i = 1; i <= 100; i++) {
+                    for (int i = 0; i < 100; i++) {
                         if (botones[i].isEnabled()) {
                             botones[i].setBackground(colorNormal);
                         } else {
