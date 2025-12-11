@@ -155,12 +155,15 @@ public class rompecabezas extends javax.swing.JFrame {
         completar = new javax.swing.JButton();
         reiniciar = new javax.swing.JButton();
         tiempo = new javax.swing.JButton();
-        marco1 = new javax.swing.JLabel();
-        imagen = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 1000), new java.awt.Dimension(0, 1000), new java.awt.Dimension(32767, 1000));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(1000, 0), new java.awt.Dimension(1000, 0), new java.awt.Dimension(1000, 32767));
-        mov = new javax.swing.JLabel();
         heart = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        marco1 = new javax.swing.JLabel();
+        imagen = new javax.swing.JLabel();
+        movimientos = new javax.swing.JLabel();
+        movs = new javax.swing.JLabel();
+        mov = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         uno = new javax.swing.JButton();
         dos = new javax.swing.JButton();
@@ -172,8 +175,6 @@ public class rompecabezas extends javax.swing.JFrame {
         ocho = new javax.swing.JButton();
         nueve = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         volver = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         flechas = new javax.swing.JLabel();
@@ -279,31 +280,8 @@ public class rompecabezas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 140, 50));
-
-        marco1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(141, 237, 230), new java.awt.Color(236, 203, 237), new java.awt.Color(204, 51, 255), new java.awt.Color(208, 229, 253)));
-        jPanel1.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 260, 200));
-
-        imagen.setBackground(new java.awt.Color(51, 51, 51));
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/im.png"))); // NOI18N
-        imagen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imagenMouseClicked(evt);
-            }
-        });
-        imagen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imagenActionPerformed(evt);
-            }
-        });
-        jPanel1.add(imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 260, 200));
         jPanel1.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, -240, 30, 880));
         jPanel1.add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1130, 30));
-
-        mov.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
-        mov.setForeground(new java.awt.Color(255, 255, 255));
-        mov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        mov.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(mov, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 450, 260, 60));
 
         heart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/wings.gif"))); // NOI18N
         heart.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -318,6 +296,34 @@ public class rompecabezas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(heart, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(46, 44, 48));
+        jPanel3.setForeground(new java.awt.Color(242, 242, 242));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        marco1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(141, 237, 230), new java.awt.Color(236, 203, 237), new java.awt.Color(204, 51, 255), new java.awt.Color(208, 229, 253)));
+        jPanel3.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 200));
+
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/im.png"))); // NOI18N
+        jPanel3.add(imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 240, 193));
+
+        movimientos.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        movimientos.setForeground(new java.awt.Color(51, 51, 51));
+        movimientos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        movimientos.setText("Movimientos: ");
+        jPanel3.add(movimientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 190, 68));
+
+        movs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/pearlwings.png"))); // NOI18N
+        movs.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.add(movs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 260, 110));
+
+        mov.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        mov.setForeground(new java.awt.Color(255, 255, 255));
+        mov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mov.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.add(mov, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 260, 60));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 260, 370));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new java.awt.GridLayout(3, 3));
@@ -431,16 +437,6 @@ public class rompecabezas extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 130, 460, 380));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 70, 30));
-
-        jLabel3.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Movimientos: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 370, 190, 68));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/pearlwings.png"))); // NOI18N
-        jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, 260, 110));
 
         volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
@@ -602,10 +598,6 @@ public class rompecabezas extends javax.swing.JFrame {
         moverPieza(nueve);
     }//GEN-LAST:event_nueveActionPerformed
 
-    private void imagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imagenActionPerformed
-
-    }//GEN-LAST:event_imagenActionPerformed
-
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
 
         main.Menu menu = new main.Menu();
@@ -653,7 +645,7 @@ public class rompecabezas extends javax.swing.JFrame {
     }//GEN-LAST:event_reiniciarActionPerformed
 
     private void heartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseEntered
-        heart.setLocation(570, 395);
+        heart.setLocation(570, 415);
     }//GEN-LAST:event_heartMouseEntered
 
     private void heartMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMousePressed
@@ -661,12 +653,8 @@ public class rompecabezas extends javax.swing.JFrame {
     }//GEN-LAST:event_heartMousePressed
 
     private void heartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseExited
-        heart.setLocation(570, 400);
+        heart.setLocation(570, 420);
     }//GEN-LAST:event_heartMouseExited
-
-    private void imagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenMouseClicked
-
-    }//GEN-LAST:event_imagenMouseClicked
 
     private void reiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reiniciarMouseEntered
         reiniciar.setBackground(new Color(153, 153, 255));
@@ -718,7 +706,7 @@ public class rompecabezas extends javax.swing.JFrame {
             }
         }
 
-        // Movimiento válido solo si los botones están juntos
+     
         if ((Math.abs(bx - ex) + Math.abs(by - ey)) == 1) {
 
             animando = true;
@@ -868,9 +856,26 @@ public class rompecabezas extends javax.swing.JFrame {
 
             Color rainbow = Color.getHSBColor(hue, 1f, 1f);
 
+         
             jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(rainbow, 5));
-            jPanel2.setBackground(new Color(rainbow.getRed(), rainbow.getGreen(), rainbow.getBlue(), 40));
+            jPanel2.setBackground(new Color(
+                    rainbow.getRed(),
+                    rainbow.getGreen(),
+                    rainbow.getBlue(),
+                    40
+            ));
+
+       
+            jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(rainbow, 5));
+            jPanel3.setForeground(new Color(
+                    rainbow.getRed(),
+                    rainbow.getGreen(),
+                    rainbow.getBlue(),
+                    40
+            ));
+
             jPanel2.repaint();
+            jPanel3.repaint();
         });
 
         arcoirisTimer.start();
@@ -926,7 +931,7 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel flechas;
     private javax.swing.JLabel heart;
-    private javax.swing.JButton imagen;
+    private javax.swing.JLabel imagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -938,7 +943,6 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -949,7 +953,6 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -961,9 +964,12 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel marco;
     private javax.swing.JLabel marco1;
     private javax.swing.JLabel mov;
+    private javax.swing.JLabel movimientos;
+    private javax.swing.JLabel movs;
     private javax.swing.JButton nueve;
     private javax.swing.JButton ocho;
     private javax.swing.JButton reiniciar;

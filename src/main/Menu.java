@@ -282,6 +282,11 @@ public class Menu extends javax.swing.JFrame {
         blackjack1.setFont(new java.awt.Font("Monotype Corsiva", 0, 36)); // NOI18N
         blackjack1.setForeground(new java.awt.Color(255, 255, 255));
         blackjack1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/img/blac.png"))); // NOI18N
+        blackjack1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                blackjack1MouseEntered(evt);
+            }
+        });
         fondo4.add(blackjack1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, -1, -1));
 
         carreras.setFont(new java.awt.Font("Monotype Corsiva", 0, 36)); // NOI18N
@@ -437,6 +442,10 @@ public class Menu extends javax.swing.JFrame {
     private void carreraslogoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carreraslogoMouseExited
         carreraslogo.setLocation(310, 470);
     }//GEN-LAST:event_carreraslogoMouseExited
+
+    private void blackjack1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_blackjack1MouseEntered
+      
+    }//GEN-LAST:event_blackjack1MouseEntered
 
     /**
      * @param args the command line arguments
