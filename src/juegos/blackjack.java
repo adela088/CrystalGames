@@ -573,10 +573,12 @@ public class blackjack extends javax.swing.JFrame {
 
     private void bookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookMouseEntered
         book.setLocation(1020, 25);
+        reglas.setForeground(pink);
     }//GEN-LAST:event_bookMouseEntered
 
     private void bookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookMouseExited
         book.setLocation(1020, 30);
+        reglas.setForeground(white);
     }//GEN-LAST:event_bookMouseExited
 
     private void pararBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararBotonActionPerformed

@@ -4,15 +4,19 @@
  */
 package juegos;
 
+import java.awt.Color;
 import static java.awt.Color.pink;
 import static java.awt.Color.white;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.Stack;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -21,6 +25,16 @@ import javax.swing.JOptionPane;
 public class rompecabezas extends javax.swing.JFrame {
 
     int aleatorios[] = new int[9];
+    private JButton[][] grid;
+    private Icon emptyIcon;
+    private float hue = 0f;
+    private Timer timer;
+    private int segundos = 0;
+    private boolean juegoIniciado = false;
+    private JPanel capaAnimacion;
+    private Icon[] iconos = new Icon[9];
+    private boolean animando = false;
+    private Timer arcoirisTimer = null;
 
     /**
      * Creates new form rompecabezas
@@ -29,22 +43,44 @@ public class rompecabezas extends javax.swing.JFrame {
         this.setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
-        nueve.setVisible(false);
+        grid = new JButton[][]{
+            {uno, dos, tres},
+            {cuatro, cinco, seis},
+            {siete, ocho, nueve}
+        };
+        emptyIcon = crearIconoVacio(uno.getWidth(), uno.getHeight());
+
+        iconos[0] = uno1;
+        iconos[1] = dos2;
+        iconos[2] = tres3;
+        iconos[3] = cuatro4;
+        iconos[4] = cinco5;
+        iconos[5] = seis6;
+        iconos[6] = siete7;
+        iconos[7] = ocho8;
+        iconos[8] = emptyIcon;
+
+        capaAnimacion = new JPanel(null);
+        capaAnimacion.setOpaque(false);
+
+        jPanel1.add(capaAnimacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(
+                jPanel2.getX(),
+                jPanel2.getY(),
+                jPanel2.getWidth(),
+                jPanel2.getHeight()
+        ));
+
+        jPanel1.setComponentZOrder(capaAnimacion, 0);
+
+        timer = new Timer(1000, e -> {
+            segundos++;
+            tiempo.setText("Tiempo: " + segundos + "s");
+        });
+
         mov.setText("" + c);
-        numeros();
-
-        uno.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[0] + ".png")));
-        dos.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[1] + ".png")));
-        tres.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[2] + ".png")));
-        cuatro.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[3] + ".png")));
-        cinco.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[4] + ".png")));
-        seis.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[5] + ".png")));
-        siete.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[6] + ".png")));
-        ocho.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[7] + ".png")));
-        nueve.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[8] + ".png")));
-
         flechas.setVisible(false);
         setIcon();
+        mezclar();
     }
 
     private void setIcon() {
@@ -65,20 +101,41 @@ public class rompecabezas extends javax.swing.JFrame {
     public static int c = 0;
 
     public void numeros() {
-        Stack<Integer> numeros = new Stack<Integer>();
         Random r = new Random();
 
-        int aleatorio;
+        do {
+            Stack<Integer> usados = new Stack<>();
+            for (int i = 0; i < 9; i++) {
+                int num;
+                do {
+                    num = r.nextInt(9) + 1;
+                } while (usados.contains(num));
+                usados.push(num);
+                aleatorios[i] = num;
+            }
+
+        } while (!esSoluble(aleatorios)); // repetir si no es soluble
+    }
+
+    public boolean esSoluble(int[] arr) {
+        int inv = 0;
 
         for (int i = 0; i < 9; i++) {
-            aleatorio = (int) (r.nextDouble() * 9 + 1);
-
-            while (numeros.contains(aleatorio)) {
-                aleatorio = (int) (r.nextDouble() * 9 + 1);
+            if (arr[i] == 9) {
+                continue;
             }
-            numeros.push(aleatorio);
-            aleatorios[i] = aleatorio;
+            for (int j = i + 1; j < 9; j++) {
+                if (arr[j] == 9) {
+                    continue;
+                }
+
+                if (arr[i] > arr[j]) {
+                    inv++;
+                }
+            }
         }
+
+        return inv % 2 == 0; // soluble si las inversiones son pares
     }
 
     /**
@@ -95,9 +152,9 @@ public class rompecabezas extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        completar = new javax.swing.JButton();
+        reiniciar = new javax.swing.JButton();
+        tiempo = new javax.swing.JButton();
         marco1 = new javax.swing.JLabel();
         imagen = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 1000), new java.awt.Dimension(0, 1000), new java.awt.Dimension(32767, 1000));
@@ -151,41 +208,65 @@ public class rompecabezas extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 490, -1, -1));
 
-        jButton3.setBackground(new java.awt.Color(190, 190, 252));
-        jButton3.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jButton3.setText("Completar");
-        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton3.setOpaque(true);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        completar.setBackground(new java.awt.Color(190, 190, 252));
+        completar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        completar.setText("Completar");
+        completar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        completar.setOpaque(true);
+        completar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                completarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                completarMouseExited(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 140, 50));
+        completar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 140, 50));
 
-        jButton2.setBackground(new java.awt.Color(190, 190, 252));
-        jButton2.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jButton2.setText("Meclar");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.setOpaque(true);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        reiniciar.setBackground(new java.awt.Color(190, 190, 252));
+        reiniciar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        reiniciar.setText("Reiniciar");
+        reiniciar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        reiniciar.setOpaque(true);
+        reiniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                reiniciarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                reiniciarMouseExited(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 140, 50));
+        reiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reiniciarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 140, 50));
 
-        jButton1.setBackground(new java.awt.Color(190, 190, 252));
-        jButton1.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        jButton1.setText("Reiniciar");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setOpaque(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        tiempo.setBackground(new java.awt.Color(190, 190, 252));
+        tiempo.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        tiempo.setText("Tiempo: 0s ");
+        tiempo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tiempo.setOpaque(true);
+        tiempo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tiempoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tiempoMouseExited(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 140, 50));
+        tiempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiempoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 140, 50));
 
         marco1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(141, 237, 230), new java.awt.Color(236, 203, 237), new java.awt.Color(204, 51, 255), new java.awt.Color(208, 229, 253)));
         jPanel1.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 260, 200));
@@ -437,274 +518,40 @@ public class rompecabezas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
-        if (dos.isVisible() == false) {
-            dos.setText(uno.getText());
-            dos.setIcon(uno.getIcon());
-            uno.setVisible(false);
-            uno.setIcon(null);
-            dos.setVisible(true);
-            c++;
-            mov.setText("" + c);
-
-        }
-
-        if (tres.isVisible() == false) {
-            tres.setText(uno.getText());
-            tres.setIcon(uno.getIcon());
-            uno.setVisible(false);
-            uno.setIcon(null);
-            tres.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (cuatro.isVisible() == false) {
-            cuatro.setText(uno.getText());
-            cuatro.setIcon(uno.getIcon());
-            uno.setVisible(false);
-            uno.setIcon(null);
-            cuatro.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(uno);
     }//GEN-LAST:event_unoActionPerformed
 
     private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
 
-        if (cinco.isVisible() == false) {
-            cinco.setText(dos.getText());
-            cinco.setIcon(dos.getIcon());
-            dos.setVisible(false);
-            dos.setIcon(null);
-            cinco.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (tres.isVisible() == false) {
-            tres.setText(dos.getText());
-            tres.setIcon(dos.getIcon());
-            dos.setVisible(false);
-            dos.setIcon(null);
-            tres.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (uno.isVisible() == false) {
-            uno.setText(dos.getText());
-            uno.setIcon(dos.getIcon());
-            dos.setVisible(false);
-            dos.setIcon(null);
-            uno.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(dos);
     }//GEN-LAST:event_dosActionPerformed
 
     private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
-        if (dos.isVisible() == false) {
-            dos.setText(tres.getText());
-            dos.setIcon(tres.getIcon());
-            tres.setVisible(false);
-            tres.setIcon(null);
-            dos.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (seis.isVisible() == false) {
-            seis.setText(tres.getText());
-            seis.setIcon(tres.getIcon());
-            tres.setVisible(false);
-            tres.setIcon(null);
-            seis.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(tres);
     }//GEN-LAST:event_tresActionPerformed
 
     private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
-        if (siete.isVisible() == false) {
-            siete.setText(cuatro.getText());
-            siete.setIcon(cuatro.getIcon());
-            cuatro.setVisible(false);
-            cuatro.setIcon(null);
-            siete.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (cinco.isVisible() == false) {
-            cinco.setText(cuatro.getText());
-            cinco.setIcon(cuatro.getIcon());
-            cuatro.setVisible(false);
-            cuatro.setIcon(null);
-            cinco.setVisible(true);
-            c++;
-            mov.setText("" + c);
-
-        }
-
-        if (uno.isVisible() == false) {
-            uno.setText(cuatro.getText());
-            uno.setIcon(cuatro.getIcon());
-            cuatro.setVisible(false);
-            cuatro.setIcon(null);
-            uno.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(cuatro);
     }//GEN-LAST:event_cuatroActionPerformed
 
     private void cincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cincoActionPerformed
-        if (seis.isVisible() == false) {
-            seis.setText(cinco.getText());
-            seis.setIcon(cinco.getIcon());
-            cinco.setVisible(false);
-            cinco.setIcon(null);
-            seis.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (cuatro.isVisible() == false) {
-            cuatro.setText(cinco.getText());
-            cuatro.setIcon(cinco.getIcon());
-            cinco.setVisible(false);
-            cinco.setIcon(null);
-            cuatro.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (dos.isVisible() == false) {
-            dos.setText(cinco.getText());
-            dos.setIcon(cinco.getIcon());
-            cinco.setVisible(false);
-            cinco.setIcon(null);
-            dos.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (ocho.isVisible() == false) {
-            ocho.setText(cinco.getText());
-            ocho.setIcon(cinco.getIcon());
-            cinco.setVisible(false);
-            cinco.setIcon(null);
-            ocho.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(cinco);
     }//GEN-LAST:event_cincoActionPerformed
 
     private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
-        if (nueve.isVisible() == false) {
-            nueve.setText(seis.getText());
-            nueve.setIcon(seis.getIcon());
-            seis.setVisible(false);
-            seis.setIcon(null);
-            nueve.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (cinco.isVisible() == false) {
-            cinco.setText(seis.getText());
-            cinco.setIcon(seis.getIcon());
-            seis.setVisible(false);
-            seis.setIcon(null);
-            cinco.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (tres.isVisible() == false) {
-            tres.setText(seis.getText());
-            tres.setIcon(seis.getIcon());
-            seis.setVisible(false);
-            seis.setIcon(null);
-            tres.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(seis);
     }//GEN-LAST:event_seisActionPerformed
 
     private void sieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteActionPerformed
-        if (ocho.isVisible() == false) {
-            ocho.setText(siete.getText());
-            ocho.setIcon(siete.getIcon());
-            siete.setVisible(false);
-            siete.setIcon(null);
-            ocho.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (cuatro.isVisible() == false) {
-            cuatro.setText(siete.getText());
-            cuatro.setIcon(siete.getIcon());
-            siete.setVisible(false);
-            siete.setIcon(null);
-            cuatro.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(siete);
     }//GEN-LAST:event_sieteActionPerformed
 
     private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
-        if (nueve.isVisible() == false) {
-            nueve.setText(ocho.getText());
-            nueve.setIcon(ocho.getIcon());
-            ocho.setVisible(false);
-            ocho.setIcon(null);
-            nueve.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (siete.isVisible() == false) {
-            siete.setText(ocho.getText());
-            siete.setIcon(ocho.getIcon());
-            ocho.setVisible(false);
-            ocho.setIcon(null);
-            siete.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (cinco.isVisible() == false) {
-            cinco.setText(ocho.getText());
-            cinco.setIcon(ocho.getIcon());
-            ocho.setVisible(false);
-            ocho.setIcon(null);
-            cinco.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(ocho);
     }//GEN-LAST:event_ochoActionPerformed
 
     private void nueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueveActionPerformed
-        if (seis.isVisible() == false) {
-            seis.setText(nueve.getText());
-            seis.setIcon(nueve.getIcon());
-            nueve.setVisible(false);
-            nueve.setIcon(null);
-            seis.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
-
-        if (ocho.isVisible() == false) {
-            ocho.setText(nueve.getText());
-            ocho.setIcon(nueve.getIcon());
-            nueve.setVisible(false);
-            nueve.setIcon(null);
-            ocho.setVisible(true);
-            c++;
-            mov.setText("" + c);
-        }
+        moverPieza(nueve);
     }//GEN-LAST:event_nueveActionPerformed
 
     private void imagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imagenActionPerformed
@@ -730,49 +577,32 @@ public class rompecabezas extends javax.swing.JFrame {
         flechas.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        uno.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\1.png")));
-        dos.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\2.png")));
-        tres.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\3.png")));
-        cuatro.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\4.png")));
-        cinco.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\5.png")));
-        seis.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\6.png")));
-        siete.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\7.png")));
-        ocho.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\8.png")));
-        nueve.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\9.png")));
+    private void completarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completarActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Felicidades, has completado el rompecabezas!", "Rompecabezas", JOptionPane.INFORMATION_MESSAGE, icon);
+        for (int i = 0; i < 8; i++) {
+            grid[i / 3][i % 3].setIcon(
+                    new ImageIcon(getClass().getResource("/juegos/puzzleimg/" + (i + 1) + ".png"))
+            );
+        }
+        grid[2][2].setIcon(emptyIcon);
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+        animacionArcoirisPanel();
+        mostrarVictoria();
+        if (arcoirisTimer != null) {
+            arcoirisTimer.stop();
+        }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        uno.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[0] + ".png")));
-        dos.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[1] + ".png")));
-        tres.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[2] + ".png")));
-        cuatro.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[3] + ".png")));
-        cinco.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[4] + ".png")));
-        seis.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[5] + ".png")));
-        siete.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[6] + ".png")));
-        ocho.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[7] + ".png")));
-        nueve.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[8] + ".png")));
 
-        c = 0;
-        mov.setText("" + c);
+    }//GEN-LAST:event_completarActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void tiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiempoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        numeros();
-        uno.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[0] + ".png")));
-        dos.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[1] + ".png")));
-        tres.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[2] + ".png")));
-        cuatro.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[3] + ".png")));
-        cinco.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[4] + ".png")));
-        seis.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[5] + ".png")));
-        siete.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[6] + ".png")));
-        ocho.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[7] + ".png")));
-        nueve.setIcon(new ImageIcon(getClass().getResource("puzzleimg\\" + aleatorios[8] + ".png")));
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_tiempoActionPerformed
+
+    private void reiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarActionPerformed
+        mezclar();
+        tiempo.setText("Tiempo: 0s");
+    }//GEN-LAST:event_reiniciarActionPerformed
 
     private void heartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseEntered
         heart.setLocation(570, 395);
@@ -789,6 +619,220 @@ public class rompecabezas extends javax.swing.JFrame {
     private void imagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenMouseClicked
 
     }//GEN-LAST:event_imagenMouseClicked
+
+    private void reiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reiniciarMouseEntered
+        reiniciar.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_reiniciarMouseEntered
+
+    private void completarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_completarMouseEntered
+        completar.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_completarMouseEntered
+
+    private void reiniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reiniciarMouseExited
+        reiniciar.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_reiniciarMouseExited
+
+    private void completarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_completarMouseExited
+        completar.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_completarMouseExited
+
+    private void tiempoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tiempoMouseExited
+        tiempo.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_tiempoMouseExited
+
+    private void tiempoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tiempoMouseEntered
+        tiempo.setBackground(new Color(153, 153, 255));
+    }//GEN-LAST:event_tiempoMouseEntered
+
+    private void moverPieza(JButton btn) {
+
+        if (animando) {
+            return;
+        }
+        int bx = -1, by = -1;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (grid[i][j] == btn) {
+                    bx = i;
+                    by = j;
+                }
+            }
+        }
+
+        int ex = -1, ey = -1;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (grid[i][j].getIcon() == emptyIcon) {
+                    ex = i;
+                    ey = j;
+                }
+            }
+        }
+
+        // Movimiento válido solo si los botones están juntos
+        if ((Math.abs(bx - ex) + Math.abs(by - ey)) == 1) {
+
+            animando = true;
+
+            animarMovimiento(btn, grid[ex][ey]);
+
+            c++;
+            mov.setText("" + c);
+
+            if (!juegoIniciado) {
+                juegoIniciado = true;
+                timer.start();
+            }
+        }
+    }
+
+    private boolean estaCompleto() {
+        for (int i = 0; i < 8; i++) {
+            Icon actual = grid[i / 3][i % 3].getIcon();
+            Icon esperado = iconos[i];
+
+            if (actual != esperado) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void mostrarVictoria() {
+        JOptionPane.showMessageDialog(this,
+                "¡Felicidades! Has completado el rompecabezas \n En un tiempo de " + segundos + " segundos \n Con " + c + " movimientos",
+                "Rompecabezas",
+                JOptionPane.INFORMATION_MESSAGE,
+                icon
+        );
+        timer.stop();
+
+    }
+
+    private void iniciarTemporizador() {
+        timer = new Timer(1000, (ActionEvent e) -> {
+            segundos++;
+            tiempo.setText("Tiempo: " + segundos + "s");
+        });
+        timer.start();
+    }
+
+    private void mezclar() {
+
+        if (arcoirisTimer != null) {
+            arcoirisTimer.stop();
+        }
+
+        numeros();
+
+        for (int i = 0; i < 9; i++) {
+            int n = aleatorios[i];
+
+            if (n == 9) {
+                grid[i / 3][i % 3].setIcon(emptyIcon);
+            } else {
+                grid[i / 3][i % 3].setIcon(iconos[n - 1]);
+            }
+        }
+
+        c = 0;
+        segundos = 0;
+        juegoIniciado = false;
+        timer.stop();
+
+        mov.setText("0");
+    }
+
+    private void animarMovimiento(JButton origen, JButton destino) {
+
+        Icon iconOrigen = origen.getIcon();
+
+        JButton copia = new JButton(iconOrigen);
+        copia.setBorder(null);
+        copia.setContentAreaFilled(false);
+
+        java.awt.Point origenLocal = origen.getLocation();
+        java.awt.Point destinoLocal = destino.getLocation();
+
+        copia.setBounds(origenLocal.x, origenLocal.y, origen.getWidth(), origen.getHeight());
+        capaAnimacion.add(copia);
+        capaAnimacion.repaint();
+
+        origen.setIcon(emptyIcon);
+
+        int pasos = 40;
+        int duracion = 250;
+        int delay = duracion / pasos;
+
+        int dx = destinoLocal.x - origenLocal.x;
+        int dy = destinoLocal.y - origenLocal.y;
+
+        Timer mover = new Timer(delay, null);
+
+        final int[] step = {0};
+
+        mover.addActionListener(e -> {
+
+            if (step[0] >= pasos) {
+                mover.stop();
+
+                capaAnimacion.remove(copia);
+                capaAnimacion.repaint();
+
+                destino.setIcon(iconOrigen);
+
+                animando = false;
+                if (estaCompleto()) {
+                    timer.stop();
+                    animacionArcoirisPanel();
+                    mostrarVictoria();
+                }
+
+                return;
+            }
+
+            double t = (double) step[0] / pasos;
+            double ease = 1 - Math.pow(1 - t, 3);
+
+            copia.setLocation(
+                    origenLocal.x + (int) (dx * ease),
+                    origenLocal.y + (int) (dy * ease)
+            );
+
+            step[0]++;
+        });
+
+        mover.start();
+    }
+
+    private void animacionArcoirisPanel() {
+
+        if (arcoirisTimer != null && arcoirisTimer.isRunning()) {
+            arcoirisTimer.stop();
+        }
+
+        arcoirisTimer = new Timer(40, e -> {
+            hue += 0.01f;
+            if (hue > 1) {
+                hue = 0;
+            }
+
+            Color rainbow = Color.getHSBColor(hue, 1f, 1f);
+
+            jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(rainbow, 5));
+            jPanel2.setBackground(new Color(rainbow.getRed(), rainbow.getGreen(), rainbow.getBlue(), 40));
+            jPanel2.repaint();
+        });
+
+        arcoirisTimer.start();
+    }
+
+    private Icon crearIconoVacio(int w, int h) {
+        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(
+                w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+        return new ImageIcon(img);
+    }
 
     /**
      * @param args the command line arguments
@@ -827,6 +871,7 @@ public class rompecabezas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cinco;
+    private javax.swing.JButton completar;
     private javax.swing.JButton cuatro;
     private javax.swing.JButton dos;
     private javax.swing.Box.Filler filler1;
@@ -834,9 +879,6 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel flechas;
     private javax.swing.JLabel heart;
     private javax.swing.JButton imagen;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -864,8 +906,10 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel mov;
     private javax.swing.JButton nueve;
     private javax.swing.JButton ocho;
+    private javax.swing.JButton reiniciar;
     private javax.swing.JButton seis;
     private javax.swing.JButton siete;
+    private javax.swing.JButton tiempo;
     private javax.swing.JButton tres;
     private javax.swing.JButton uno;
     private javax.swing.JLabel volver;

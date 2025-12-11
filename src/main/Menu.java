@@ -6,6 +6,8 @@ package main;
 
 import static java.awt.Color.pink;
 import static java.awt.Color.white;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
@@ -439,6 +441,10 @@ public class Menu extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+   
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

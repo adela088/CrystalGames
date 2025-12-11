@@ -1106,7 +1106,7 @@ public class carreras extends javax.swing.JFrame {
             ordenLlegada.add(nombre);
         }
 
-        // Cuando llegan los 3, termina la carrera
+        // Cuando llegan los 3 carros termina la carrera
         if (ordenLlegada.size() == 3) {
             carreraActiva = false;
 
@@ -1167,6 +1167,8 @@ public class carreras extends javax.swing.JFrame {
         t2.start();
         t3.start();
     }
+    
+    
 
     /**
      * @param args the command line arguments
