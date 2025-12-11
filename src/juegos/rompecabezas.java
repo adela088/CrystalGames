@@ -189,6 +189,18 @@ public class rompecabezas extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         marco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,16 +209,16 @@ public class rompecabezas extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/corgif.gif"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 500, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 520, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 490, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 510, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/corgif.gif"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 490, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 510, -1, -1));
 
         completar.setBackground(new java.awt.Color(190, 190, 252));
         completar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
@@ -226,7 +238,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 completarActionPerformed(evt);
             }
         });
-        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 140, 50));
+        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 340, 140, 50));
 
         reiniciar.setBackground(new java.awt.Color(190, 190, 252));
         reiniciar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
@@ -246,7 +258,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 reiniciarActionPerformed(evt);
             }
         });
-        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 140, 50));
+        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 140, 50));
 
         tiempo.setBackground(new java.awt.Color(190, 190, 252));
         tiempo.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
@@ -266,10 +278,10 @@ public class rompecabezas extends javax.swing.JFrame {
                 tiempoActionPerformed(evt);
             }
         });
-        jPanel1.add(tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 140, 50));
+        jPanel1.add(tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 140, 50));
 
         marco1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(141, 237, 230), new java.awt.Color(236, 203, 237), new java.awt.Color(204, 51, 255), new java.awt.Color(208, 229, 253)));
-        jPanel1.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 260, 200));
+        jPanel1.add(marco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 260, 200));
 
         imagen.setBackground(new java.awt.Color(51, 51, 51));
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/im.png"))); // NOI18N
@@ -283,7 +295,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 imagenActionPerformed(evt);
             }
         });
-        jPanel1.add(imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 120, 260, 200));
+        jPanel1.add(imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 260, 200));
         jPanel1.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, -240, 30, 880));
         jPanel1.add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1130, 30));
 
@@ -291,7 +303,7 @@ public class rompecabezas extends javax.swing.JFrame {
         mov.setForeground(new java.awt.Color(255, 255, 255));
         mov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mov.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(mov, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 260, 60));
+        jPanel1.add(mov, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 450, 260, 60));
 
         heart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/wings.gif"))); // NOI18N
         heart.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -305,7 +317,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 heartMousePressed(evt);
             }
         });
-        jPanel1.add(heart, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, -1, -1));
+        jPanel1.add(heart, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, -1, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new java.awt.GridLayout(3, 3));
@@ -417,18 +429,18 @@ public class rompecabezas extends javax.swing.JFrame {
         });
         jPanel2.add(nueve);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 110, 460, 380));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 130, 460, 380));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 70, 30));
 
         jLabel3.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Movimientos: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 350, 190, 68));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 370, 190, 68));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/db277az-77f26b0f-8494-454f-bff2-21d2ff4d723b (1).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/pearlwings.png"))); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 260, 110));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, 260, 110));
 
         volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
@@ -446,11 +458,11 @@ public class rompecabezas extends javax.swing.JFrame {
         });
         jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(1038, 610, 60, -1));
 
-        jLabel14.setFont(new java.awt.Font("SimSun", 0, 48)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("SimSun", 0, 43)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Referencia");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, 260, -1));
+        jLabel14.setText("REFERENCIA");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 80, 230, -1));
 
         flechas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         flechas.setForeground(new java.awt.Color(255, 255, 255));
@@ -461,40 +473,76 @@ public class rompecabezas extends javax.swing.JFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1018, 608, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 510, -1, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/corgif.gif"))); // NOI18N
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 500, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 520, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 510, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/corgif.gif"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 500, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 520, -1, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 490, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 510, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("SimSun", 0, 48)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("SimSun", 0, 45)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Rompecabezas");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 50, 460, -1));
+        jLabel15.setText("ROMPECABEZAS");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 70, 290, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, -1, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, -1, -1));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/corgif.gif"))); // NOI18N
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, -1, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 520, -1, -1));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 490, -1, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, -1, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/corgif.gif"))); // NOI18N
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 500, -1, -1));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 520, -1, -1));
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/yellowstars.gif"))); // NOI18N
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(947, 490, -1, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(947, 510, -1, -1));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/separador.gif"))); // NOI18N
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 95, -1, -1));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/separador.gif"))); // NOI18N
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 95, -1, -1));
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/pinkspark.gif"))); // NOI18N
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, -1, -1));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/dreamy_night_by_kittea_paws_ddkw4s9.gif"))); // NOI18N
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, -1, -1));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 490, -1, -1));
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 240, -1, -1));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 210, -1, -1));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, -1, -1));
+
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 320, -1, -1));
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 360, -1, -1));
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 410, -1, -1));
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
+        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 450, -1, -1));
 
         marco.setBackground(new java.awt.Color(255, 204, 255));
         marco.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
@@ -892,7 +940,19 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
