@@ -4,9 +4,12 @@
  */
 package juegos;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Color.pink;
 import static java.awt.Color.white;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.util.Random;
@@ -17,6 +20,15 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.util.prefs.Preferences;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -35,6 +47,11 @@ public class rompecabezas extends javax.swing.JFrame {
     private Icon[] iconos = new Icon[9];
     private boolean animando = false;
     private Timer arcoirisTimer = null;
+    private Preferences prefs = Preferences.userNodeForPackage(rompecabezas.class);
+    private boolean usoCompletar = false;
+
+    private int mejorTiempo;
+    private int mejorMovs;
 
     /**
      * Creates new form rompecabezas
@@ -42,6 +59,9 @@ public class rompecabezas extends javax.swing.JFrame {
     public rompecabezas() {
         this.setResizable(false);
         initComponents();
+        mejorTiempo = prefs.getInt("mejorTiempo", Integer.MAX_VALUE);
+        mejorMovs = prefs.getInt("mejorMovs", Integer.MAX_VALUE);
+
         this.setLocationRelativeTo(null);
         grid = new JButton[][]{
             {uno, dos, tres},
@@ -97,6 +117,7 @@ public class rompecabezas extends javax.swing.JFrame {
     public Icon ocho8 = new ImageIcon(getClass().getResource("puzzleimg\\8.png"));
     public Icon nueve9 = new ImageIcon(getClass().getResource("puzzleimg\\9.png"));
     public Icon icon = new ImageIcon(getClass().getResource("sopaimg\\cat.gif"));
+    public Icon record = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
 
     public static int c = 0;
 
@@ -174,7 +195,6 @@ public class rompecabezas extends javax.swing.JFrame {
         siete = new javax.swing.JButton();
         ocho = new javax.swing.JButton();
         nueve = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         volver = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         flechas = new javax.swing.JLabel();
@@ -202,6 +222,7 @@ public class rompecabezas extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        RE = new javax.swing.JLabel();
         marco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -239,7 +260,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 completarActionPerformed(evt);
             }
         });
-        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 340, 140, 50));
+        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, 140, 50));
 
         reiniciar.setBackground(new java.awt.Color(190, 190, 252));
         reiniciar.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
@@ -259,7 +280,7 @@ public class rompecabezas extends javax.swing.JFrame {
                 reiniciarActionPerformed(evt);
             }
         });
-        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 140, 50));
+        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 140, 50));
 
         tiempo.setBackground(new java.awt.Color(190, 190, 252));
         tiempo.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
@@ -279,12 +300,15 @@ public class rompecabezas extends javax.swing.JFrame {
                 tiempoActionPerformed(evt);
             }
         });
-        jPanel1.add(tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 140, 50));
+        jPanel1.add(tiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 140, 50));
         jPanel1.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, -240, 30, 880));
         jPanel1.add(filler2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1130, 30));
 
         heart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/wings.gif"))); // NOI18N
         heart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                heartMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 heartMouseEntered(evt);
             }
@@ -436,7 +460,6 @@ public class rompecabezas extends javax.swing.JFrame {
         jPanel2.add(nueve);
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 130, 460, 380));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 70, 30));
 
         volver.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         volver.setForeground(new java.awt.Color(255, 255, 255));
@@ -540,6 +563,16 @@ public class rompecabezas extends javax.swing.JFrame {
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juegos/puzzleimg/blue_sparkles_by_gasara_d6ny98z.gif"))); // NOI18N
         jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 450, -1, -1));
 
+        RE.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        RE.setForeground(new java.awt.Color(255, 255, 255));
+        RE.setText("RÉCORD:");
+        RE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                REMouseEntered(evt);
+            }
+        });
+        jPanel1.add(RE, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 400, -1, -1));
+
         marco.setBackground(new java.awt.Color(255, 204, 255));
         marco.setFont(new java.awt.Font("SimSun", 0, 36)); // NOI18N
         marco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(141, 237, 230), new java.awt.Color(236, 203, 237), new java.awt.Color(204, 51, 255), new java.awt.Color(208, 229, 253)));
@@ -618,7 +651,8 @@ public class rompecabezas extends javax.swing.JFrame {
     }//GEN-LAST:event_volverMouseExited
 
     private void completarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completarActionPerformed
-
+        //si se usa completar no cuenta para el récord
+        usoCompletar = true;
         for (int i = 0; i < 8; i++) {
             grid[i / 3][i % 3].setIcon(
                     new ImageIcon(getClass().getResource("/juegos/puzzleimg/" + (i + 1) + ".png"))
@@ -644,18 +678,6 @@ public class rompecabezas extends javax.swing.JFrame {
         tiempo.setText("Tiempo: 0s");
     }//GEN-LAST:event_reiniciarActionPerformed
 
-    private void heartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseEntered
-        heart.setLocation(570, 415);
-    }//GEN-LAST:event_heartMouseEntered
-
-    private void heartMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMousePressed
-
-    }//GEN-LAST:event_heartMousePressed
-
-    private void heartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseExited
-        heart.setLocation(570, 420);
-    }//GEN-LAST:event_heartMouseExited
-
     private void reiniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reiniciarMouseEntered
         reiniciar.setBackground(new Color(153, 153, 255));
     }//GEN-LAST:event_reiniciarMouseEntered
@@ -679,6 +701,28 @@ public class rompecabezas extends javax.swing.JFrame {
     private void tiempoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tiempoMouseEntered
         tiempo.setBackground(new Color(153, 153, 255));
     }//GEN-LAST:event_tiempoMouseEntered
+
+    private void heartMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMousePressed
+
+    }//GEN-LAST:event_heartMousePressed
+
+    private void heartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseExited
+        heart.setLocation(570, 420);
+        RE.setLocation(610, 400);
+    }//GEN-LAST:event_heartMouseExited
+
+    private void heartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseEntered
+        heart.setLocation(570, 415);
+        RE.setLocation(610, 395);
+    }//GEN-LAST:event_heartMouseEntered
+
+    private void heartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heartMouseClicked
+        mostrarRecord();
+    }//GEN-LAST:event_heartMouseClicked
+
+    private void REMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REMouseEntered
+
+    }//GEN-LAST:event_REMouseEntered
 
     private void moverPieza(JButton btn) {
 
@@ -706,7 +750,6 @@ public class rompecabezas extends javax.swing.JFrame {
             }
         }
 
-     
         if ((Math.abs(bx - ex) + Math.abs(by - ey)) == 1) {
 
             animando = true;
@@ -736,14 +779,90 @@ public class rompecabezas extends javax.swing.JFrame {
     }
 
     private void mostrarVictoria() {
-        JOptionPane.showMessageDialog(this,
-                "¡Felicidades! Has completado el rompecabezas \n En un tiempo de " + segundos + " segundos \n Con " + c + " movimientos",
-                "Rompecabezas",
-                JOptionPane.INFORMATION_MESSAGE,
+        mostrarDialogoBonito(
+                "¡Felicidades! Has completado el rompecabezas\n"
+                + "Tiempo: " + segundos + " segundos\n"
+                + "Movimientos: " + c,
+                "Victoria",
                 icon
         );
+
         timer.stop();
 
+    }
+
+    public void mostrarDialogoBonito(String mensaje, String titulo, Icon icono) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(new Color(245, 245, 255));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+        final float[] hue = {0f};
+        Timer bordeTimer = new Timer(40, e -> {
+            hue[0] += 0.01f;
+            if (hue[0] > 1) {
+                hue[0] = 0;
+            }
+            Color rainbow = Color.getHSBColor(hue[0], 1f, 1f);
+            panel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(rainbow, 4, true),
+                    BorderFactory.createEmptyBorder(20, 30, 20, 30)
+            ));
+            panel.repaint();
+        });
+        bordeTimer.start();
+
+        JLabel texto = new JLabel(
+                "<html><div style='width:260px; text-align:center;'>"
+                + mensaje.replace("\n", "<br>")
+                + "</div></html>",
+                icono,
+                JLabel.CENTER
+        );
+        texto.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        texto.setForeground(new Color(60, 60, 60));
+        texto.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        panel.add(texto);
+        panel.add(Box.createVerticalStrut(15));
+
+        JButton ok = new JButton("OK");
+        ok.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        ok.setPreferredSize(new Dimension(50, 36));
+        ok.setMaximumSize(new Dimension(50, 36));
+        ok.setFocusPainted(false);
+        ok.setBackground(new Color(210, 200, 255));
+        ok.setAlignmentX(JButton.CENTER_ALIGNMENT);
+
+        ok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                ok.setBackground(new Color(225, 215, 255));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                ok.setBackground(new Color(210, 200, 255));
+            }
+        });
+
+        panel.add(ok);
+
+        JDialog dialog = new JDialog(this, titulo, true);
+        dialog.setUndecorated(true);
+        dialog.setContentPane(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+
+        dialog.getRootPane()
+                .getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke("ESCAPE"), "none");
+
+        ok.addActionListener(e -> {
+            bordeTimer.stop();
+            dialog.dispose();
+        });
+
+        dialog.setVisible(true);
     }
 
     private void iniciarTemporizador() {
@@ -755,6 +874,8 @@ public class rompecabezas extends javax.swing.JFrame {
     }
 
     private void mezclar() {
+
+        usoCompletar = false;
 
         if (arcoirisTimer != null) {
             arcoirisTimer.stop();
@@ -823,6 +944,7 @@ public class rompecabezas extends javax.swing.JFrame {
                     timer.stop();
                     animacionArcoirisPanel();
                     mostrarVictoria();
+                    guardarRecordSiEsMejor();
                 }
 
                 return;
@@ -856,7 +978,6 @@ public class rompecabezas extends javax.swing.JFrame {
 
             Color rainbow = Color.getHSBColor(hue, 1f, 1f);
 
-         
             jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(rainbow, 5));
             jPanel2.setBackground(new Color(
                     rainbow.getRed(),
@@ -865,7 +986,6 @@ public class rompecabezas extends javax.swing.JFrame {
                     40
             ));
 
-       
             jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(rainbow, 5));
             jPanel3.setForeground(new Color(
                     rainbow.getRed(),
@@ -881,11 +1001,67 @@ public class rompecabezas extends javax.swing.JFrame {
         arcoirisTimer.start();
     }
 
+    private void mostrarRecord() {
+
+        // Si no hay récord aún
+        if (mejorTiempo == Integer.MAX_VALUE) {
+            mostrarDialogoBonito(
+                    "Aún no hay récord guardado\n¡Completa el rompecabezas!",
+                    "Récord",
+                    icon
+            );
+            return;
+        }
+
+        // Mostrar récord guardado
+        mostrarDialogoBonito(
+                "RÉCORD ACTUAL\n\n"
+                + "Tiempo: " + mejorTiempo + " segundos\n"
+                + "Movimientos: " + mejorMovs,
+                "Récord",
+                icon
+        );
+    }
+
+    private void guardarRecordSiEsMejor() {
+
+        if (usoCompletar) {
+            return;
+        }
+
+        boolean nuevoRecord = false;
+
+        if (segundos < mejorTiempo) {
+            mejorTiempo = segundos;
+            mejorMovs = c;
+            nuevoRecord = true;
+        } else if (segundos == mejorTiempo && c < mejorMovs) {
+            mejorMovs = c;
+            nuevoRecord = true;
+        }
+
+        if (nuevoRecord) {
+            prefs.putInt("mejorTiempo", mejorTiempo);
+            prefs.putInt("mejorMovs", mejorMovs);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "¡NUEVO RÉCORD! \n\n"
+                    + "Tiempo: " + mejorTiempo + " segundos\n"
+                    + "Movimientos: " + mejorMovs,
+                    "Nuevo récord",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    record
+            );
+        }
+    }
+
     private Icon crearIconoVacio(int w, int h) {
         java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(
                 w, h, java.awt.image.BufferedImage.TYPE_INT_ARGB);
         return new ImageIcon(img);
     }
+
 
     /**
      * @param args the command line arguments
@@ -923,6 +1099,7 @@ public class rompecabezas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel RE;
     private javax.swing.JButton cinco;
     private javax.swing.JButton completar;
     private javax.swing.JButton cuatro;
@@ -932,7 +1109,6 @@ public class rompecabezas extends javax.swing.JFrame {
     private javax.swing.JLabel flechas;
     private javax.swing.JLabel heart;
     private javax.swing.JLabel imagen;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

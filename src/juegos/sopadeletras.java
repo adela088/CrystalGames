@@ -11,18 +11,26 @@ import static java.awt.Color.pink;
 import static java.awt.Color.red;
 import static java.awt.Color.white;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 /**
@@ -37,6 +45,8 @@ public class sopadeletras extends javax.swing.JFrame {
 
     private Timer timer;
     private int segundos = 0;
+    private Timer arcoirisTimer = null;
+    private float hue = 0f;
 
     private final int MAX_LONGITUD_PALABRA = 8;
 
@@ -1330,7 +1340,7 @@ public class sopadeletras extends javax.swing.JFrame {
                 lblTiempoActionPerformed(evt);
             }
         });
-        jPanel1.add(lblTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 500, 180, 40));
+        jPanel1.add(lblTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 520, 180, 40));
 
         pista1.setBackground(new java.awt.Color(204, 204, 255));
         pista1.setText("Pista");
@@ -1368,7 +1378,7 @@ public class sopadeletras extends javax.swing.JFrame {
                 completarActionPerformed(evt);
             }
         });
-        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 570, 120, 40));
+        jPanel1.add(completar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 580, 120, 40));
 
         reiniciar.setBackground(new java.awt.Color(204, 204, 255));
         reiniciar.setText("Reiniciar");
@@ -1387,7 +1397,7 @@ public class sopadeletras extends javax.swing.JFrame {
                 reiniciarActionPerformed(evt);
             }
         });
-        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, 120, 40));
+        jPanel1.add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 120, 40));
 
         neptunolbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         neptunolbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -2251,13 +2261,8 @@ public class sopadeletras extends javax.swing.JFrame {
             if (completa && haySeleccion) {
                 palabrasEncontradas.add(p.texto);
                 colorearPalabra(p);
-                JOptionPane.showMessageDialog(
-                        this,
-                        "¡Encontraste: " + p.texto + "!",
-                        "Sopa de letras",
-                        JOptionPane.PLAIN_MESSAGE,
-                        icon
-                );
+
+                // mostrarDialogoBonito("¡Encontraste: " + p.texto + "!", "", icon);
                 seleccionActual.clear();
                 return;
             }
@@ -2302,18 +2307,14 @@ public class sopadeletras extends javax.swing.JFrame {
                     getClass().getResource("sopaimg/happy_cat.gif")
             );
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "¡FELICIDADES!\n¡Completaste la sopa de letras!\nCon un tiempo de: " + segundos + "s",
-                    "Victoria",
-                    JOptionPane.PLAIN_MESSAGE,
-                    winIcon
-            );
+            mostrarDialogoBonito("¡FELICIDADES!\n¡Completaste la sopa de letras!\nCon un tiempo de: " + segundos + "s", "", winIcon);
+
         }
 
     }
 
     private void efectoVictoria() {
+        animacionArcoirisPanel();
         new Thread(() -> {
             try {
                 for (int k = 0; k < 3; k++) {
@@ -2336,6 +2337,35 @@ public class sopadeletras extends javax.swing.JFrame {
         }).start();
     }
 
+    private void animacionArcoirisPanel() {
+
+        if (arcoirisTimer != null && arcoirisTimer.isRunning()) {
+            arcoirisTimer.stop();
+        }
+
+        arcoirisTimer = new Timer(40, e -> {
+            hue += 0.01f;
+            if (hue > 1) {
+                hue = 0;
+            }
+
+            Color rainbow = Color.getHSBColor(hue, 1f, 1f);
+
+            jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(rainbow, 5));
+            jPanel2.setBackground(new Color(
+                    rainbow.getRed(),
+                    rainbow.getGreen(),
+                    rainbow.getBlue(),
+                    40
+            ));
+
+            jPanel2.repaint();
+
+        });
+
+        arcoirisTimer.start();
+    }
+
     private void resetSeleccion() {
         for (int idx : seleccionActual) {
 
@@ -2345,6 +2375,87 @@ public class sopadeletras extends javax.swing.JFrame {
             }
         }
         seleccionActual.clear();
+    }
+
+    public void mostrarDialogoBonito(String mensaje, String titulo, Icon icono) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(new Color(245, 245, 255));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+        final float[] hue = {0f};
+        Timer bordeTimer = new Timer(40, e -> {
+            hue[0] += 0.01f;
+            if (hue[0] > 1) {
+                hue[0] = 0;
+            }
+            Color rainbow = Color.getHSBColor(hue[0], 1f, 1f);
+            panel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(rainbow, 4, true),
+                    BorderFactory.createEmptyBorder(20, 30, 20, 30)
+            ));
+            panel.repaint();
+        });
+        bordeTimer.start();
+
+        JLabel texto = new JLabel(
+                "<html><div style='width:260px; text-align:center;'>"
+                + mensaje.replace("\n", "<br>")
+                + "</div></html>",
+                icono,
+                JLabel.CENTER
+        );
+        texto.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        texto.setForeground(new Color(60, 60, 60));
+        texto.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        panel.add(texto);
+        panel.add(Box.createVerticalStrut(15));
+
+        JButton ok = new JButton("OK");
+        ok.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        ok.setPreferredSize(new Dimension(50, 36));
+        ok.setMaximumSize(new Dimension(50, 36));
+        ok.setFocusPainted(false);
+        ok.setBackground(new Color(210, 200, 255));
+        ok.setAlignmentX(JButton.CENTER_ALIGNMENT);
+
+        ok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                ok.setBackground(new Color(225, 215, 255));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                ok.setBackground(new Color(210, 200, 255));
+            }
+        });
+
+        panel.add(ok);
+
+        JDialog dialog = new JDialog(this, titulo, true);
+        dialog.setUndecorated(true);
+        dialog.setContentPane(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+
+        dialog.getRootPane()
+                .getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke("ESCAPE"), "none");
+
+        ok.addActionListener(e -> {
+            if (palabrasEncontradas.size() == listaPalabras.length) {
+                arcoirisTimer.stop();
+                bordeTimer.stop();
+                dialog.dispose();
+            } else {
+                bordeTimer.stop();
+                dialog.dispose();
+            }
+
+        });
+
+        dialog.setVisible(true);
     }
 
     /**
