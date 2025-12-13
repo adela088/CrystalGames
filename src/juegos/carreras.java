@@ -7,6 +7,8 @@ package juegos;
 import java.awt.Color;
 import static java.awt.Color.pink;
 import static java.awt.Color.white;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -14,10 +16,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 /**
  *
@@ -771,7 +782,6 @@ public class carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_ReiniciarActionPerformed
 
     private void ReiniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReiniciarKeyPressed
-
         iniciarCarrera();
 
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
@@ -780,7 +790,6 @@ public class carreras extends javax.swing.JFrame {
     }//GEN-LAST:event_ReiniciarKeyPressed
 
     private void volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseClicked
-
         main.Menu menu = new main.Menu();
         this.setVisible(false);
         menu.setVisible(true);
@@ -801,7 +810,7 @@ public class carreras extends javax.swing.JFrame {
         nombre1 = (String) JOptionPane.showInputDialog(
                 null,
                 "Ingrese un nombre: ",
-                "Carreras",
+                "",
                 JOptionPane.INFORMATION_MESSAGE,
                 normal,
                 null,
@@ -816,7 +825,7 @@ public class carreras extends javax.swing.JFrame {
             nombre1 = (String) JOptionPane.showInputDialog(
                     null,
                     "Ya hay un carro con ese nombre, ingrese uno diferente:",
-                    "Carreras",
+                    "",
                     JOptionPane.INFORMATION_MESSAGE,
                     normal,
                     null,
@@ -837,7 +846,7 @@ public class carreras extends javax.swing.JFrame {
         nombre2 = (String) JOptionPane.showInputDialog(
                 null,
                 "Ingrese un nombre: ",
-                "Carreras",
+                "",
                 JOptionPane.INFORMATION_MESSAGE,
                 normal,
                 null,
@@ -852,7 +861,7 @@ public class carreras extends javax.swing.JFrame {
             nombre2 = (String) JOptionPane.showInputDialog(
                     null,
                     "Ya hay un carro con ese nombre, ingrese uno diferente:",
-                    "Carreras",
+                    "",
                     JOptionPane.INFORMATION_MESSAGE,
                     normal,
                     null,
@@ -873,7 +882,7 @@ public class carreras extends javax.swing.JFrame {
         nombre3 = (String) JOptionPane.showInputDialog(
                 null,
                 "Ingrese un nombre: ",
-                "Carreras",
+                "",
                 JOptionPane.INFORMATION_MESSAGE,
                 normal,
                 null,
@@ -888,7 +897,7 @@ public class carreras extends javax.swing.JFrame {
             nombre3 = (String) JOptionPane.showInputDialog(
                     null,
                     "Ya hay un carro con ese nombre, ingrese uno diferente:",
-                    "Carreras",
+                    "",
                     JOptionPane.INFORMATION_MESSAGE,
                     normal,
                     null,
@@ -910,7 +919,7 @@ public class carreras extends javax.swing.JFrame {
         nombre1 = (String) JOptionPane.showInputDialog(
                 null,
                 "Ingrese un nombre: ",
-                "Carreras",
+                "",
                 JOptionPane.INFORMATION_MESSAGE,
                 normal,
                 null,
@@ -925,7 +934,7 @@ public class carreras extends javax.swing.JFrame {
             nombre1 = (String) JOptionPane.showInputDialog(
                     null,
                     "Ya hay un carro con ese nombre, ingrese uno diferente:",
-                    "Carreras",
+                    "",
                     JOptionPane.INFORMATION_MESSAGE,
                     normal,
                     null,
@@ -947,7 +956,7 @@ public class carreras extends javax.swing.JFrame {
         nombre2 = (String) JOptionPane.showInputDialog(
                 null,
                 "Ingrese un nombre: ",
-                "Carreras",
+                "",
                 JOptionPane.INFORMATION_MESSAGE,
                 normal,
                 null,
@@ -962,7 +971,7 @@ public class carreras extends javax.swing.JFrame {
             nombre2 = (String) JOptionPane.showInputDialog(
                     null,
                     "Ya hay un carro con ese nombre, ingrese uno diferente:",
-                    "Carreras",
+                    "",
                     JOptionPane.INFORMATION_MESSAGE,
                     normal,
                     null,
@@ -983,7 +992,7 @@ public class carreras extends javax.swing.JFrame {
         nombre3 = (String) JOptionPane.showInputDialog(
                 null,
                 "Ingrese un nombre: ",
-                "Carreras",
+                "",
                 JOptionPane.INFORMATION_MESSAGE,
                 normal,
                 null,
@@ -998,7 +1007,7 @@ public class carreras extends javax.swing.JFrame {
             nombre3 = (String) JOptionPane.showInputDialog(
                     null,
                     "Ya hay un carro con ese nombre, ingrese uno diferente:",
-                    "Carreras",
+                    "",
                     JOptionPane.INFORMATION_MESSAGE,
                     normal,
                     null,
@@ -1125,13 +1134,7 @@ public class carreras extends javax.swing.JFrame {
                         .append(ordenLlegada.get(i)).append("\n");
             }
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    sb.toString(),
-                    "Resultados",
-                    JOptionPane.INFORMATION_MESSAGE,
-                    carrito
-            );
+            mostrarDialogoBonito(sb.toString(), "", carrito);
 
             // Resetea las posiciones
             Carro1.setLocation(30, 20);
@@ -1167,8 +1170,80 @@ public class carreras extends javax.swing.JFrame {
         t2.start();
         t3.start();
     }
-    
-    
+
+    public void mostrarDialogoBonito(String mensaje, String titulo, Icon icono) {
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(new Color(245, 245, 255));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+        final float[] hue = {0f};
+        Timer bordeTimer = new Timer(40, e -> {
+            hue[0] += 0.01f;
+            if (hue[0] > 1) {
+                hue[0] = 0;
+            }
+            Color rainbow = Color.getHSBColor(hue[0], 1f, 1f);
+            panel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(rainbow, 4, true),
+                    BorderFactory.createEmptyBorder(20, 30, 20, 30)
+            ));
+            panel.repaint();
+        });
+        bordeTimer.start();
+
+        JLabel texto = new JLabel(
+                "<html><div style='width:260px; text-align:center;'>"
+                + mensaje.replace("\n", "<br>")
+                + "</div></html>",
+                icono,
+                JLabel.CENTER
+        );
+        texto.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        texto.setForeground(new Color(60, 60, 60));
+        texto.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        panel.add(texto);
+        panel.add(Box.createVerticalStrut(15));
+
+        JButton ok = new JButton("OK");
+        ok.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        ok.setPreferredSize(new Dimension(50, 36));
+        ok.setMaximumSize(new Dimension(50, 36));
+        ok.setFocusPainted(false);
+        ok.setBackground(new Color(210, 200, 255));
+        ok.setAlignmentX(JButton.CENTER_ALIGNMENT);
+
+        ok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                ok.setBackground(new Color(225, 215, 255));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                ok.setBackground(new Color(210, 200, 255));
+            }
+        });
+
+        panel.add(ok);
+
+        JDialog dialog = new JDialog(this, titulo, true);
+        dialog.setUndecorated(true);
+        dialog.setContentPane(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+
+        dialog.getRootPane()
+                .getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke("ESCAPE"), "none");
+
+        ok.addActionListener(e -> {
+            bordeTimer.stop();
+            dialog.dispose();
+        });
+
+        dialog.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments

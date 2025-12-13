@@ -1062,7 +1062,6 @@ public class rompecabezas extends javax.swing.JFrame {
         return new ImageIcon(img);
     }
 
-
     /**
      * @param args the command line arguments
      */

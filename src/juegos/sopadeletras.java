@@ -54,7 +54,7 @@ public class sopadeletras extends javax.swing.JFrame {
 
     private ArrayList<Integer> seleccionActual = new ArrayList<>();
     private ArrayList<String> palabrasEncontradas = new ArrayList<>();
-
+    private boolean[] casillaEncontrada = new boolean[100];
     private Palabra[] listaPalabras;
 
     class Palabra {
@@ -2213,18 +2213,19 @@ public class sopadeletras extends javax.swing.JFrame {
 
         JButton b = botones[index];
 
-        if (!b.isEnabled()) {
-            return;
-        }
-
         if (b.getBackground().equals(colorSeleccionado)) {
             b.setBackground(colorNormal);
             seleccionActual.remove(Integer.valueOf(index));
             return;
         }
 
-        b.setBackground(colorSeleccionado);
-        seleccionActual.add(index);
+        if (!b.getBackground().equals(colorEncontrado)) {
+            b.setBackground(colorSeleccionado);
+        }
+
+        if (!seleccionActual.contains(index)) {
+            seleccionActual.add(index);
+        }
 
         verificarSeleccion();
     }
@@ -2277,7 +2278,9 @@ public class sopadeletras extends javax.swing.JFrame {
 
         for (int idx : p.posiciones) {
             botones[idx].setBackground(colorEncontrado);
-            botones[idx].setEnabled(false);
+            //botones[idx].setEnabled(false);
+            casillaEncontrada[idx] = true;
+
         }
 
         p.etiqueta.setForeground(Color.GREEN);
@@ -2307,7 +2310,7 @@ public class sopadeletras extends javax.swing.JFrame {
                     getClass().getResource("sopaimg/happy_cat.gif")
             );
 
-            mostrarDialogoBonito("¡FELICIDADES!\n¡Completaste la sopa de letras!\nCon un tiempo de: " + segundos + "s", "", winIcon);
+            mostrarDialogoBonito("¡FELICIDADES!\n¡Completaste la sopa de letras!\nCon un tiempo de: " + segundos + " segundos", "", winIcon);
 
         }
 
