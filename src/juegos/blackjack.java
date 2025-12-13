@@ -84,20 +84,21 @@ public class blackjack extends javax.swing.JFrame {
     public String ocul, As;
     public boolean game;
     public static String cartaOculta = "";
-    public Icon diamante = new ImageIcon(getClass().getResource("blackjackimg\\madia.png"));
-    public Icon corazon = new ImageIcon(getClass().getResource("blackjackimg\\macor.png"));
-    public Icon trebol = new ImageIcon(getClass().getResource("blackjackimg\\matrw.png"));
-    public Icon pica = new ImageIcon(getClass().getResource("blackjackimg\\mapic.png"));
-    public Icon espalda = new ImageIcon(getClass().getResource("blackjackimg\\espaldac.png"));
-    public Icon logo = new ImageIcon(getClass().getResource("blackjackimg\\book.png"));
-    public Icon lose = new ImageIcon(getClass().getResource("blackjackimg\\sad_cat.gif"));
-    public Icon win = new ImageIcon(getClass().getResource("blackjackimg\\cool_cat.gif"));
-    public Icon tie = new ImageIcon(getClass().getResource("blackjackimg\\surprised_cat.gif"));
-    public Icon rules = new ImageIcon(getClass().getResource("blackjackimg\\mistery_cat.gif"));
-    public Icon bet = new ImageIcon(getClass().getResource("blackjackimg\\sassy_cat.gif"));
-    public Icon not = new ImageIcon(getClass().getResource("blackjackimg\\carefree_cat.gif"));
-    public Icon gameover = new ImageIcon(getClass().getResource("blackjackimg\\dead_cat.gif"));
-    public Icon normal = new ImageIcon(getClass().getResource("blackjackimg\\cat.gif"));
+
+    public Icon diamante = new ImageIcon(getClass().getResource("/juegos/blackjackimg/madia.png"));
+    public Icon corazon = new ImageIcon(getClass().getResource("/juegos/blackjackimg/macor.png"));
+    public Icon trebol = new ImageIcon(getClass().getResource("/juegos/blackjackimg/matrw.png"));
+    public Icon pica = new ImageIcon(getClass().getResource("/juegos/blackjackimg/mapic.png"));
+    public Icon espalda = new ImageIcon(getClass().getResource("/juegos/blackjackimg/espaldac.png"));
+    public Icon logo = new ImageIcon(getClass().getResource("/juegos/blackjackimg/book.png"));
+    public Icon lose = new ImageIcon(getClass().getResource("/juegos/blackjackimg/sad_cat.gif"));
+    public Icon win = new ImageIcon(getClass().getResource("/juegos/blackjackimg/cool_cat.gif"));
+    public Icon tie = new ImageIcon(getClass().getResource("/juegos/blackjackimg/surprised_cat.gif"));
+    public Icon rules = new ImageIcon(getClass().getResource("/juegos/blackjackimg/mistery_cat.gif"));
+    public Icon bet = new ImageIcon(getClass().getResource("/juegos/blackjackimg/sassy_cat.gif"));
+    public Icon not = new ImageIcon(getClass().getResource("/juegos/blackjackimg/carefree_cat.gif"));
+    public Icon gameover = new ImageIcon(getClass().getResource("/juegos/blackjackimg/dead_cat.gif"));
+    public Icon normal = new ImageIcon(getClass().getResource("/juegos/blackjackimg/cat.gif"));
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -107,17 +107,17 @@ public class rompecabezas extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
     }
 
-    public Icon uno1 = new ImageIcon(getClass().getResource("puzzleimg\\1.png"));
-    public Icon dos2 = new ImageIcon(getClass().getResource("puzzleimg\\2.png"));
-    public Icon tres3 = new ImageIcon(getClass().getResource("puzzleimg\\3.png"));
-    public Icon cuatro4 = new ImageIcon(getClass().getResource("puzzleimg\\4.png"));
-    public Icon cinco5 = new ImageIcon(getClass().getResource("puzzleimg\\5.png"));
-    public Icon seis6 = new ImageIcon(getClass().getResource("puzzleimg\\6.png"));
-    public Icon siete7 = new ImageIcon(getClass().getResource("puzzleimg\\7.png"));
-    public Icon ocho8 = new ImageIcon(getClass().getResource("puzzleimg\\8.png"));
-    public Icon nueve9 = new ImageIcon(getClass().getResource("puzzleimg\\9.png"));
-    public Icon icon = new ImageIcon(getClass().getResource("sopaimg\\cat.gif"));
-    public Icon record = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
+    public Icon uno1 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/1.png"));
+    public Icon dos2 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/2.png"));
+    public Icon tres3 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/3.png"));
+    public Icon cuatro4 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/4.png"));
+    public Icon cinco5 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/5.png"));
+    public Icon seis6 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/6.png"));
+    public Icon siete7 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/7.png"));
+    public Icon ocho8 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/8.png"));
+    public Icon nueve9 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/9.png"));
+    public Icon icon = new ImageIcon(getClass().getResource("/juegos/sopaimg/cat.gif"));
+    public Icon record = new ImageIcon(getClass().getResource("/juegos/sopaimg/happy_cat.gif"));
 
     public static int c = 0;
 

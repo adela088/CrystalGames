@@ -79,8 +79,8 @@ public class carreras extends javax.swing.JFrame {
         fondo.setLocation(fondo.getX() - 2, fondo.getY());
     }
 
-    public Icon normal = new ImageIcon(getClass().getResource("blackjackimg\\cat.gif"));
-    public Icon win = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
+    public Icon normal = new ImageIcon(getClass().getResource("/juegos/blackjackimg/cat.gif"));
+    public Icon win = new ImageIcon(getClass().getResource("/juegos/sopaimg/happy_cat.gif"));
     public String nombre1 = "Carro 1", nombre2 = "Carro 2", nombre3 = "Carro 3";
     public Icon carrito = new ImageIcon(getClass().getResource("/carrerasimg/cargif_2.gif"));
 

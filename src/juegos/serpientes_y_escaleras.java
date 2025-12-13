@@ -37,14 +37,14 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
     public int x, y, dado, casillas = 9, casilla = 1, op, res, da = 0;
     public int xx, yy, casillas2 = 9, casilla2 = 1, op2, res2;
 
-    public Icon uno = new ImageIcon(getClass().getResource("serpientes\\1.png"));
-    public Icon dos = new ImageIcon(getClass().getResource("serpientes\\2.png"));
-    public Icon tres = new ImageIcon(getClass().getResource("serpientes\\3.png"));
-    public Icon cuatro = new ImageIcon(getClass().getResource("serpientes\\4.png"));
-    public Icon cinco = new ImageIcon(getClass().getResource("serpientes\\5.png"));
-    public Icon seis = new ImageIcon(getClass().getResource("serpientes\\6.png"));
-    public Icon dados = new ImageIcon(getClass().getResource("serpientes\\dado.gif"));
-    public Icon win = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
+    public Icon uno = new ImageIcon(getClass().getResource("/juegos/serpientes/1.png"));
+    public Icon dos = new ImageIcon(getClass().getResource("/juegos/serpientes/2.png"));
+    public Icon tres = new ImageIcon(getClass().getResource("/juegos/serpientes/3.png"));
+    public Icon cuatro = new ImageIcon(getClass().getResource("/juegos/serpientes/4.png"));
+    public Icon cinco = new ImageIcon(getClass().getResource("/juegos/serpientes/5.png"));
+    public Icon seis = new ImageIcon(getClass().getResource("/juegos/serpientes/6.png"));
+    public Icon dados = new ImageIcon(getClass().getResource("/juegos/serpientes/dado.gif"));
+    public Icon win = new ImageIcon(getClass().getResource("/juegos/sopaimg/happy_cat.gif"));
     public String name1 = "Player 1";
     public String name2 = "Player 2";
 

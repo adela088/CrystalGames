@@ -149,8 +149,8 @@ public class sopadeletras extends javax.swing.JFrame {
     }
 
     public int c = 1;
-    public Icon icon = new ImageIcon(getClass().getResource("sopaimg\\cat.gif"));
-    public Icon win = new ImageIcon(getClass().getResource("sopaimg\\happy_cat.gif"));
+    public Icon icon = new ImageIcon(getClass().getResource("/juegos/sopaimg/cat.gif"));
+    public Icon win = new ImageIcon(getClass().getResource("/juegos/sopaimg/happy_cat.gif"));
 
     /**
      * This method is called from within the constructor to initialize the form.
