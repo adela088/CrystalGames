@@ -804,6 +804,7 @@ public class rompecabezas extends javax.swing.JFrame {
             if (hue[0] > 1) {
                 hue[0] = 0;
             }
+
             Color rainbow = Color.getHSBColor(hue[0], 1f, 1f);
             panel.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(rainbow, 4, true),
@@ -829,8 +830,8 @@ public class rompecabezas extends javax.swing.JFrame {
 
         JButton ok = new JButton("OK");
         ok.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        ok.setPreferredSize(new Dimension(50, 36));
-        ok.setMaximumSize(new Dimension(50, 36));
+        ok.setPreferredSize(new Dimension(80, 36));
+        ok.setMaximumSize(new Dimension(80, 36));
         ok.setFocusPainted(false);
         ok.setBackground(new Color(210, 200, 255));
         ok.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -856,6 +857,8 @@ public class rompecabezas extends javax.swing.JFrame {
         dialog.getRootPane()
                 .getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke("ESCAPE"), "none");
+
+        dialog.getRootPane().setDefaultButton(ok);
 
         ok.addActionListener(e -> {
             bordeTimer.stop();

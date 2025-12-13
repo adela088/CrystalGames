@@ -584,7 +584,7 @@ public class blackjack extends javax.swing.JFrame {
     private void pararBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararBotonActionPerformed
         if (jugadorTotal <= 21 && jugadorTotal > crupierTotal) {
 
-            JOptionPane.showMessageDialog(null, "Has ganado!", "Blackjack", JOptionPane.INFORMATION_MESSAGE, win);
+            JOptionPane.showMessageDialog(null, "Has ganado!", "", JOptionPane.INFORMATION_MESSAGE, win);
             JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
             if (ocul == "Corazones") {
                 carta2.setIcon(corazon);
@@ -617,8 +617,8 @@ public class blackjack extends javax.swing.JFrame {
             repartirBoton.setEnabled(true);
         } else if (crupierTotal <= 21 && crupierTotal > jugadorTotal) {
 //            JOptionPane.showMessageDialog(null, "Ha ganado el crupier");
-            JOptionPane.showMessageDialog(null, "Ha ganado el crupier", "Blackjack", JOptionPane.INFORMATION_MESSAGE, lose);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
+            JOptionPane.showMessageDialog(null, "Ha ganado el crupier", "", JOptionPane.INFORMATION_MESSAGE, lose);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "", JOptionPane.INFORMATION_MESSAGE, bet);
             if (ocul == "Corazones") {
                 carta2.setIcon(corazon);
                 carta2.setVisible(true);
@@ -645,8 +645,7 @@ public class blackjack extends javax.swing.JFrame {
             pararBoton.setEnabled(false);
             repartirBoton.setEnabled(true);
         } else if (crupierTotal == jugadorTotal) {
-//            JOptionPane.showMessageDialog(null, "Ha habido un empate!");
-            JOptionPane.showMessageDialog(null, "Ha habido un empate!", "Blackjack", JOptionPane.INFORMATION_MESSAGE, tie);
+            JOptionPane.showMessageDialog(null, "Ha habido un empate!", "", JOptionPane.INFORMATION_MESSAGE, tie);
             JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
             totalCrupierlabel.setText("Total: " + crupierTotal);
             if (ocul == "Corazones") {
@@ -681,7 +680,7 @@ public class blackjack extends javax.swing.JFrame {
         pararBoton.setEnabled(false);
 
         if (din <= 0) {
-            JOptionPane.showMessageDialog(null, "Juego terminado, no te quedan fondos para seguir apostando", "Blackjack", JOptionPane.INFORMATION_MESSAGE, gameover);
+            JOptionPane.showMessageDialog(null, "Juego terminado, no te quedan fondos para seguir apostando", "", JOptionPane.INFORMATION_MESSAGE, gameover);
             repartirBoton.setEnabled(false);
         }
     }//GEN-LAST:event_pararBotonActionPerformed
@@ -721,14 +720,14 @@ public class blackjack extends javax.swing.JFrame {
     }
 
     public void repartir() {
-        apuesta = (String) JOptionPane.showInputDialog(null, "Cuánto desea apostar? ", "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet, null, "");
+        apuesta = (String) JOptionPane.showInputDialog(null, "Cuánto desea apostar? ", "", JOptionPane.INFORMATION_MESSAGE, bet, null, "");
         ap = (Integer.parseInt(apuesta));
         while (ap <= 0) {
-            apuesta = (String) JOptionPane.showInputDialog(null, "Ingrese un número válido:", "Blackjack", JOptionPane.INFORMATION_MESSAGE, not, null, "");
+            apuesta = (String) JOptionPane.showInputDialog(null, "Ingrese un número válido:", "", JOptionPane.INFORMATION_MESSAGE, not, null, "");
             ap = (Integer.parseInt(apuesta));
         }
         while (ap > din) {
-            apuesta = (String) JOptionPane.showInputDialog(null, "Fondos insuficientes!, intente un valor más bajo:", "Blackjack", JOptionPane.INFORMATION_MESSAGE, not, null, "");
+            apuesta = (String) JOptionPane.showInputDialog(null, "Fondos insuficientes!, intente un valor más bajo:", "", JOptionPane.INFORMATION_MESSAGE, not, null, "");
             ap = (Integer.parseInt(apuesta));
         }
 
@@ -755,7 +754,7 @@ public class blackjack extends javax.swing.JFrame {
 
             String pal = "";
             if (jugadorCart < 2) {
-                JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
+                JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "", JOptionPane.INFORMATION_MESSAGE, normal);
                 jugadorCart = jugadorCart + 2;
                 jugadorTotallabel.setText("Total: " + jugadorTotal);
                 carta = baraja[0];
@@ -786,7 +785,7 @@ public class blackjack extends javax.swing.JFrame {
                 jugadorCart++;
                 c = random.nextInt(13 - 1);
                 p = random.nextInt(4 - 1);
-                JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
+                JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "", JOptionPane.INFORMATION_MESSAGE, normal);
                 baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
                 carta = baraja[0];
                 valor = values[c];
@@ -823,7 +822,7 @@ public class blackjack extends javax.swing.JFrame {
                     pal = palos[p];
                     crupierCart = crupierCart + 2;
                     totalCrupierlabel.setText("Total: " + crupierTotal);
-                    JOptionPane.showMessageDialog(null, "El crupier toma una carta boca arriba: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
+                    JOptionPane.showMessageDialog(null, "El crupier toma una carta boca arriba: \n" + valores[c] + " de " + palos[p], "", JOptionPane.INFORMATION_MESSAGE, normal);
                     totalCrupierlabel.setText("Total: " + crupierTotal);
                     carta = baraja[0];
                     valor = values[c];
@@ -851,7 +850,7 @@ public class blackjack extends javax.swing.JFrame {
                     }
                     crupierCart++;
                     baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
-                    JOptionPane.showMessageDialog(null, "El crupier toma una carta boca abajo", "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
+                    JOptionPane.showMessageDialog(null, "El crupier toma una carta boca abajo", "", JOptionPane.INFORMATION_MESSAGE, normal);
                     c = random.nextInt(13 - 1);
                     p = random.nextInt(4 - 1);
                     carta2.setIcon(espalda);
@@ -888,7 +887,7 @@ public class blackjack extends javax.swing.JFrame {
 
         if (jugadorTotal < 21 && i <= 1) {
 
-            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
+            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "", JOptionPane.INFORMATION_MESSAGE, normal);
             jugadorCart++;
             baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
             jugadorTotallabel.setText("Total: " + jugadorTotal);
@@ -924,7 +923,7 @@ public class blackjack extends javax.swing.JFrame {
             p = random.nextInt(4 - 1);
             jugadorCart++;
 
-            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
+            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "", JOptionPane.INFORMATION_MESSAGE, bet);
 
             baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
             jugadorTotallabel.setText("Total: " + jugadorTotal);
@@ -954,13 +953,12 @@ public class blackjack extends javax.swing.JFrame {
             }
 
         } else if (jugadorTotal > 21 && crupierTotal <= 21) {
-            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "Blackjack", JOptionPane.INFORMATION_MESSAGE, normal);
+            JOptionPane.showMessageDialog(null, "Toma una carta: \n" + valores[c] + " de " + palos[p], "", JOptionPane.INFORMATION_MESSAGE, normal);
             baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
             jugadorTotallabel.setText("Total: " + jugadorTotal);
             baraja = Arrays.copyOfRange(baraja, 1, baraja.length);
-//            JOptionPane.showMessageDialog(null, "Te has pasado!, gana el crupier");
-            JOptionPane.showMessageDialog(null, "Te has pasado! gana el crupier", "Blackjack", JOptionPane.INFORMATION_MESSAGE, lose);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
+            JOptionPane.showMessageDialog(null, "Te has pasado! gana el crupier", "", JOptionPane.INFORMATION_MESSAGE, lose);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "", JOptionPane.INFORMATION_MESSAGE, bet);
             totalCrupierlabel.setText("Total: " + crupierTotal);
 
             int carta = baraja[0];
@@ -1051,9 +1049,8 @@ public class blackjack extends javax.swing.JFrame {
             pararBoton.setEnabled(false);
             repartirBoton.setEnabled(true);
         } else if (jugadorTotal <= 21 && crupierTotal > 21) {
-//            JOptionPane.showMessageDialog(null, "El crupier se ha pasado, ganas el juego");
-            JOptionPane.showMessageDialog(null, "El crupier se ha pasado, ganas el juego", "Blackjack", JOptionPane.INFORMATION_MESSAGE, win);
-            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "Blackjack", JOptionPane.INFORMATION_MESSAGE, bet);
+            JOptionPane.showMessageDialog(null, "El crupier se ha pasado, ganas el juego", "", JOptionPane.INFORMATION_MESSAGE, win);
+            JOptionPane.showMessageDialog(null, "La carta oculta del crupier era: \n" + cartaOculta, "", JOptionPane.INFORMATION_MESSAGE, bet);
 
             totalCrupierlabel.setText("Total: " + crupierTotal);
             if (ocul == "Corazones") {
@@ -1085,7 +1082,7 @@ public class blackjack extends javax.swing.JFrame {
         }
 
         if (din <= 0) {
-            JOptionPane.showMessageDialog(null, "Juego terminado, no te quedan fondos para seguir apostando", "Blackjack", JOptionPane.INFORMATION_MESSAGE, gameover);
+            JOptionPane.showMessageDialog(null, "Juego terminado, no te quedan fondos para seguir apostando", "", JOptionPane.INFORMATION_MESSAGE, gameover);
             repartirBoton.setEnabled(false);
         }
     }//GEN-LAST:event_cartaBotonActionPerformed
@@ -1106,7 +1103,7 @@ public class blackjack extends javax.swing.JFrame {
 
     private void volverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMouseExited
         flechas.setVisible(false);
-         volver.setForeground(white);
+        volver.setForeground(white);
         flechas.setForeground(white);
     }//GEN-LAST:event_volverMouseExited
 
@@ -1131,7 +1128,7 @@ public class blackjack extends javax.swing.JFrame {
     }//GEN-LAST:event_cartaBotonMouseExited
 
     private void pararBotonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pararBotonMouseExited
-       pararBoton.setBackground(new Color(204, 204, 255));
+        pararBoton.setBackground(new Color(204, 204, 255));
     }//GEN-LAST:event_pararBotonMouseExited
 
     /**

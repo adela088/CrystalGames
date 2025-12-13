@@ -2445,6 +2445,8 @@ public class sopadeletras extends javax.swing.JFrame {
         dialog.getRootPane()
                 .getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke("ESCAPE"), "none");
+        
+        dialog.getRootPane().setDefaultButton(ok);
 
         ok.addActionListener(e -> {
             if (palabrasEncontradas.size() == listaPalabras.length) {
