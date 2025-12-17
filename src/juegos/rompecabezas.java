@@ -104,7 +104,7 @@ public class rompecabezas extends javax.swing.JFrame {
     }
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/main/log.png")));
     }
 
     public Icon uno1 = new ImageIcon(getClass().getResource("/juegos/puzzleimg/1.png"));

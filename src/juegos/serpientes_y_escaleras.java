@@ -31,7 +31,7 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
     }
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/main/log.png")));
     }
 
     public int x, y, dado, casillas = 9, casilla = 1, op, res, da = 0;

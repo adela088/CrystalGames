@@ -72,7 +72,7 @@ public class carreras extends javax.swing.JFrame {
     }
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/main/log.png")));
     }
 
     public void moverFondo() {
@@ -1236,7 +1236,7 @@ public class carreras extends javax.swing.JFrame {
         dialog.getRootPane()
                 .getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke("ESCAPE"), "none");
-        
+
         dialog.getRootPane().setDefaultButton(ok);
 
         ok.addActionListener(e -> {

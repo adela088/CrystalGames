@@ -62,7 +62,7 @@ public class blackjack extends javax.swing.JFrame {
     }
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("log.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/main/log.png")));
     }
 
     public String apuesta;
