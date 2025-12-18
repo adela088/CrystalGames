@@ -110,22 +110,23 @@ java -jar CrystalGames.jar
 🎬 A continuación se muestran algunas animaciones reales del proyecto en ejecución:
 
 ### 🧭 Menú principal
-![Menú principal](./assets/menu.gif)
+![Menú](https://raw.githubusercontent.com/adela088/CrystalGames/master/assets/menu.gif)
+
 
 ### 🃏 Blackjack
-![Blackjack](./assets/blackjack.gif)
+![Blackjack](https://raw.githubusercontent.com/adela088/CrystalGames/master/assets/blackjack.gif)
 
 ### 🏁 Carreras
-![Carreras](./assets/carreras.gif)
+![Blackjack](https://raw.githubusercontent.com/adela088/CrystalGames/master/assets/blackjack.gif)
 
 ### 🔤 Sopa de Letras
-![Sopa de Letras](./assets/sopa.gif)
+![Sopa](https://raw.githubusercontent.com/adela088/CrystalGames/master/assets/sopa.gif)
 
 ### 🧩 Rompecabezas
-![Rompecabezas](./assets/rompecabezas.gif)
+![Rompecabezas](https://raw.githubusercontent.com/adela088/CrystalGames/master/assets/rompecabezas.gif)
 
 ### 🐍 Serpientes y Escaleras
-![Serpientes y Escaleras](./assets/serpientes.gif)
+![Serpientes](https://raw.githubusercontent.com/adela088/CrystalGames/master/assets/serpientes.gif)
 
 
 
