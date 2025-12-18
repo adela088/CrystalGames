@@ -340,22 +340,22 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
         da = dado;
         mover();
         if (da == 1) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\1.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/1.png"));
         }
         if (da == 2) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\2.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/2.png"));
         }
         if (da == 3) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\3.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/3.png"));
         }
         if (da == 4) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\4.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/4.png"));
         }
         if (da == 5) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\5.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/5.png"));
         }
         if (da == 6) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\6.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/6.png"));
         }
         JOptionPane.showMessageDialog(null, "" + dado, "DADO:", JOptionPane.INFORMATION_MESSAGE, dados);
 
@@ -367,22 +367,22 @@ public class serpientes_y_escaleras extends javax.swing.JFrame {
         da = dado;
         mover2();
         if (da == 1) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\1.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/1.png"));
         }
         if (da == 2) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\2.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/2.png"));
         }
         if (da == 3) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\3.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/3.png"));
         }
         if (da == 4) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\4.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/4.png"));
         }
         if (da == 5) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\5.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/5.png"));
         }
         if (da == 6) {
-            dados = new ImageIcon(getClass().getResource("serpientes\\6.png"));
+            dados = new ImageIcon(getClass().getResource("/juegos/serpientes/6.png"));
         }
         JOptionPane.showMessageDialog(null, "" + dado, "DADO:", JOptionPane.INFORMATION_MESSAGE, dados);
     }//GEN-LAST:event_b2ActionPerformed
