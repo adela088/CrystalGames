@@ -132,6 +132,7 @@ java -jar CrystalGames.jar
 Proyecto desarrollado por:
 
 **Andrea De la Ossa**  
+🎓 Estudiante de Ingeniería de Sistemas  
 💻 Desarrollo en Java  
 🎨 Diseño de interfaces  
 🧠 Lógica de juegos y animaciones  
