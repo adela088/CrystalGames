@@ -5,6 +5,8 @@
 ![Estado](https://img.shields.io/badge/Estado-Finalizado-brightgreen?style=for-the-badge)
 ![Plataforma](https://img.shields.io/badge/Plataforma-Windows-lightgrey?style=for-the-badge)
 
+## 📖 Descripción
+
 > **CrystalGames** es una aplicación de escritorio desarrollada en **Java (Swing)** que reúne varios mini-juegos clásicos en un solo entorno visual, interactivo y animado.
 
 ---
