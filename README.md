@@ -140,7 +140,6 @@ Proyecto desarrollado por:
 🧠 Lógica de juegos y animaciones  
 
 📍 Proyecto académico / personal  
-📅 2025
 
 
 
